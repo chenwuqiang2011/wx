@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/category/category",
+    "pages/cart/cart",
+    "pages/info/info",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/goods/goods"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "小蚂蚁餐厅",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": "true"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "主页",
+        "iconPath": "pages/index.png",
+        "selectedIconPath": "pages/index_on.png"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "分类",
+        "iconPath": "pages/category.png",
+        "selectedIconPath": "pages/category_on.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "pages/cart.png",
+        "selectedIconPath": "pages/cart_on.png"
+      },
+      {
+        "pagePath": "pages/info/info",
+        "text": "我",
+        "iconPath": "pages/info.png",
+        "selectedIconPath": "pages/info_on.png"
+      }
+    ]
+  }
+}

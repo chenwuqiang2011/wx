@@ -1,0 +1,94 @@
+<view class = "goods">
+  <!-- 商品图片 -->
+  <!-- 轮播图 -->
+  <swiper class = "goods_img" indicator-dots="{{indicatorDots}}"
+    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular = "{{circular}}">
+      <swiper-item>
+        <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
+        <!-- <image src="{{item}}" class="slide-image" widtext="355" height="150"/> -->
+      </swiper-item>
+      <swiper-item>
+        <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
+        <!-- <image src="{{item}}" class="slide-image" widtext="355" height="150"/> -->
+      </swiper-item>
+      <swiper-item>
+        <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
+        <!-- <image src="{{item}}" class="slide-image" widtext="355" height="150"/> -->
+      </swiper-item>
+     
+  </swiper>
+  <!-- 商品介绍 -->
+  <view class = "goods_desc">
+    <view class = "goods_name">{{goods.name}}</view>
+    <view class = "goods_category">{{goods.category}}</view>
+    <view class = "goods_price">
+      <text class = "lf price">{{goods.nowPrice}}</text>
+      <text class = "rf sales">已售：{{goods.sales}}（份）</text>
+    </view>
+  </view>
+  <!-- 商品属性 -->
+  <view class = "goods_details">
+    <text>颜色:</text>
+    <view class = "colors">
+      <view class = "color {{currentTab == 0 ? 'active' : ''}}" data-current = "0" bindtap='changeNav'>红色</view>
+      <view class = "color {{currentTab == 1 ? 'active' : ''}}" data-current = "1" bindtap='changeNav'>黄色</view>
+      <view class = "color {{currentTab == 2 ? 'active' : ''}}" data-current = "2" bindtap='changeNav'>蓝色</view>
+    </view>
+    <text>尺码:</text>
+    <view class = "size">
+      <view class = "color {{currentTab2 == 0 ? 'active' : ''}}" data-current = "0" bindtap='changeNav2'>S</view>
+      <view class = "color {{currentTab2 == 1 ? 'active' : ''}}" data-current = "1" bindtap='changeNav2'>M</view>
+      <view class = "color {{currentTab2 == 2 ? 'active' : ''}}" data-current = "2" bindtap='changeNav2'>L</view>
+      <view class = "color {{currentTab2 == 3 ? 'active' : ''}}" data-current = "3" bindtap='changeNav2'>XL</view>
+      <view class = "color {{currentTab2 == 4 ? 'active' : ''}}" data-current = "4" bindtap='changeNav2'>XXL</view>
+    </view>
+  </view>
+  <!-- 商品信息 -->
+  <view class = "message">
+    <text>美西编号：</text>
+    <text class = "msg">90516</text>
+  </view>
+    <view class = "message">
+      <text>颜　　色：</text>
+      <text class = "msg">	蓝色</text>
+    </view>
+    <view class = "message">
+      <text>商品货号：</text>
+      <text class = "msg">	16P0980 200</text>
+    </view>
+    <view class = "message">
+      <text>材　　质：</text>
+      <text class = "msg">	全棉</text>
+    </view>
+    <view class = "message">
+      <text>产　　地：</text>
+      <text class = "msg">	意大利</text>
+    </view>
+    <view class = "message">
+      <text>适用人群：</text>
+      <text class = "msg">	男士</text>
+    </view>
+    <view class = "message">
+      <text>商品描述：</text>
+      <text class = "msg">	蓝色全棉材质，品牌Logo绣饰，纽扣闭合，长袖POLO衫款式</text>
+    </view>
+    <view class = "message">
+      <text>到货时间：</text>
+      <text class = "msg">	该商品到货时间预计5-10个工作日</text>
+    </view>
+    <view class = "message">
+      <text>退货说明：</text>
+      <text class = "msg">	若该商品无质量问题不支持退换货。</text>
+    </view>
+    <!-- 商品详情图片 -->
+    <view class = "imgs">
+       <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
+       <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
+       <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
+       <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
+    </view>
+</view>
+<view class = "fixed">
+  <view class = "add">加入购物车</view>
+  <view class = "buy">立即购买</view>
+</view>

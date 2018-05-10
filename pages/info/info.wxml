@@ -1,0 +1,9 @@
+<!--pages/info/info.wxml-->
+<text>pages/info/info.wxml</text>
+<view>
+  <view class = "address" bindtap = "chooseLocation">{{address}}</view>
+</view>
+<button class="page-body-button" type="primary" bindtap="getLocation">获取位置</button>
+<button class="page-body-button" type="primary" formType="openLocation">查看位置</button>
+<button class="page-body-button" type="primary" bindtap="chooseLocation">选择位置</button>
+<button class="page-body-button" type="primary" bindtap="loading">loading</button>

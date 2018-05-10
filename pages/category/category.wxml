@@ -1,0 +1,8 @@
+<!--pages/category/category.wxml-->
+<text>pages/category/category.wxml</text>
+<view>
+  <text>{{msg}}</text>
+</view>
+<navigator url = "../index/index?id=1&name=chen">
+  去到主页Index
+</navigator>

@@ -1,0 +1,66 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200rpx;
+}
+.section{
+  width: 100%;
+}
+.section__title{
+  width: 20%;
+  margin: 0 auto;
+}
+.bc_green ,.bc_red, .bc_yellow, .bc_blue{
+  width: 50%;
+  height: 200rpx;
+}
+.bc_red {
+  background: red;
+}
+.bc_green {
+  background: green;
+}
+.bc_yellow {
+  background: yellow;
+}
+.bc_blue {
+  background: blue;
+}
+.controls {
+  position: relative;
+  top: 50%;
+  height: 50px;
+  margin-top: -25px;
+  display: flex;
+}
+.play,.pause,.time {
+  flex: 1;
+  height: 100%;
+}
+.time {
+  text-align: center;
+  background-color: rgba(0, 0, 0, .5);
+  color: white;
+  line-height: 50px;
+}
+.img {
+  width: 40px;
+  height: 40px;
+  margin: 5px auto;
+}

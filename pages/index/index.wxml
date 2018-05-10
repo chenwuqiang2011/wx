@@ -1,0 +1,166 @@
+<!-- index.wxml
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto" bindtap = "showMsg">{{myname}}</text> 
+    <view wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key = "index">
+      <text>{{item.ID}} + {{index}}</text>
+    </view>
+  </view>
+</view>
+<view class="section">
+  <view class="btn-area">
+    <button size="mini" bindtap="tap">click me to scroll into view </button>
+    <button size="mini" bindtap="tapMove">click me to scroll</button>
+  </view>
+  <view class="section__title">vertical scroll</view>
+  <scroll-view scroll-y style="height: 200px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+    <view id="green" class="scroll-view-item bc_green"></view>
+    <view id="red"  class="scroll-view-item bc_red"></view>
+    <view id="yellow" class="scroll-view-item bc_yellow"></view>
+    <view id="blue" class="scroll-view-item bc_blue"></view>
+  </scroll-view>
+
+
+</view>
+<view class="section section_gap">
+  <view class="section__title">horizontal scroll</view>
+  <scroll-view class="scroll-view_H" scroll-x style="width: 100%">
+    <view id="green" class="scroll-view-item_H bc_green"></view>
+    <view id="red"  class="scroll-view-item_H bc_red"></view>
+    <view id="yellow" class="scroll-view-item_H bc_yellow"></view>
+    <view id="blue" class="scroll-view-item_H bc_blue"></view>
+  </scroll-view>
+</view> -->
+<button bindtap='onBtnPress'>获取数据</button>
+<view class="section">
+  <view class="section__title">vertical scroll</view>
+  <scroll-view scroll-y style="height: 200px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+    <view id="green" class="scroll-view-item bc_green"></view>
+    <view id="red"  class="scroll-view-item bc_red"></view>
+    <view id="yellow" class="scroll-view-item bc_yellow"></view>
+    <view id="blue" class="scroll-view-item bc_blue"></view>
+  </scroll-view>
+
+  <view class="btn-area">
+    <button size="mini" bindtap="tap">click me to scroll into view </button>
+    <button size="mini" bindtap="tapMove">click me to scroll</button>
+  </view>
+</view>
+<view class="section section_gap">
+  <view class="section__title">horizontal scroll</view>
+  <scroll-view class="scroll-view_H" scroll-x style="width: 100%">
+    <view id="green" class="scroll-view-item_H bc_green"></view>
+    <view id="red"  class="scroll-view-item_H bc_red"></view>
+    <view id="yellow" class="scroll-view-item_H bc_yellow"></view>
+    <view id="blue" class="scroll-view-item_H bc_blue"></view>
+  </scroll-view>
+</view>
+<swiper indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular = "{{circular}}">
+  <block wx:for="{{imgUrls}}" wx:key = "index">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image" width="355" height="150"/>
+    </swiper-item>
+  </block>
+</swiper>
+<button bindtap="changeIndicatorDots"> indicator-dots </button>
+<button bindtap="changeAutoplay"> autoplay </button>
+<slider bindchange="intervalChange" show-value min="500" max="2000"/> interval
+<slider bindchange="durationChange" show-value min="100" max="1000"/> duration
+
+<view class="section">
+  <view class="section__title">movable-view区域小于movable-area</view>
+  <movable-area style="height: 200px; width: 200px; background: red;">
+    <movable-view style="height: 50px; width: 50px; background: blue;" x="{{x}}" y="{{y}}" direction="all">
+    </movable-view>
+  </movable-area>
+  <view class="btn-area">
+    <button size="mini" bindtap="taps">click me to move to (30px, 30px)</button>
+  </view>
+  <view class="section__title">movable-view区域大于movable-area</view>
+  <movable-area style="height: 100px; width: 100px; background: red;">
+    <movable-view style="height: 200px; width: 200px; background: blue;" direction="all">
+    </movable-view>
+  </movable-area>
+  <view class="section__title">可放缩</view>
+  <movable-area style="height: 200px; width: 200px; background: red;" scale-area>
+    <movable-view style="height: 50px; width: 50px; background: blue;" direction="all" bindchange="onChange" bindscale="onScale" scale scale-min="0.5" scale-max="4" scale-value="2">
+    </movable-view>
+  </movable-area>
+</view>
+
+<view class="group">
+  <block wx:for="{{iconSize}}" wx:key = "index">
+    <icon type="success" size="{{item}}" wx:key = "index"/>
+  </block>
+</view>
+
+<view class="group">
+  <block wx:for="{{iconType}}" wx:key = "index">
+    <icon type="{{item}}" size="40"/>
+  </block>
+</view>
+
+
+<view class="group">
+  <block wx:for="{{iconColor}}" wx:key = "index">
+    <icon type="success" size="40" color="{{item}}"/>
+  </block>
+</view>
+<video id="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" controls="{{false}}" event-model="bubble">
+  <cover-view class="controls">
+    <cover-view class="play" bindtap="play">
+      <cover-image class="img" src="../1.png" />
+    </cover-view>
+    <cover-view class="pause" bindtap="pause">
+      <cover-image class="img" src="../1.png" />
+    </cover-view>
+    <cover-view class="time">00:00</cover-view>
+  </cover-view>
+</video>
+<view>
+  <switch checked bindchange = "switchOn">开关</switch>
+</view>
+
+<view class="section section_gap">
+  <text class="section__title">设置step</text>
+  <view class="body-view">
+    <slider bindchange="slider2change" step="5"/>
+  </view>
+</view>
+
+<view class="section section_gap">
+  <text class="section__title">显示当前value</text>
+  <view class="body-view">
+    <slider bindchange="slider3change" show-value/>
+  </view>
+</view>
+
+<view class="section section_gap">
+  <text class="section__title">设置最小/最大值</text>
+  <view class="body-view">
+    <slider bindchange="slider4change" min="50" max="200" show-value/>
+  </view>
+</view>
+<radio-group>
+  <label wx:for = "{{ items }}" wx:key = "{{index}}">
+    <radio  checked = "{{item.checked}}" />{{item.value}}
+  </label>
+</radio-group>
+<camera device-position="back" flash="off" binderror="error" style="width: 100%; height: 300px;"></camera>
+<button type="primary" bindtap="takePhoto">拍照</button>
+<view>预览</view>
+<image mode="widthFix" src="{{src}}"></image>
+<button bindtap="upload">上传图片</button>
+<navigator url="../logs/logs">123</navigator>
+<view class="container">
+  <view animation="{{animation}}" class="view">我在做动画</view>
+</view>
+<button type="primary" bindtap="translate">旋转</button>

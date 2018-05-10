@@ -1,0 +1,193 @@
+<!--pages/home/home.wxml-->
+
+
+<!-- <view class="section section_gap">
+  <view class="section__title">horizontal scroll</view>
+  <scroll-view class="scroll-view_H" scroll-x style="width: 100%">
+    <view id="green" class="scroll-view-item_H bc_green"></view>
+    <view id="red"  class="scroll-view-item_H bc_red"></view>
+    <view id="yellow" class="scroll-view-item_H bc_yellow"></view>
+    <view id="blue" class="scroll-view-item_H bc_blue"></view>
+  </scroll-view>
+</view> -->
+
+<scroll-view class = ".body" scroll-y = "true" style = "height: {{height}}rpx" bindscrolltolower = "lower" lower-threshold = "100">
+  <!-- 显示位置 -->
+  
+  <view class = "location" bindtap = "choseLocation">
+    <image class = "location-img" src = "../location.png"></image>
+    <view class = "location-address">
+      当前位置为：<text>{{address}}</text>
+    </view> 
+  </view> 
+  <!-- 搜索框 -->
+  <view class = "search">
+    <image src = "../search.png" class = "search-img"></image>
+    <input class = "search-input" placeholder="请输入您要搜索的美食名称" />
+  </view>
+  <!-- 推荐 -->
+  <view class = "header">
+    <view class = "nav_left">推荐</view>
+    <view class = "nav_right">
+      <scroll-view scroll-x class = "nav">
+      <text  wx:for = "{{items}}" wx:key = "index" class = "nav_list">{{item}}</text>
+    </scroll-view>
+    </view>
+  </view> 
+  <!-- 轮播图 -->
+  <swiper indicator-dots="{{indicatorDots}}"
+    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular = "{{circular}}">
+    <block wx:for="{{imgUrls}}" wx:key = "index">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" width="355" height="150"/>
+      </swiper-item>
+    </block>
+  </swiper>
+  <!-- <button bindtap="changeIndicatorDots"> 是否显示轮播图圆点 </button> -->
+  <!-- <button bindtap="changeAutoplay"> 自动播放 </button> -->
+  <!-- <slider bindchange="intervalChange" show-value min="1000" max="5000"/> 轮播时长 -->
+  <!-- <slider bindchange="durationChange" show-value min="500" max="2000"/> 延长时间 -->
+
+  <!-- 会员中心 -->
+  <view class = "section-item">
+    <view class = "member">
+      <image class = "member-img" src = "../libs/member.jpg"></image>
+    </view>
+    <view class = "gift">
+      <image class = "member-img" src = "../libs/gift.jpg"></image>
+    </view>
+  </view>
+
+  <!-- tab切换 -->
+  <scroll-view class = "tabs" scroll-x = 'true' scroll-left = "{{left}}">
+    <view wx:for = "{{tabs}}" wx:key = "index" class = "tab-item {{currentTab == index ? 'active' : ''}}" data-current = "{{index}}" bindtap = "changeNav">{{item.category}}</view>
+  </scroll-view>
+  <swiper class = "tabs-content" current = "{{currentTab}}" bindchange = "changeTab">
+    <swiper-item wx:for = "{{tabs}}" wx:key = "{{index}}" >
+      <scroll-view scroll-y = "true" class = "scroll-y" style = "height: 100%; scrollbar: none">
+        <view wx:for = "{{item.data}}" wx:key = "index">
+          <view class = "details">
+            <view class = "details-left">
+              <image class = "details-img" src="{{item.imgSrc}}"  data-id = "{{item.ID}}"></image>
+              <view class = "details-desc">
+                <view class = "details-name">{{item.name}}</view>
+                <!-- <view class = "details-sales">已售：{{item.sale}}份</view> -->
+                <view class = "details-sales">{{'已售： '+item.sale+' 份'}}</view>
+              </view>
+            </view>
+            <view class = "details-right details-price">￥{{item.price}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+  <!-- 品质套餐 -->
+  <view class = "package">
+    <view class = "package-left">
+      <view class = "package-name">品质套餐</view>
+      <!-- <rich-text nodes="{{nodes}}"></rich-text> -->
+      <view class = "package-slogen">搭配案例吃得好</view>
+      <view class = "package-buy">立即抢购></view>
+    </view>
+    <view class = "package-right">
+      <image class = "package-img" src = "http://cwq888.cn/image/staple-food/Bacon-pizza-wit-potato-chips.jpg"></image>
+    </view>
+  </view>
+  <!-- 推荐商品 -->
+  <view class = "goods">
+    <view class = "goodsTitle">
+      <text class = "goodsTitle-text">推荐商品</text>
+    </view>
+    <scroll-view class = "goodslist" scroll-x = "true">
+      <view class = "goods-item" wx:for = "{{goodslist}}" wx:key = "{{index}}">
+        <image class = "goods-item-img" src = "http://cwq888.cn/image/{{item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
+        <text class = "goods-item-name">{{item.name}}</text>
+      </view>
+    </scroll-view>
+    <view class = "refresh" bindtap = "refresh">
+      <text>换一批</text>
+    </view>
+  </view>
+
+  <!-- 为您甄选 -->
+  <view class = "goods">
+    <view class = "goodsTitle">
+      <text class = "goodsTitle-text">为您甄选</text>
+    </view>
+  </view>
+  <!-- 新鲜果汁 -->
+  <image class = "foryou-img" src = "../libs/drink.jpg"></image>
+  <scroll-view class = "drinks" scroll-x = "true"> 
+      <view class = "drinks-item" wx:for = "{{drinks}}" wx:key = "{{index}}">
+        <image class = "drinks-img" src = "http://www.cwq888.cn/image/{{item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
+        <view class = "drinks-hot">热卖中</view> 
+        <view class = "drinks-name">{{item.name}}</view>
+        <view class = "drinks-price">￥{{item.nowPrice}}</view> 
+      </view>
+  </scroll-view>
+  <!-- 饭后水果 -->
+  <image class = "foryou-img" src = "../libs/fruite.jpg"></image>
+  <scroll-view class = "drinks" scroll-x = "true"> 
+      <view class = "drinks-item" wx:for = "{{fruite}}" wx:key = "{{index}}">
+        <image class = "drinks-img" src = "http://www.cwq888.cn/image/{{item.imgurl}}" data-id = "{{item.ID}}"></image>
+        <view class = "drinks-hot">热卖中</view> 
+        <view class = "drinks-name">{{item.name}}</view>
+        <view class = "drinks-price">￥{{item.nowPrice}}</view> 
+      </view>
+  </scroll-view>
+  <!-- 养生五谷 -->
+  <image class = "foryou-img" src = "../libs/rice.jpg"></image>
+  <scroll-view class = "drinks" scroll-x = "true"> 
+      <view class = "drinks-item" wx:for = "{{rice}}" wx:key = "{{index}}">
+        <image class = "drinks-img" src = "http://www.cwq888.cn/image/{{item.imgurl}}" data-id = "{{item.ID}}"></image>
+        <view class = "drinks-hot">热卖中</view> 
+        <view class = "drinks-name">{{item.name}}</view>
+        <view class = "drinks-price">￥{{item.nowPrice}}</view> 
+      </view>
+  </scroll-view>
+  <!-- 人气推荐 -->
+   <view class = "goods">
+    <view class = "goodsTitle">
+      <text class = "goodsTitle-text">人气推荐</text>
+    </view>
+  </view>
+  <scroll-view scroll-y = "true" class = "scroll-y" style = "height: 100%; scrollbar: none">
+    <view wx:for = "{{item.data}}" wx:key = "index">
+      <view class = "details" data-id = "{{index}}">
+        <view class = "details-left">
+          <image class = "details-img" src="{{item.imgSrc}}" data-id = "{{item.ID}}"></image>
+          <view class = "details-desc">
+            <view class = "details-name">{{item.name}}</view>
+            <!-- <view class = "details-sales">已售：{{item.sale}}份</view> -->
+            <view class = "details-sales">{{'已售： '+item.sale+' 份'}}</view>
+          </view>
+        </view>
+        <view class = "details-right details-price">￥{{item.price}}</view>
+      </view>
+    </view>
+  </scroll-view>
+</scroll-view>
+ 
+<!-- <button> 是否显示轮播图圆点 </button> -->
+
+<!-- 拖动缩放 -->
+<!-- <view class="section">
+  <view class="section__title">movable-view区域小于movable-area</view>
+  <movable-area style="height: 200px; width: 200px; background: red;">
+    <movable-view style="height: 50px; width: 50px; background: blue;" x="{{x}}" y="{{y}}" direction="all">
+    </movable-view>
+  </movable-area>
+  <view class="btn-area">
+    <button size="mini" bindtap="taps">click me to move to (30px, 30px)</button>
+  </view>
+  <view class="section__title">movable-view区域大于movable-area</view>
+  <movable-area style="height: 100px; width: 100px; background: red;">
+    <movable-view style="height: 200px; width: 200px; background: blue;" direction="all">
+    </movable-view>
+  </movable-area>
+  <view class="section__title">可放缩</view>
+  <movable-area style="height: 200px; width: 200px; background: red;" scale-area>
+    <movable-view style="height: 50px; width: 50px; background: blue;" direction="all" bindchange="onChange" bindscale="onScale" scale scale-min="0.5" scale-max="4" scale-value="2">
+    </movable-view>
+  </movable-area>
+</view> -->
