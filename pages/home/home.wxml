@@ -59,28 +59,27 @@
   </view>
 
   <!-- tab切换 -->
-  <scroll-view class = "tabs" scroll-x = 'true' scroll-left = "{{left}}">
+  <!-- <scroll-view class = "tabs" scroll-x = 'true' scroll-left = "{{left}}">
     <view wx:for = "{{tabs}}" wx:key = "index" class = "tab-item {{currentTab == index ? 'active' : ''}}" data-current = "{{index}}" bindtap = "changeNav">{{item.category}}</view>
   </scroll-view>
   <swiper class = "tabs-content" current = "{{currentTab}}" bindchange = "changeTab">
     <swiper-item wx:for = "{{tabs}}" wx:key = "{{index}}" >
-      <scroll-view scroll-y = "true" class = "scroll-y" style = "height: 100%; scrollbar: none">
+      <view scroll-y = "true" class = "scroll-y" style = "height: 100%; scrollbar: none">
         <view wx:for = "{{item.data}}" wx:key = "index">
           <view class = "details">
             <view class = "details-left">
               <image class = "details-img" src="{{item.imgSrc}}"  data-id = "{{item.ID}}"></image>
               <view class = "details-desc">
                 <view class = "details-name">{{item.name}}</view>
-                <!-- <view class = "details-sales">已售：{{item.sale}}份</view> -->
                 <view class = "details-sales">{{'已售： '+item.sale+' 份'}}</view>
               </view>
             </view>
             <view class = "details-right details-price">￥{{item.price}}</view>
           </view>
         </view>
-      </scroll-view>
+      </view>
     </swiper-item>
-  </swiper>
+  </swiper> -->
   <!-- 品质套餐 -->
   <view class = "package">
     <view class = "package-left">

@@ -2,7 +2,9 @@
 App({
   data: {
     id: '',
-    goods: []
+    goods: [],
+    goodslist: [],
+    baseUrl: 'http://192.168.1.186:443/'
   },
   onLaunch: function () {
     // 展示本地存储能力

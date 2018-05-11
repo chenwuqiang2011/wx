@@ -106,7 +106,7 @@ swiper{
   height: 480rpx;
 }
 .tabs-content {
-  height: 720rpx;
+  height: 1440rpx;
 }
 .slide-image {
   width: 100%;
@@ -158,7 +158,7 @@ swiper{
 }
 .tab-item {
   display: inline-block;
-  margin: 0 50rpx;
+  margin: 0 40rpx;
   height: 50rpx;
   line-height: 50rpx;
 }

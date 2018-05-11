@@ -1,8 +1,62 @@
 <!--pages/category/category.wxml-->
-<text>pages/category/category.wxml</text>
-<view>
-  <text>{{msg}}</text>
-</view>
-<navigator url = "../index/index?id=1&name=chen">
-  去到主页Index
-</navigator>
+  <!-- tab切换 -->
+  <!-- <view class = "search">搜索</view>
+   <view class = "category">
+    <view class = "category_left">
+      <scroll-view class = "tabs" scroll-y = 'true' scroll-left = "{{left}}">
+        <view wx:for = "{{tabs}}" wx:key = "index" class = "tab-item {{currentTab == index ? 'active' : ''}}" data-current = "{{index}}" bindtap = "changeNav">{{item.category}}</view>
+      </scroll-view>
+    </view>
+    <view class = "category_right">
+       <swiper class = "tabs-content" vertical = "{{}}" current = "{{currentTab}}" bindchange = "changeTab">
+        <swiper-item wx:for = "{{tabs}}" wx:key = "{{index}}" >
+          <scroll-view scroll-y class = "scroll-y" style = "scrollbar: none">
+            <view wx:for = "{{item.data}}" wx:key = "index">
+              <view class = "details">
+                <view class = "details-left">
+                  <image class = "details-img" src="{{item.imgSrc}}"  data-id = "{{item.ID}}"></image>
+                  <view class = "details-desc">
+                    <view class = "details-name">{{item.name}}</view>
+                    <view class = "details-sales">{{'已售： '+item.sale+' 份'}}</view>
+                  </view>
+                </view>
+                <view class = "details-right details-price">￥{{item.price}}</view>
+              </view>
+            </view>
+          </scroll-view>
+        </swiper-item>
+      </swiper>
+    </view>
+  </view>   -->
+   <!-- 搜索框 -->
+  <view class = "category_search">
+     <view class = "search">
+      <image src = "../search.png" class = "search-img"></image>
+      <input class = "search-input" placeholder="请输入您要搜索的美食名称" />
+    </view>
+  </view>
+ 
+  <view class = "category">
+     <scroll-view class = "tabs" scroll-x = 'true' scroll-left = "{{left}}">
+    <view wx:for = "{{tabs}}" wx:key = "index" class = "tab-item {{currentTab == index ? 'active' : ''}}" data-current = "{{index}}" bindtap = "changeNav">{{item.category}}</view>
+  </scroll-view>
+  <swiper class = "tabs-content" current = "{{currentTab}}" bindchange = "changeTab">
+    <swiper-item wx:for = "{{tabs}}" wx:key = "{{index}}" >
+      <scroll-view scroll-y = "true" class = "scroll-y" style = "height: 100%; scrollbar: none">
+        <view wx:for = "{{item.data}}" wx:key = "index">
+          <view class = "details">
+            <view class = "details-left">
+              <image class = "details-img" src="{{imgUrl+item.imgurl}}"  data-id = "{{item.ID}}" bindtap='toDetail'></image>
+              <view class = "details-desc">
+                <view class = "details-name">{{item.name}}</view>
+                <view class = "details-sales">{{'已售： '+item.sales+' 份'}}</view>
+              </view>
+            </view>
+            <view class = "details-right details-price">￥{{item.nowPrice}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+  </view>
+ 
