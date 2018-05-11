@@ -1,6 +1,5 @@
 <!--pages/home/home.wxml-->
 
-
 <!-- <view class="section section_gap">
   <view class="section__title">horizontal scroll</view>
   <scroll-view class="scroll-view_H" scroll-x style="width: 100%">
