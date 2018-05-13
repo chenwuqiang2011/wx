@@ -149,7 +149,7 @@ Page({
       console.log('加载更多！');
       wx.request({
         method: 'POST',
-        url: 'http://192.168.1.186:443/queryProducts',
+        url:  baseUrl + 'queryProducts',
         data: { pageNo: this.data.pageNo, qty: this.data.qty },
         header: {
           //         对于 GET 方法的数据，会将数据转换成 query string（encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
@@ -300,7 +300,7 @@ console.log(app)
 
     wx.request({
       method: 'POST',
-      url: 'http://192.168.1.186:443/queryProducts',
+      url:  baseUrl + 'queryProducts',
       data: { pageNo: this.data.pageNo, qty: this.data.qty },
       header: {
         //         对于 GET 方法的数据，会将数据转换成 query string（encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
@@ -320,7 +320,7 @@ console.log(app)
     //获取饮品分类;
     wx.request({
       method: 'POST',
-      url: 'http://192.168.1.186:443/queryProducts',
+      url:  baseUrl + 'queryProducts',
       data: { pageNo: 12, qty: 8 },
       header: {
         //         对于 GET 方法的数据，会将数据转换成 query string（encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
@@ -340,7 +340,7 @@ console.log(app)
     //获取水果分类;
     wx.request({
       method: 'POST',
-      url: 'http://192.168.1.186:443/queryProducts',
+      url:  baseUrl + 'queryProducts',
       data: { pageNo: 10, qty: 8 },
       header: {
         //         对于 GET 方法的数据，会将数据转换成 query string（encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
@@ -360,7 +360,7 @@ console.log(app)
     //获取五谷分类;
     wx.request({
       method: 'POST',
-      url: 'http://192.168.1.186:443/queryProducts',
+      url:  baseUrl + 'queryProducts',
       data: { pageNo: 7, qty: 8 },
       header: {
         //         对于 GET 方法的数据，会将数据转换成 query string（encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
@@ -501,15 +501,15 @@ console.log(app)
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    wx.startPullDownRefresh()
+  onPullDownRefresh: function () {console.log('refresh')
+    // wx.startPullDownRefresh()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+    console.log(123)
   },
 
   /**

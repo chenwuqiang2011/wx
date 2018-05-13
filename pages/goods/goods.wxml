@@ -3,16 +3,16 @@
   <!-- 轮播图 -->
   <swiper class = "goods_img" indicator-dots="{{indicatorDots}}"
     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular = "{{circular}}">
-      <swiper-item>
-        <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
+      <swiper-item wx:if = "{{goods.imgurl}}">
+           <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>   
         <!-- <image src="{{item}}" class="slide-image" widtext="355" height="150"/> -->
       </swiper-item>
-      <swiper-item>
-        <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
+      <swiper-item wx:if = "{{goods.imgurl}}">
+          <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>  
         <!-- <image src="{{item}}" class="slide-image" widtext="355" height="150"/> -->
       </swiper-item>
-      <swiper-item>
-        <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
+      <swiper-item wx:if = "{{goods.imgurl}}">
+          <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>  
         <!-- <image src="{{item}}" class="slide-image" widtext="355" height="150"/> -->
       </swiper-item>
      
@@ -81,11 +81,12 @@
       <text class = "msg">	若该商品无质量问题不支持退换货。</text>
     </view>
     <!-- 商品详情图片 -->
-    <view class = "imgs">
-       <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
-       <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
-       <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
-       <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>
+    <view class = "imgs" wx:if = "{{goods.imgurl}}">
+    <!-- fail to load image:还是处理下比较好，错误出现的原因就是初始的时候image_url没有值，导致src="http://livec.dev/storage/"，所以报了404，后面逻辑处理的时候对image_url赋值了，图片才出来，处理的方式也简单，先判断image_url，没有就用wx:if隐藏下 -->
+        <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image> 
+        <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image> 
+        <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image> 
+        <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image> 
     </view>
 </view>
 <view class = "fixed">

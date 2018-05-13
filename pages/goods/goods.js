@@ -1,5 +1,6 @@
 // pages/goods/goods.js
-var baseUrl = 'http://192.168.1.186:443/';
+var app = getApp();
+var baseUrl = app.data.baseUrl;
 Page({
 
   /**

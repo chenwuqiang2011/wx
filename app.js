@@ -4,9 +4,19 @@ App({
     id: '',
     goods: [],
     goodslist: [],
-    baseUrl: 'http://192.168.1.186:443/'
+    cart: [],
+    qty: 1,
+    baseUrl: 'http://192.168.100.15:443/'
+  },
+  addCart: function(){
+    //消息提醒；适用于购物车或者消息提醒；
+    wx.setTabBarBadge({
+      index: 2,
+      text: this.data.qty.toString()
+    });
   },
   onLaunch: function () {
+    this.addCart();
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())

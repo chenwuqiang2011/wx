@@ -127,7 +127,7 @@
   <image class = "foryou-img" src = "../libs/fruite.jpg"></image>
   <scroll-view class = "drinks" scroll-x = "true"> 
       <view class = "drinks-item" wx:for = "{{fruite}}" wx:key = "{{index}}">
-        <image class = "drinks-img" src = "http://www.cwq888.cn/image/{{item.imgurl}}" data-id = "{{item.ID}}"></image>
+        <image class = "drinks-img" src = "http://www.cwq888.cn/image/{{item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
         <view class = "drinks-hot">热卖中</view> 
         <view class = "drinks-name">{{item.name}}</view>
         <view class = "drinks-price">￥{{item.nowPrice}}</view> 
@@ -137,7 +137,7 @@
   <image class = "foryou-img" src = "../libs/rice.jpg"></image>
   <scroll-view class = "drinks" scroll-x = "true"> 
       <view class = "drinks-item" wx:for = "{{rice}}" wx:key = "{{index}}">
-        <image class = "drinks-img" src = "http://www.cwq888.cn/image/{{item.imgurl}}" data-id = "{{item.ID}}"></image>
+        <image class = "drinks-img" src = "http://www.cwq888.cn/image/{{item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
         <view class = "drinks-hot">热卖中</view> 
         <view class = "drinks-name">{{item.name}}</view>
         <view class = "drinks-price">￥{{item.nowPrice}}</view> 

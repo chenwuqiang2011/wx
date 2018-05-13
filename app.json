@@ -13,7 +13,7 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "小蚂蚁餐厅",
     "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": "true"
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "list": [

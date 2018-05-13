@@ -1,33 +1,3 @@
-<!--pages/category/category.wxml-->
-  <!-- tab切换 -->
-  <!-- <view class = "search">搜索</view>
-   <view class = "category">
-    <view class = "category_left">
-      <scroll-view class = "tabs" scroll-y = 'true' scroll-left = "{{left}}">
-        <view wx:for = "{{tabs}}" wx:key = "index" class = "tab-item {{currentTab == index ? 'active' : ''}}" data-current = "{{index}}" bindtap = "changeNav">{{item.category}}</view>
-      </scroll-view>
-    </view>
-    <view class = "category_right">
-       <swiper class = "tabs-content" vertical = "{{}}" current = "{{currentTab}}" bindchange = "changeTab">
-        <swiper-item wx:for = "{{tabs}}" wx:key = "{{index}}" >
-          <scroll-view scroll-y class = "scroll-y" style = "scrollbar: none">
-            <view wx:for = "{{item.data}}" wx:key = "index">
-              <view class = "details">
-                <view class = "details-left">
-                  <image class = "details-img" src="{{item.imgSrc}}"  data-id = "{{item.ID}}"></image>
-                  <view class = "details-desc">
-                    <view class = "details-name">{{item.name}}</view>
-                    <view class = "details-sales">{{'已售： '+item.sale+' 份'}}</view>
-                  </view>
-                </view>
-                <view class = "details-right details-price">￥{{item.price}}</view>
-              </view>
-            </view>
-          </scroll-view>
-        </swiper-item>
-      </swiper>
-    </view>
-  </view>   -->
    <!-- 搜索框 -->
   <view class = "category_search">
      <view class = "search">
@@ -53,6 +23,9 @@
               </view>
             </view>
             <view class = "details-right details-price">￥{{item.nowPrice}}</view>
+            <view class = "addCart">
+              <image class = "addCart_img" src = "../add.png" data-id = "{{item.ID}}" bindtap='addCart'></image>
+            </view>
           </view>
         </view>
       </scroll-view>
