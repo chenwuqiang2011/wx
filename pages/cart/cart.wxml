@@ -6,12 +6,12 @@
 </scroll-view>
 </view> -->
 
-<view wx:for = "{{cart}}" wx:key = "index">
-  <view class = "details">
+<scroll-view scroll-y = "true" class = "scroll" >
+  <view class = "details" wx:for = "{{cart}}" wx:key = "index">
     <view class = "details-left">
       <view class = "select" bindtap="toggle_select" data-current = "{{index}}" >
-        <image src = "../select.png" class = "select_img" wx:if = "{{item.isSelect}}"></image>
-        <image src = "../unselect.png" class = "unselect_img" wx:else = "{{item.isSelect}}"></image>
+        <image src = "../select.png" class = "select_img" wx:if = "{{!item.isSelect}}"></image>
+        <image src = "../unselect.png" class = "unselect_img" wx:if = "{{item.isSelect}}"></image>
       </view>
       <image class = "details-img" src="{{imgUrl+item.imgurl}}"  data-id = "{{item.ID}}" bindtap='toDetail'></image>
       <view class = "details-desc">
@@ -34,13 +34,17 @@
         </view>
     </view>
   </view>
-</view>
+</scroll-view>
 <view class = "bottom_fixed">
   <view class = "bottom_left">
-
+    <image class = "selectAll" src = "../select.png" wx:if = "{{!selected}}"></image>
+    <image class = "selectAll" src = "../unselect.png" wx:if = "{{selected}}"></image>
+    <text class = "select_text">全选</text>
+    <view class = "total">
+      总价: ￥<text class = "totalPrice">{{totalPrice}}</text>
+    </view>
   </view>
   <view class = "bottom_right">
-    结算
-    <text class = "total">(1)</text>
+    结算:(<text class = "totalPrice">{{totalNum}}</text>)
   </view>
 </view>

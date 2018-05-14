@@ -11,7 +11,9 @@ Page({
     cart: [],
     imgUrl: imgUrl,
     max: false,
-    select: true,
+    totalPrice: 0,
+    totalNum: 0,
+    selected: true,
     res: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   },
   lower() {
@@ -58,13 +60,47 @@ Page({
 
   },
   toggle_select: function(e){
+    //定义总价，结算商品数量；
+    var totalPrice = 0;
+    var totalNum = 0;
     console.log(e)
     var idx = e.currentTarget.dataset.current;
     console.log(idx, this.data.cart[idx]);
+    //选中与反选；
     this.data.cart[idx].isSelect = !this.data.cart[idx].isSelect;
     this.setData({
-      
+      cart: this.data.cart
     });
+
+    
+    this.data.cart.map(item=>{
+      if(!item.isSelect){
+        //结算总价；
+        totalPrice += item.nowPrice * item.qty;
+
+        //结算数量；
+        totalNum += item.qty;
+      }
+    });
+    //设置价格；
+    this.setData({
+      totalPrice: totalPrice,
+      totalNum: totalNum
+    });
+
+    //判断是否全选;
+    
+    this.data.cart.map(item2=>{
+      if(item2.isSelect){
+        console.log('不全选');
+        this.data.selected = false;
+      }
+    });
+    this.setData({
+      selected: !this.data.selected
+    })
+
+   
   },
 
   /**

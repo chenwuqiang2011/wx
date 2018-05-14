@@ -167,20 +167,22 @@ Page({
   addCart: function (e) {
     console.log(e.target.dataset.id)
     //要加入购物车的商品为；
-    app.goodslist.map(item=>{console.log(item)
+    app.goodslist.map(item=>{
       item.data.map(item2=>{
         if(item2.ID == e.target.dataset.id){
           // app.data.cart.push(item2);
 
           if(app.data.cart.length > 0){
             //购物车有商品时，判断是否存在一样的商品；
+            var flag = false;
             app.data.cart.map((item3, idx3) => {
               if (item3.ID == e.target.dataset.id) {
-                console.log("相同", app.data.cart.length)
+                console.log("相同", idx3, app.data.cart.length);
+                flag = true;
 
                 //有相同商品时，数量 +1
                 item3.qty++;
-              } else if (idx3 == app.data.cart.length - 1) {console.log('不相同')
+              } else if (!flag && idx3 == app.data.cart.length - 1) {console.log('不相同', idx3)
                 //没有相同商品时，数量 为1
                 item2.qty = 1;
                 app.data.cart.push(item2);
@@ -195,6 +197,11 @@ Page({
         }
       })
     });
+    this.setData({
+      cart: app.data.cart
+    });
+
+    //显示数量；
     var that = this;
     app.data.qty++;
     wx.showToast({
