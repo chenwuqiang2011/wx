@@ -8,8 +8,8 @@
  
   <view class = "category">
      <scroll-view class = "tabs" scroll-x = 'true' scroll-left = "{{left}}">
-    <view wx:for = "{{tabs}}" wx:key = "index" class = "tab-item {{currentTab == index ? 'active' : ''}}" data-current = "{{index}}" bindtap = "changeNav">{{item.category}}</view>
-  </scroll-view>
+      <view wx:for = "{{tabs}}" wx:key = "index" class = "tab-item {{currentTab == index ? 'active' : ''}}" data-current = "{{index}}" bindtap = "changeNav">{{item.category}}</view>
+    </scroll-view>
   <swiper class = "tabs-content" current = "{{currentTab}}" bindchange = "changeTab">
     <swiper-item wx:for = "{{tabs}}" wx:key = "{{index}}" >
       <scroll-view scroll-y = "true" class = "scroll-y" style = "height: 100%; scrollbar: none">
@@ -24,7 +24,7 @@
             </view>
             <view class = "details-right details-price">￥{{item.nowPrice}}</view>
             <view class = "addCart">
-              <image class = "addCart_img" src = "../add.png" data-id = "{{item.ID}}" bindtap='addCart'></image>
+              <image class = "addCart_img" src = "../add.png" bindtap='addCart' data-id = "{{item.ID}}"></image>
             </view>
           </view>
         </view>

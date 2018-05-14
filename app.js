@@ -5,15 +5,17 @@ App({
     goods: [],
     goodslist: [],
     cart: [],
-    qty: 1,
-    baseUrl: 'http://192.168.100.15:443/'
+    qty: 0,
+    baseUrl: 'http://192.168.1.186:443/'
   },
   addCart: function(){
     //消息提醒；适用于购物车或者消息提醒；
-    wx.setTabBarBadge({
-      index: 2,
-      text: this.data.qty.toString()
-    });
+    if(this.data.qty !== 0){
+      wx.setTabBarBadge({
+        index: 2,
+        text: this.data.qty.toString()
+      });
+    }
   },
   onLaunch: function () {
     this.addCart();

@@ -1,4 +1,6 @@
 // pages/cart/cart.js
+var app = getApp();
+var imgUrl = 'http://www.cwq888.cn/image/';
 Page({
 
   /**
@@ -6,6 +8,10 @@ Page({
    */
   data: {
     height: '',
+    cart: [],
+    imgUrl: imgUrl,
+    max: false,
+    select: true,
     res: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   },
   lower() {
@@ -48,21 +54,38 @@ Page({
           height: res.windowHeight
         })
       }
-    })
+    });
+
+  },
+  toggle_select: function(e){
+    console.log(e)
+    var idx = e.currentTarget.dataset.current;
+    console.log(idx, this.data.cart[idx]);
+    this.data.cart[idx].isSelect = !this.data.cart[idx].isSelect;
+    this.setData({
+      
+    });
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    console.log(333, app.data.cart);
+    app.data.cart.map(item=>{
+      item.isSelect = true;
+    })
+    //购物车商品列表；
+    this.setData({
+      cart: app.data.cart
+    });
   },
 
   /**

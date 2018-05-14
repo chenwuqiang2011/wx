@@ -1,7 +1,46 @@
-<!--pages/cart/cart.wxml-->
-<text>pages/cart/cart.wxml</text>
+<!--上拉刷新-->
+<!-- <text>pages/cart/cart.wxml</text>
 <view class='box'>
 <scroll-view scroll-y='true' style="height:200px" bindscrolltolower='lower'>
   <view wx:for="{{res}}" data-id="{{index}}" wx:key="{{index}}" style="height:{{(height/6)-1}}px;width:100%;text-align:center;line-height:{{(height/6)-1}}px; border-bottom:1px solid #ccc">{{item}}</view>
 </scroll-view>
+</view> -->
+
+<view wx:for = "{{cart}}" wx:key = "index">
+  <view class = "details">
+    <view class = "details-left">
+      <view class = "select" bindtap="toggle_select" data-current = "{{index}}" >
+        <image src = "../select.png" class = "select_img" wx:if = "{{item.isSelect}}"></image>
+        <image src = "../unselect.png" class = "unselect_img" wx:else = "{{item.isSelect}}"></image>
+      </view>
+      <image class = "details-img" src="{{imgUrl+item.imgurl}}"  data-id = "{{item.ID}}" bindtap='toDetail'></image>
+      <view class = "details-desc">
+        <view class = "details-name">{{item.name}}</view>
+        <view class = "details-sales">{{'已售： '+item.sales+' 份'}}</view>
+      </view>
+    </view>
+    <view class = "details-right details-price">￥{{item.nowPrice}}</view>
+    <view class = "addCart">
+      <view class = "plus">
+        <image class = "sub1" src = "../sub1.png"></image>
+        <image class = "sub2" src = "../sub2.png" wx:if = "{{max}}"></image>
+      </view>
+        <view class = "num">
+          <input type = "number" value="{{item.qty}}"/>
+        </view>
+        <view class = "sub">
+          <image class = "plus1" src = "../plus1.png"></image>
+          <image class = "plus2" src = "../plus2.png" wx:if = "{{max}}"></image>
+        </view>
+    </view>
+  </view>
+</view>
+<view class = "bottom_fixed">
+  <view class = "bottom_left">
+
+  </view>
+  <view class = "bottom_right">
+    结算
+    <text class = "total">(1)</text>
+  </view>
 </view>

@@ -204,7 +204,6 @@ Page({
     // });
     //加载商品；
     this.goodsLoading();
-console.log(app)
     //获取端口数据；
     wx.request({
       method: 'POST',
@@ -501,7 +500,7 @@ console.log(app)
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {console.log('refresh')
+  onPullDownRefresh: function () {
     // wx.startPullDownRefresh()
   },
 

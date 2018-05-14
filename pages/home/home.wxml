@@ -10,7 +10,7 @@
   </scroll-view>
 </view> -->
 
-<scroll-view class = ".body" scroll-y = "true" style = "height: {{height}}rpx" bindscrolltolower = "lower" lower-threshold = "100">
+<scroll-view class = "body" scroll-y = "true" style = "height: {{height}}rpx" bindscrolltolower = "lower" lower-threshold = "100">
   <!-- 显示位置 -->
   
   <view class = "location" bindtap = "choseLocation">
@@ -149,21 +149,6 @@
       <text class = "goodsTitle-text">人气推荐</text>
     </view>
   </view>
-  <scroll-view scroll-y = "true" class = "scroll-y" style = "height: 100%; scrollbar: none">
-    <view wx:for = "{{item.data}}" wx:key = "index">
-      <view class = "details" data-id = "{{index}}">
-        <view class = "details-left">
-          <image class = "details-img" src="{{item.imgSrc}}" data-id = "{{item.ID}}"></image>
-          <view class = "details-desc">
-            <view class = "details-name">{{item.name}}</view>
-            <!-- <view class = "details-sales">已售：{{item.sale}}份</view> -->
-            <view class = "details-sales">{{'已售： '+item.sale+' 份'}}</view>
-          </view>
-        </view>
-        <view class = "details-right details-price">￥{{item.price}}</view>
-      </view>
-    </view>
-  </scroll-view>
 </scroll-view>
  
 <!-- <button> 是否显示轮播图圆点 </button> -->
