@@ -90,6 +90,6 @@
     </view>
 </view>
 <view class = "fixed">
-  <view class = "add">加入购物车</view>
+  <view class = "add" bindtap="add">加入购物车</view>
   <view class = "buy">立即购买</view>
 </view>

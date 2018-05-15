@@ -6,11 +6,16 @@ App({
     goodslist: [],
     cart: [],
     qty: 0,
-    baseUrl: 'http://192.168.100.15:443/'
+    baseUrl: 'http://192.168.1.186:443/'
   },
   addCart: function(){
     //消息提醒；适用于购物车或者消息提醒；
-    if(this.data.qty !== 0){
+    if(this.data.qty == 0){
+      wx.removeTabBarBadge({
+        index: 2
+      });
+    } else {
+      console.log(this.data.qty)
       wx.setTabBarBadge({
         index: 2,
         text: this.data.qty.toString()

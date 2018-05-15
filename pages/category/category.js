@@ -165,7 +165,6 @@ Page({
     })
   },
   addCart: function (e) {
-    console.log(e.target.dataset.id)
     //要加入购物车的商品为；
     app.goodslist.map(item=>{
       item.data.map(item2=>{
@@ -177,12 +176,11 @@ Page({
             var flag = false;
             app.data.cart.map((item3, idx3) => {
               if (item3.ID == e.target.dataset.id) {
-                console.log("相同", idx3, app.data.cart.length);
                 flag = true;
 
                 //有相同商品时，数量 +1
                 item3.qty++;
-              } else if (!flag && idx3 == app.data.cart.length - 1) {console.log('不相同', idx3)
+              } else if (!flag && idx3 == app.data.cart.length - 1) {
                 //没有相同商品时，数量 为1
                 item2.qty = 1;
                 app.data.cart.push(item2);
@@ -197,17 +195,18 @@ Page({
         }
       })
     });
-    this.setData({
-      cart: app.data.cart
-    });
+    // this.setData({
+    //   cart: app.data.cart
+    // });
 
     //显示数量；
     var that = this;
     app.data.qty++;
     wx.showToast({
       title: '已添加到购物车',
+      //image: '../image/img.png',  //自定义图标的本地路径，image 的优先级高于 icon 
+      duration: 500,
       success: function(){
-        console.log(123);
         app.addCart();
       }
     })
@@ -222,6 +221,7 @@ Page({
       },
       success: function (res) {
         wx.navigateTo({
+          rediret: true,
           url: '../goods/goods?id=' + e.target.dataset.id
         })
       } 
@@ -261,7 +261,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    //商品详情点击加入购物车时，没有及时更新数量提示；
+    app.addCart();
   },
 
   /**

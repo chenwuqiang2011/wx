@@ -7,11 +7,47 @@
 </view> -->
 
 <scroll-view scroll-y = "true" class = "scroll" >
-  <view class = "details" wx:for = "{{cart}}" wx:key = "index">
+  <!-- 样式1 -->
+  <view wx:for = "{{cart}}"  wx:key = "index" data-index="{{index}}" class="details {{item.isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="touchstart" bindtouchmove="touchmove">
+    <view class = "slide">
+      <view class = "details-left"> 
+        <view class = "select" bindtap="toggle_select" data-current = "{{index}}" >
+          <image src = "../select.png" class = "select_img" wx:if = "{{item.isSelect}}"></image>
+          <image src = "../unselect.png" class = "unselect_img" wx:if = "{{!item.isSelect}}"></image>
+        </view>
+        <image class = "details-img" src="{{imgUrl+item.imgurl}}"  data-id = "{{item.ID}}" bindtap='toDetail'></image>
+        <view class = "details-desc">
+          <view class = "details-name">{{item.name}}</view>
+          <view class = "details-sales">{{'已售： '+item.sales+' 份'}}</view>
+        </view>
+      </view>
+      <view class = "details-right details-price">￥{{item.nowPrice}}</view>
+      <view class = "addCart">
+        <view class = "sub" bindtap="sub">
+          <image class = "sub1" src = "../sub1.png" wx:if = "{{!min}}" data-id = "{{item.ID}}"></image>
+          <image class = "sub2" src = "../sub2.png" wx:if = "{{min}}"  data-id = "{{item.ID}}"></image>
+        </view>
+        <view class = "num">
+          <input type = "number" value="{{item.qty}}"/>
+        </view>
+        <view class = "plus" bindtap="plus">
+          <image class = "plus1" src = "../plus1.png" wx:if = "{{!max}}" data-id = "{{item.ID}}"></image>
+          <image class = "plus2" src = "../plus2.png" wx:if = "{{max}}" data-id = "{{item.ID}}"></image> 
+        </view>
+      </view>
+    </view>
+    <view class="del" catchtap="del" data-index="{{index}}">删除</view>
+   
+
+  </view>  
+
+  <!-- 样式2 -->
+  <!-- <movable-area class = "details" wx:for = "{{cart}}" wx:key = "index">
+  <movable-view class = "details" direction = "horizontal" out-of-bounds = "true" x = '20'>
     <view class = "details-left">
       <view class = "select" bindtap="toggle_select" data-current = "{{index}}" >
-        <image src = "../select.png" class = "select_img" wx:if = "{{!item.isSelect}}"></image>
-        <image src = "../unselect.png" class = "unselect_img" wx:if = "{{item.isSelect}}"></image>
+        <image src = "../select.png" class = "select_img" wx:if = "{{item.isSelect}}"></image>
+        <image src = "../unselect.png" class = "unselect_img" wx:if = "{{!item.isSelect}}"></image>
       </view>
       <image class = "details-img" src="{{imgUrl+item.imgurl}}"  data-id = "{{item.ID}}" bindtap='toDetail'></image>
       <view class = "details-desc">
@@ -21,30 +57,37 @@
     </view>
     <view class = "details-right details-price">￥{{item.nowPrice}}</view>
     <view class = "addCart">
-      <view class = "plus">
-        <image class = "sub1" src = "../sub1.png"></image>
-        <image class = "sub2" src = "../sub2.png" wx:if = "{{max}}"></image>
+      <view class = "sub" bindtap="sub">
+        <image class = "sub1" src = "../sub1.png" wx:if = "{{!min}}" data-id = "{{item.ID}}"></image>
+        <image class = "sub2" src = "../sub2.png" wx:if = "{{min}}"  data-id = "{{item.ID}}"></image>
       </view>
-        <view class = "num">
-          <input type = "number" value="{{item.qty}}"/>
-        </view>
-        <view class = "sub">
-          <image class = "plus1" src = "../plus1.png"></image>
-          <image class = "plus2" src = "../plus2.png" wx:if = "{{max}}"></image>
-        </view>
+      <view class = "num">
+        <input type = "number" value="{{item.qty}}"/>
+      </view>
+      <view class = "plus" bindtap="plus">
+        <image class = "plus1" src = "../plus1.png" wx:if = "{{!max}}" data-id = "{{item.ID}}"></image>
+        <image class = "plus2" src = "../plus2.png" wx:if = "{{max}}" data-id = "{{item.ID}}"></image>
+      </view>
     </view>
-  </view>
+  </movable-view>
+</movable-area> -->
+
 </scroll-view>
 <view class = "bottom_fixed">
   <view class = "bottom_left">
-    <image class = "selectAll" src = "../select.png" wx:if = "{{!selected}}"></image>
-    <image class = "selectAll" src = "../unselect.png" wx:if = "{{selected}}"></image>
+    <image class = "selectAll" src = "../select.png" wx:if = "{{selected}}" bindtap="selectAll"></image>
+    <image class = "selectAll" src = "../unselect.png" wx:if = "{{!selected}}" bindtap="selectAll"></image>
     <text class = "select_text">全选</text>
     <view class = "total">
       总价: ￥<text class = "totalPrice">{{totalPrice}}</text>
     </view>
   </view>
   <view class = "bottom_right">
-    结算:(<text class = "totalPrice">{{totalNum}}</text>)
+    结算：(<text class = "totalPrice">{{totalNum}}</text>)
   </view>
+</view>
+<!-- 购物车为空时  -->
+<view class = "empty" wx:if = "{{show}}">
+  <image class = "empty_img" src = "../empty.png"></image>
+  <view bindtap="tocategory">前往更多好货</view>
 </view>

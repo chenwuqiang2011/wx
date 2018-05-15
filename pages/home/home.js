@@ -134,8 +134,6 @@ Page({
 
   //跳转商品详情页；
   navi: function(e){
-    console.log(e);
-
     wx.navigateTo({
       url: '../goods/goods?id=' + e.target.dataset.id
     })
@@ -160,7 +158,6 @@ Page({
         success: function (res) {
           
           ajaxCount++;
-          console.log(res);
           setTimeout(function () {
             that.data.hasmore = true;
           }, 1000)
@@ -214,7 +211,6 @@ Page({
       },
       success: function (res) {
         ajaxCount++;
-        console.log('total',res);
         var category = [];
         var goodslist = [];
 
@@ -309,7 +305,6 @@ Page({
       },
       success: function (res) {
         ajaxCount++;
-        console.log(res);
         that.setData({
           goodslist: res.data.data
         });
@@ -329,7 +324,6 @@ Page({
       },
       success: function (res) {
         ajaxCount++;
-        console.log(res);
         that.setData({
           drinks: res.data.data
         });
@@ -349,7 +343,6 @@ Page({
       },
       success: function (res) {
         ajaxCount++;
-        console.log(res);
         that.setData({
           fruite: res.data.data
         });
@@ -369,7 +362,6 @@ Page({
       },
       success: function (res) {
         ajaxCount++;
-        console.log(res);
         that.setData({
           rice: res.data.data
         });
@@ -390,7 +382,6 @@ Page({
   },
   //选择位置位置
   choseLocation: function (e) {
-    console.log(e)
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
       key: 'QZ5BZ-Q4IWG-BM4QE-IUUVT-W5O45-ETBC6'
@@ -424,14 +415,13 @@ Page({
       }
     })
   },
-  changeNav: function(e){console.log(e)
+  changeNav: function(e){
 
     this.setData({
       currentTab: e.currentTarget.dataset.current
     });
   },
   changeTab: function(e){
-    console.log(e.detail.current)
     this.setData({
       currentTab: e.detail.current
     });
@@ -461,7 +451,6 @@ Page({
     })
   },
   durationChange: function (e) {
-    console.log(e.detail)
     this.setData({
       duration: e.detail.value
     })
@@ -470,7 +459,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {console.log(ajaxCount)
+  onReady: function () {
     if (ajaxCount == 4) {console.log('complete')
       wx.hideLoading();
     }
@@ -508,7 +497,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    console.log(123)
+    
   },
 
   /**

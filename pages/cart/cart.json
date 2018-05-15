@@ -1,1 +1,9 @@
-{}
+{
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "购物2",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": false
+  }
+}

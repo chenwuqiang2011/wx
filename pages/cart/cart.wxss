@@ -1,4 +1,7 @@
 /* pages/cart/cart.wxss */
+page{
+  height: 100%;
+}
 .scroll {
   padding-bottom: 50rpx;
   box-sizing: border-box;
@@ -7,11 +10,50 @@
 .details {
   height: 200rpx;
   width: 100%;
-  padding: 20rpx;
+  padding: 20rpx 0 20rpx 20rpx;
+  box-sizing: border-box;
   border-bottom: 2rpx solid #ccc;
   font-size: 26rpx;
-  position: relative;
+  position: relative; 
+
+  display:flex;
+  justify-content:space-between;
+  overflow:hidden; 
 }
+.slide {
+  width: 100%;
+  height: 100%; 
+
+  /* padding:10px; */
+  /* line-height:22px; */
+  margin-right:0;
+  -webkit-transition:all 0.4s;
+  transition:all 0.4s;
+  -webkit-transform:translateX(90px);
+  transform:translateX(90px);
+  margin-left:-90px;
+}
+.del {
+  background-color: orangered;
+  width: 180rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  -webkit-transform: translateX(180rpx);
+  transform: translateX(180rpx);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+.touch-move-active .slide,
+.touch-move-active .del {
+ -webkit-transform: translateX(0);
+ transform: translateX(0);
+}
+
+
+
 .details-left {
   float: left;
   width: 80%;
@@ -28,15 +70,15 @@
 }
 .select {
   position: absolute;
-  width: 40rpx;
-  height: 40rpx;
-  left: 20rpx;
-  top: 80rpx;
+  width: 50rpx;
+  height: 50rpx;
+  /* left: 20rpx; */
+  top: 75rpx;
 }
 .select_img, .unselect_img {
   display: block;
-  width: 40rpx;
-  height: 40rpx;
+  width: 50rpx;
+  height: 50rpx;
   position: absolute;
   left: 0;
   top: 0;
@@ -48,23 +90,22 @@
   float: left;
   /* height: 90%; */
   margin-left: 5%;
-  margin-top: 10%;
+  margin-top: 8%;
   width: 45%;
 }
 .details-right {
   float: right;
   width: 20%;
-  padding-right: 30rpx;
+  padding-right: 70rpx;
+  margin-top: 30rpx;
   box-sizing: border-box;
-  height: 100%;
   text-align: center;
-  line-height: 200rpx;
 }
 .addCart {
   width: 154rpx;
   height: 50rpx;
   position: absolute;
-  right: 60rpx;
+  right: 30rpx;
   bottom: 30rpx;
   border: 2rpx solid #ddd;
 }
@@ -94,13 +135,13 @@
 }
 
 .bottom_fixed {
-  height: 70rpx; 
+  height: 90rpx; 
   width: 100%;
   font-size: 28rpx;
   position: fixed; 
   bottom: 0;
   left: 0;
-  background: #ddd;
+  border-top: 2rpx solid #ddd;
 }
 .bottom_left {
   float: left;
@@ -108,7 +149,7 @@
   height: 50rpx;
   margin-right: 5%;
   /* margin-left: 5%; */
-  margin-top: 10rpx;
+  margin-top: 20rpx;
   /* background: #555; */
 }
 .select_text {
@@ -126,18 +167,39 @@
 }
 .selectAll, .unselectAll {
   float: left;
-  width: 40rpx;
-  height: 40rpx;
-  margin-top: 5rpx;
-  margin-left: 20rpx;
+  width: 50rpx;
+  height: 50rpx;
+  /* margin-top: 5rpx; */
+  margin-left: 15rpx;
 }
 .bottom_right {
   float: right;
   width: 25%;
   margin-right: 5%;
-  height: 50rpx;
-  line-height: 50rpx;
+  height: 70rpx;
+  line-height: 70rpx;
   margin-top: 10rpx;
   background: red;
+  color: #fff;
   text-align: center;
+}
+
+/* 购物车为空样式 */
+.empty {
+  position: fixed;
+  left: 0;
+  top: 100rpx; 
+  right:0;
+  margin: auto;
+  width: 200rpx;
+  height: 400rpx;
+  color: #aaa;
+  font-size: 32rpx;
+}
+.empty_img {
+  height: 200rpx;
+  width: 200rpx;
+  border-bottom: 5rpx solid #ddd;
+  padding-bottom: 10rpx;
+  margin-bottom: 10rpx;
 }

@@ -1,5 +1,6 @@
 // pages/cart/cart.js
 var app = getApp();
+var baseUrl = app.data.baseUrl;
 var imgUrl = 'http://www.cwq888.cn/image/';
 Page({
 
@@ -10,10 +11,14 @@ Page({
     height: '',
     cart: [],
     imgUrl: imgUrl,
+    min: false,
     max: false,
+    show: false,
     totalPrice: 0,
     totalNum: 0,
     selected: true,
+    startX: 0, //开始坐标
+    startY: 0, //滑动坐标；
     res: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   },
   lower() {
@@ -57,24 +62,56 @@ Page({
         })
       }
     });
-
+  },
+  // 跳转商品详情
+  toDetail: function (e) {
+    wx.request({
+      method: 'POST',
+      url: baseUrl + 'getProduct',
+      data: { id: e.target.dataset.id },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      success: function (res) {
+        wx.navigateTo({
+          url: '../goods/goods?id=' + e.target.dataset.id
+        })
+      }
+    });
   },
   toggle_select: function(e){
     //定义总价，结算商品数量；
     var totalPrice = 0;
     var totalNum = 0;
-    console.log(e)
     var idx = e.currentTarget.dataset.current;
-    console.log(idx, this.data.cart[idx]);
     //选中与反选；
     this.data.cart[idx].isSelect = !this.data.cart[idx].isSelect;
+
+    //更新数据；
     this.setData({
       cart: this.data.cart
     });
-
-    
-    this.data.cart.map(item=>{
-      if(!item.isSelect){
+    app.data.cart = this.data.cart;
+    //计算价格、数量函数
+    this.count();
+   
+    //判断是否全选;
+    var flag = true;
+    this.data.cart.map(item2=>{
+      if(!item2.isSelect){
+        flag = false;
+      }
+    });
+    this.setData({
+      selected: flag
+    });
+  },
+  selectAll: function(){
+    var totalPrice = 0, totalNum = 0;
+    //重新计算价格;
+    this.data.cart.map(item => {
+      item.isSelect = !this.data.selected;
+      if (item.isSelect) {
         //结算总价；
         totalPrice += item.nowPrice * item.qty;
 
@@ -82,25 +119,157 @@ Page({
         totalNum += item.qty;
       }
     });
-    //设置价格；
+    //全选反选;重新计算价格;
     this.setData({
+      selected: !this.data.selected,
+      cart: this.data.cart,
       totalPrice: totalPrice,
       totalNum: totalNum
     });
-
-    //判断是否全选;
-    
-    this.data.cart.map(item2=>{
-      if(item2.isSelect){
-        console.log('不全选');
-        this.data.selected = false;
+    app.data.cart = this.data.cart;
+  },
+  /*计算价格、数量函数；*/
+  count: function(){
+    var totalPrice = 0, totalNum = 0;
+    this.data.cart.map(item => {
+      if(item.isSelect){
+        //结算总价；
+        totalPrice += item.nowPrice * item.qty;
+        //结算数量；
+        totalNum += item.qty;
       }
     });
+    //设置价格；
     this.setData({
-      selected: !this.data.selected
-    })
+      totalPrice: totalPrice.toFixed(2),
+      totalNum: totalNum
+    });
 
+    //有需要返回时可用；
+    return totalNum
+  },
+  /*数量减少*/
+  sub: function(e){
+    this.data.cart.map(item=>{
+      if(item.ID == e.target.dataset.id){
+        if(item.qty == 1){
+          item.qty = 1;
+          //当前数量为1时，不改变数量提示；
+          app.addCart();
+          
+        } else {
+          item.qty--;
+          //改变数量提示
+          app.data.qty--;
+          app.addCart();
+        }
+      }
+    });
+    //更新数据；
+    this.setData({
+      cart: this.data.cart,
+      min: this.data.min
+    });
+    app.data.cart = this.data.cart;
    
+    this.count();
+  },
+  plus: function(e){
+    this.data.cart.map(item => {
+      if (item.ID == e.target.dataset.id) {
+        if (item.qty >= 100) {
+          item.qty = 100;
+          //达到上限时，不改变数量提示；
+          app.addCart();
+          
+        } else {
+          item.qty++;
+          //改变数量提示
+          app.data.qty++;
+          app.addCart();
+        }
+      }
+    });
+    //更新数据；
+    this.setData({
+      cart: this.data.cart
+    });
+    app.data.cart = this.data.cart;
+   
+    this.count();
+  },
+  /*跳转主页*/
+  tocategory: function(){
+    wx.switchTab({
+      url: '../category/category'
+    })
+  },
+
+
+  //手指触摸动作开始 记录起点X坐标
+  touchstart: function (e) {
+    //开始触摸时 重置所有删除
+    this.data.cart.forEach(function (v, i) {
+      if (v.isTouchMove)//只操作为true的
+        v.isTouchMove = false;
+    })
+    this.setData({
+      startX: e.changedTouches[0].clientX,
+      startY: e.changedTouches[0].clientY,
+      cart: this.data.cart
+    })
+  },
+  //滑动事件处理
+  touchmove: function (e) {
+    var that = this,
+      index = e.currentTarget.dataset.index,//当前索引
+      startX = that.data.startX,//开始X坐标
+      startY = that.data.startY,//开始Y坐标
+      touchMoveX = e.changedTouches[0].clientX,//滑动变化坐标
+      touchMoveY = e.changedTouches[0].clientY,//滑动变化坐标
+      //获取滑动角度
+      angle = that.angle({ X: startX, Y: startY }, { X: touchMoveX, Y: touchMoveY });
+    that.data.cart.forEach(function (v, i) {
+      v.isTouchMove = false
+      //滑动超过30度角 return
+      if (Math.abs(angle) > 30) return;
+      if (i == index) {
+        if (touchMoveX > startX) //右滑
+          v.isTouchMove = false
+        else //左滑
+          v.isTouchMove = true
+      }
+    })
+    //更新数据
+    that.setData({
+      cart: that.data.cart
+    })
+  },
+  /**
+   * 计算滑动角度
+   * @param {Object} start 起点坐标
+   * @param {Object} end 终点坐标
+   */
+  angle: function (start, end) {
+    var _X = end.X - start.X,
+      _Y = end.Y - start.Y
+    //返回角度 /Math.atan()返回数字的反正切值
+    return 360 * Math.atan(_Y / _X) / (2 * Math.PI);
+  },
+  //删除事件
+  del: function (e) {
+    this.data.cart.splice(e.currentTarget.dataset.index, 1)
+    this.setData({
+      cart: this.data.cart
+    });
+    app.data.cart = this.data.cart;
+    this.count();
+    var num = 0;
+    this.data.cart.map(item4=>{
+      num += item4.qty;
+    })
+    app.data.qty = num;
+    app.addCart();
   },
 
   /**
@@ -115,13 +284,31 @@ Page({
    */
   onShow: function () {
     console.log(333, app.data.cart);
+    // 购物车为空时;
+    if(app.data.cart.length <= 0){
+      // this.data.show = true;
+      this.setData({
+        show: true
+      });
+      return false
+    } else {
+      this.setData({
+        show: false
+      });
+    }
+    console.log(234)
     app.data.cart.map(item=>{
       item.isSelect = true;
+      item.isTouchMove = false; //默认全隐藏删除
     })
-    //购物车商品列表；
+    //购物车商品列表；更新全选；
     this.setData({
-      cart: app.data.cart
+      cart: app.data.cart,
+      selected: true
     });
+
+    //每次进入购物车都计算价格及数量；
+    this.count();
   },
 
   /**

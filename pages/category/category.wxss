@@ -114,14 +114,14 @@ page {
   box-sizing: border-box;
   height: 100%;
   text-align: center;
-  line-height: 200rpx;
+  line-height: 160rpx;
 }
 .addCart {
-  width: 40rpx;
-  height: 40rpx;
+  width: 50rpx;
+  height: 50rpx;
   position: absolute;
   right: 80rpx;
-  bottom: 50rpx;
+  bottom: 70rpx;
 }
 .addCart_img {
   height: 100%;
