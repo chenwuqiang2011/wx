@@ -1,206 +1,73 @@
 // pages/info/info.js
-var QQMapWX = require('../libs/qqmap-wx-jssdk.js');
-var qqmapsdk;
+var template = require('../../template/template.js');
+
+var show = false;
+var item = {};
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    items: [],
-    startX: 0, //开始坐标
-    startY: 0
+    item: {
+      show: show
+    },
+    province: '请输入地址'
   },
   onLoad: function () {
-    for (var i = 0; i < 10; i++) {
-      this.data.items.push({
-        content: i + " 向左滑动删除哦,向左滑动删除哦,向左滑动删除哦,向左滑动删除哦,向左滑动删除哦",
-        isTouchMove: false //默认全隐藏删除
-      })
-    }
-    this.setData({
-      items: this.data.items
-    })
-  },
-  //手指触摸动作开始 记录起点X坐标
-  touchstart: function (e) {
-    //开始触摸时 重置所有删除
-    this.data.items.forEach(function (v, i) {
-      if (v.isTouchMove)//只操作为true的
-        v.isTouchMove = false;
-    })
-    this.setData({
-      startX: e.changedTouches[0].clientX,
-      startY: e.changedTouches[0].clientY,
-      items: this.data.items
-    })
-  },
-  //滑动事件处理
-  touchmove: function (e) {
-    var that = this,
-      index = e.currentTarget.dataset.index,//当前索引
-      startX = that.data.startX,//开始X坐标
-      startY = that.data.startY,//开始Y坐标
-      touchMoveX = e.changedTouches[0].clientX,//滑动变化坐标
-      touchMoveY = e.changedTouches[0].clientY,//滑动变化坐标
-      //获取滑动角度
-      angle = that.angle({ X: startX, Y: startY }, { X: touchMoveX, Y: touchMoveY });
-    that.data.items.forEach(function (v, i) {
-      v.isTouchMove = false
-      //滑动超过30度角 return
-      if (Math.abs(angle) > 30) return;
-      if (i == index) {
-        if (touchMoveX > startX) //右滑
-          v.isTouchMove = false
-        else //左滑
-          v.isTouchMove = true
+    wx.getUserInfo({
+      success: function(res){
+        console.log(res)
       }
     })
-    //更新数据
-    that.setData({
-      items: that.data.items
-    })
   },
-  /**
-   * 计算滑动角度
-   * @param {Object} start 起点坐标
-   * @param {Object} end 终点坐标
-   */
-  angle: function (start, end) {
-    var _X = end.X - start.X,
-      _Y = end.Y - start.Y
-    //返回角度 /Math.atan()返回数字的反正切值
-    return 360 * Math.atan(_Y / _X) / (2 * Math.PI);
-  },
-  //删除事件
-  del: function (e) {
-    this.data.items.splice(e.currentTarget.dataset.index, 1)
-    this.setData({
-      items: this.data.items
-    })
-  },
-  loading: function(){
-    wx.showLoading({
-      title: '加载中',
-      mask: true,
-      success: function () {
-
-      }
-    })
-
-    setTimeout(function () {
-      wx.hideLoading();
-      wx.showToast({
-        title: '成功',
-        icon: 'success',
-        duration: 2000
-      });
-    }, 2000)
-  },
-
-  //获取经纬度
-  getLocation: function (e) {
-    // 实例化API核心类
-    qqmapsdk = new QQMapWX({
-      key: 'QZ5BZ-Q4IWG-BM4QE-IUUVT-W5O45-ETBC6'
-    });
-    //1、获取当前位置坐标
-    var that = this;
-    wx.getLocation({
-      type: 'wgs84',
-      success: function (res) {
-        //2、根据坐标获取当前位置名称，显示在顶部:腾讯地图逆地址解析
-        qqmapsdk.reverseGeocoder({
-          location: {
-            latitude: res.latitude,
-            longitude: res.longitude
-          },
-          success: function (addressRes) {
-            var address = addressRes.result.address_component.district;
-            console.log(addressRes)
-            that.setData({
-              address: address
-            });
-            // var latitude = res.latitude
-            // var longitude = res.longitude  
-            // wx.openLocation({
-            //   latitude: latitude,
-            //   longitude: longitude,
-            //   scale: 28
-            // })
-          }
-        })
-      }
-    });
-
-    // var that = this
-    // wx.getLocation({
-    //   success: function (res) {
-    //     // success
-    //     console.log(res)
-    //     that.setData({
-    //       hasLocation: true,
-    //       location: {
-    //         longitude: res.longitude,
-    //         latitude: res.latitude
-    //       }
-    //     })
+  res: function(){
+    //access_token: "2e8eee2c-279e-4245-a2f1-c23bfae6892c"
+    // wx.request({
+    //   method: 'POST',
+    //   url: 'https://dopen.weimob.com/fuwu/b/oauth2/token?code=ef2855&state=custom&grant_type=authorization_code&client_id=6A7549D25FC1A1219766AB3FB5F764DA&client_secret=23BF67F8AB9B6BB2E44AF5718D8D43E1&redirect_uri=http://www.cwq888.cn',
+    //   success: function(res){
+    //     console.log(123,res)
     //   }
     // })
-  },
-
-  //根据经纬度在地图上显示
-  openLocation: function (e) {
-    console.log("openLocation" + e)
-    var value = e.detail.value
-    wx.openLocation({
-      longitude: Number(value.longitude),
-      latitude: Number(value.latitude)
-    });
-  },
-  //选择位置位置
-  chooseLocation: function (e) {
-    console.log(e)
-    // 实例化API核心类
-    qqmapsdk = new QQMapWX({
-      key: 'QZ5BZ-Q4IWG-BM4QE-IUUVT-W5O45-ETBC6'
-    });
-    //1、获取当前位置坐标
-    var that = this;
-
-    wx.chooseLocation({
-      success: function (res) {
-        // success
-        qqmapsdk.reverseGeocoder({
-          location: {
-            latitude: res.latitude,
-            longitude: res.longitude
-          },
-          success: function (addressRes) {
-            var address = addressRes.result.address_component.district;
-            console.log(addressRes)
-            that.setData({
-              address: address
-            })
-          }
-        })
+    wx.request({
+      url: 'https://dopen.weimob.com/api/1_0/wangpu/Carrier/Get?accesstoken=2e8eee2c-279e-4245-a2f1-c23bfae6892c',
+      data: {
+       
       },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
+      success: function(res){
+        console.log(res)
       }
     })
   },
-
-  /**
+  /*
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function (e) {
+    var that = this;
+    //请求数据
+    template.updateAreaData(that, 0, e);
   },
+  //点击选择城市按钮显示picker-view
+  translate: function (e) {
+    template.animationEvents(this, 0, true, 400);
+  },
+  //隐藏picker-view
+  hiddenFloatView: function (e) {
+    template.animationEvents(this, 200, false, 400);
+    console.log(123, this.data.item)
+    this.setData({
+      province: item.provinces[item.value[0]].name,
+      city: item.citys[item.value[1]].name,
+      county: item.countys[item.value[2]].name
+    });
+  },
+  //滑动事件
+  bindChange: function (e) {
+    template.updateAreaData(this, 1, e);
+    item = this.data.item;
 
+  },
   /**
    * 生命周期函数--监听页面显示
    */

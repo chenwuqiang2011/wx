@@ -6,7 +6,7 @@ var qqmapsdk;
 var ajaxCount = 0;
 var imgUrl = 'http://www.cwq888.cn';
 Page({
-
+  
   /**
    * 页面的初始数据
    */
