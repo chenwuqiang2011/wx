@@ -4,15 +4,15 @@
   <swiper class = "goods_img" indicator-dots="{{indicatorDots}}"
     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular = "{{circular}}">
       <swiper-item wx:if = "{{goods.imgurl}}">
-           <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>   
+           <image class = "lamp_img" src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>   
         <!-- <image src="{{item}}" class="slide-image" widtext="355" height="150"/> -->
       </swiper-item>
       <swiper-item wx:if = "{{goods.imgurl}}">
-          <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>  
+          <image class = "lamp_img" src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>  
         <!-- <image src="{{item}}" class="slide-image" widtext="355" height="150"/> -->
       </swiper-item>
       <swiper-item wx:if = "{{goods.imgurl}}">
-          <image src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>  
+          <image class = "lamp_img" src= "http://www.cwq888.cn/image/{{goods.imgurl}}"></image>  
         <!-- <image src="{{item}}" class="slide-image" widtext="355" height="150"/> -->
       </swiper-item>
      
