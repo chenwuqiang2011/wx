@@ -22,18 +22,18 @@ Page({
     })
   },
   res: function(){
-    //access_token: "2e8eee2c-279e-4245-a2f1-c23bfae6892c"
+    //access_token: "d3a396f4-cf5c-4350-a716-72b92a33292b"
     // wx.request({
     //   method: 'POST',
-    //   url: 'https://dopen.weimob.com/fuwu/b/oauth2/token?code=ef2855&state=custom&grant_type=authorization_code&client_id=6A7549D25FC1A1219766AB3FB5F764DA&client_secret=23BF67F8AB9B6BB2E44AF5718D8D43E1&redirect_uri=http://www.cwq888.cn',
+    //   url: 'https://dopen.weimob.com/fuwu/b/oauth2/token?grant_type=refresh_token&client_id=6A7549D25FC1A1219766AB3FB5F764DA&client_secret=23BF67F8AB9B6BB2E44AF5718D8D43E1&refresh_token=c595728f-65f0-469e-9ed9-d284350d5bb6',
     //   success: function(res){
     //     console.log(123,res)
     //   }
     // })
     wx.request({
-      url: 'https://dopen.weimob.com/api/1_0/wangpu/Carrier/Get?accesstoken=2e8eee2c-279e-4245-a2f1-c23bfae6892c',
+      url: 'https://dopen.weimob.com/api/1_0/wangpu/Image/Get?accesstoken=d3a396f4-cf5c-4350-a716-72b92a33292b',
       data: {
-       
+        spu_code: "43994067502tmall50"
       },
       success: function(res){
         console.log(res)
