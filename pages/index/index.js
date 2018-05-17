@@ -303,7 +303,6 @@
     wx.getLocation({
       type: 'wgs84',
       success: (res) => {
-        console.log(res);
         var latitude = res.latitude // 经度
         var longitude = res.longitude // 纬度
       }

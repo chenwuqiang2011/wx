@@ -1,0 +1,34 @@
+/* pages/address/address.wxss */
+page{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.address {
+  flex: 1;
+  background: #eee;
+}
+.address_fixed {
+  width: 100%;
+  height: 120rpx;
+  background: #fff;
+  position: relative;
+}
+.addAddress{
+  display: block;
+  width: 50%;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 10rpx;
+  font-size: 32rpx;
+  text-align: center;
+  background: red;
+  color: #fff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}

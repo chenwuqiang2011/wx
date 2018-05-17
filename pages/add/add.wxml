@@ -1,0 +1,33 @@
+<!-- 引入地址模板 -->
+<import src="../../template/template.wxml"/>
+<template is="areaData" data="{{...item}}"/>
+
+<view class = "list">
+  <text class = "text name">姓名</text>
+  <input  class = "input name_input" />
+</view>
+<view class = "list">
+  <text class = "text tel" type = "idcard">联系电话</text>
+  <input  class = "input tel_input" />
+</view>
+<view class = "list " bindtap="translate">
+  <text class = "text address">地址：</text>
+  <text class = "input animation-button" >{{province}} {{city}} {{county}}</text>
+  <image class = "right" src = "../right.png"></image>
+</view>
+<view class = "detail">
+  <textarea class = "detail_input" placeholder='请填写详细地址'></textarea>
+</view>
+<view class = "list">
+  <text class = "text post">邮政编码</text>
+  <input  class = "input post_input" placeholder='（选填）' />
+</view>
+<button class = "save" bindtap = "save">保存</button>
+
+
+<!-- 引入地址模板 -->
+<!-- <view class = "address" bindtap="translate">
+  <text class = "address_text">地址：</text>
+  <text class = "infoText animation-button" >{{province}} {{city}} {{county}}</text>
+</view>
+<template is="areaData" data="{{...item}}"/> -->

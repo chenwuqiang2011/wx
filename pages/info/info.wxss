@@ -1,2 +1,111 @@
 /* pages/info/info.wxss */
 @import '../../template/template.wxss';
+page {
+  height: 100%;
+  background: #eee;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40rpx 0;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+/* 购物车、地址 */
+.address {
+  width: 100%;
+  font-size: 28rpx;
+  height: 80rpx;
+  background: #fff;
+  margin-bottom: 2rpx;
+}
+.orderlist {
+  width: 100%;
+  height: 140rpx;
+  font-size: 28rpx;
+  background: #fff;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.status {
+  width: 25%;
+  height: 100rpx;
+}
+.status_img {
+  display: block;
+  width: 60rpx;
+  height: 60rpx;
+  margin: 20rpx auto;
+  /* margin-top: 20rpx; */
+}
+.status_name {
+  display: block;
+  color: #aaa;
+  text-align: center;
+ 
+}
+.address_left, .address_right {
+  display: block;
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+}
+.address_left {
+  float: left;
+}
+.address_right {
+  float: right;
+}
+.address_text {
+  float: left;
+  margin-left: 20rpx;
+  line-height: 80rpx;
+} 
+.checkout {
+  line-height: 80rpx;
+  color: #ccc;
+  float: right;
+}
+
+
+/* 地址模板样式 */
+/* .address {
+  width: 100%;
+  height: 60rpx;
+  margin: 20rpx 0;
+  line-height: 60rpx; 
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+.address_text {
+  display: inline-block;
+  line-height: 60rpx; 
+  width: 20%;
+  text-align: center;
+}
+ .infoText {
+  display: inline-block;
+  width: 80%;
+  border-bottom: 2rpx solid #ddd;
+  box-sizing: border-box;
+}  */

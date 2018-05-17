@@ -1,9 +1,7 @@
 {
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "购物2",
-    "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": false
-  }
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTitleText": "藏宝阁",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": false
 }

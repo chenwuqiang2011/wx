@@ -3,12 +3,12 @@ page{
   background-color: rgba(255, 255, 255, 1); 
 }
 
-.infoText{
+/* .infoText{
     margin-top: 20rpx;
     text-align: center;
     width: 100%;
     justify-content: center; 
-}
+} */
 
 .centerText{
   margin-top: 100rpx;
@@ -45,6 +45,7 @@ picker-view-column view{
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
 }
 .animation-element {
   display: flex;
@@ -55,14 +56,14 @@ picker-view-column view{
   background-color: rgba(255, 255, 255, 1);
 }
 
-.animation-button {
+/* .animation-button {
   margin-top: 20rpx;
   top:20rpx;
   width: 400rpx;
   height: 100rpx; 
   line-height: 100rpx; 
   align-items:center;
-}
+} */
 
 
 .animation-element text{
