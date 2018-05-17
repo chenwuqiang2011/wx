@@ -1,4 +1,5 @@
 // pages/info/info.js
+var app = getApp();
 var template = require('../../template/template.js');
 
 var show = false;
@@ -9,35 +10,68 @@ Page({
    * 页面的初始数据
    */
   data: {
+    motto: 'Hello World',
+    userInfo: {},
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     item: {
       show: show
     },
     province: '请输入地址'
   },
   onLoad: function () {
-    wx.getUserInfo({
-      success: function(res){
-        console.log(res)
+    //动态设置页面标题。跟json配置功能一样；
+    // wx.setNavigationBarTitle({
+    //   title: '个人中心',
+    //   success: function () {
+    //     console.log('个人中心设置成功！')
+    //   }
+    // });
+
+    //用户信息；
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
       }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
+      })
+    }
+  },
+  getUserInfo: function(e){
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
     })
   },
-  res: function(){
-    //access_token: "2e8eee2c-279e-4245-a2f1-c23bfae6892c"
-    // wx.request({
-    //   method: 'POST',
-    //   url: 'https://dopen.weimob.com/fuwu/b/oauth2/token?code=ef2855&state=custom&grant_type=authorization_code&client_id=6A7549D25FC1A1219766AB3FB5F764DA&client_secret=23BF67F8AB9B6BB2E44AF5718D8D43E1&redirect_uri=http://www.cwq888.cn',
-    //   success: function(res){
-    //     console.log(123,res)
-    //   }
-    // })
-    wx.request({
-      url: 'https://dopen.weimob.com/api/1_0/wangpu/Carrier/Get?accesstoken=2e8eee2c-279e-4245-a2f1-c23bfae6892c',
-      data: {
-       
-      },
-      success: function(res){
-        console.log(res)
-      }
+  toCart: function(){
+    wx.switchTab({
+      url: '../cart/cart'
+    })
+  },
+  toAddress: function(){
+    wx.navigateTo({
+      url: '../address/address'
     })
   },
   /*

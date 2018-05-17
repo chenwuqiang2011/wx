@@ -55,6 +55,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //动态设置页面标题。
+    // wx.setNavigationBarTitle({
+    //   title: '购物车',
+    //   success: function () {
+    //     console.log('购物车设置成功！')
+    //   }
+    // });
+    //获取容器高度；
     wx.getSystemInfo({
       success: (res) => {
         this.setData({

@@ -1,0 +1,60 @@
+/* pages/add/add.wxss */
+@import '../../template/template.wxss';
+page {
+  width: 100%;
+  height: 100%;
+  background: #eee
+}
+.list {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-bottom: 2rpx solid #ddd;
+  padding-left: 20rpx;
+  font-size: 28rpx;
+  background: #fff;
+  position: relative;
+}
+.text{
+  display: block;
+  float: left;
+  width: 20%;
+}
+.right {
+  position: absolute;
+  height: 40rpx;
+  width: 40rpx;
+  top: 20rpx;
+  right: 20rpx;
+}
+.input {
+  float: left;
+  display: block;
+  width: 80%;
+  height: 100%;
+  line-height: 80rpx;
+}
+.detail {
+  width: 100%;
+  height: 158rpx;
+  background: #fff;
+  border-bottom: 2rpx solid #ddd;  
+}
+.detail_input {
+  display: block;
+  width: 100%;
+  height: 200rpx;
+  font-size: 28rpx;
+  padding: 20rpx;  
+}
+.save {
+  width: 90%;
+  margin: 0 auto;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  background: red;
+  color: #fff;
+  text-align: center;
+  margin-top: 40rpx;
+}

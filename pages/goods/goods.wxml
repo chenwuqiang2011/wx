@@ -90,6 +90,10 @@
     </view>
 </view>
 <view class = "fixed">
+  <view class = "cart" bindtap='toCart'>
+    <image class = "cart_img" src = "../cart_on.png"></image>
+    <text class = "qty" wx:if = "{{qty!==0}}">{{qty}}</text>
+  </view>
   <view class = "add" bindtap="add">加入购物车</view>
   <view class = "buy">立即购买</view>
 </view>

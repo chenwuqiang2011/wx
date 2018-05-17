@@ -15,16 +15,19 @@ Page({
     autoplay: true,
     interval: 3000,
     duration: 1000,
-    circular: true
+    circular: true,
+    qty: 0
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+    //跳转传过来的参数；
     var id = options.id;
     this.id = options.id;
-    console.log(id)
     var that = this;
     wx.request({
       method: 'POST',
@@ -96,7 +99,10 @@ Page({
     var that = this;
     console.log(app.data.qty)
     app.data.qty++;
-    console.log(app.data.qty)
+    //更新购物车数量；
+    this.setData({
+      qty: app.data.qty
+    });
     
     wx.showToast({
       title: '已添加到购物车',
@@ -105,6 +111,11 @@ Page({
       success: function () {
         app.addCart();
       }
+    })
+  },
+  toCart: function(){
+    wx.switchTab({
+      url: '../cart/cart'
     })
   },
 
@@ -119,7 +130,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    console.log(app.data.qty)
+    //更新购物车数量；
+    this.setData({
+      qty: app.data.qty
+    });
   },
 
   /**

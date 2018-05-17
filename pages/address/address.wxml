@@ -1,0 +1,7 @@
+<!--pages/address/address.wxml-->
+<view class = "address">
+
+</view>
+<view class = "address_fixed">
+  <button class = "addAddress" bindtap='addAddress'>新增收货地址</button>
+</view>

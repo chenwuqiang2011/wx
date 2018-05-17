@@ -1,8 +1,56 @@
 <!--pages/info/info.wxml-->
-<import src="../../template/template.wxml"/>
-<view class = "info" bindtap='res'>
-  123
+
+<!-- 用户头像、信息 -->
+
+<view class="userinfo">
+  <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 登录</button>
+  <block wx:else>
+    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </block>
 </view>
-<view class="infoText animation-button" bindtap="translate">{{province}} {{city}} {{county}}</view>
-<button class="animation-button" bindtap="translate">选择城市</button>
-<template is="areaData" data="{{...item}}"/>
+<!-- 全部订单 -->
+<view class = "address">
+  <text class = "address_text">全部订单</text>
+  <image class = "address_right" src = "../right.png"></image>
+  <text class = "checkout">查看全部订单</text>
+</view>
+<!-- 发货状态 -->
+<view class = "orderlist">
+  <view class = "status unpaid">
+    <image class = "unpaid_img status_img" src = "../unpaid.png"></image>
+    <text class = "unpaid_name status_name">待支付</text>
+  </view>
+  <view class = "status undelivery">
+    <image class = "undelivery_img status_img" src = "../undelivery.png"></image>
+    <text class = "undelivery_name status_name">待发货</text>
+  </view>
+  <view class = "status receiving">
+    <image class = "receiving_img status_img" src = "../receiving.png"></image>
+    <text class = "receiving_name status_name">待收货</text>
+  </view>
+  <view class = "status unevaluate">
+    <image class = "unevaluate_img status_img" src = "../unevaluate.png"></image>
+    <text class = "unevaluate_name status_name">待评价</text>
+  </view>
+</view>
+<!-- 购物车 -->
+<view class = "address" bindtap = "toCart">
+  <image class = "address_left" src = "../add_cart.png"></image>
+  <text class = "address_text">我的购物车</text>
+  <image class = "address_right" src = "../right.png"></image>
+</view>
+<!-- 地址管理 -->
+<view class = "address"  bindtap = "toAddress">
+  <image class = "address_left" src = "../address.png"></image>
+  <text class = "address_text">地址管理</text>
+  <image class = "address_right" src = "../right.png"></image>
+</view>
+<!-- 地址模板 -->
+<!-- 引入地址模板 -->
+<import src="../../template/template.wxml"/>
+<!-- <view class = "address" bindtap="translate">
+  <text class = "address_text">地址：</text>
+  <text class = "infoText animation-button" >{{province}} {{city}} {{county}}</text>
+</view>
+<template is="areaData" data="{{...item}}"/> -->
