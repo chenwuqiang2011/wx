@@ -1,7 +1,7 @@
 // pages/cart/cart.js
 var app = getApp();
+var imgUrl = app.data.imgUrl;
 var baseUrl = app.data.baseUrl;
-var imgUrl = 'http://www.cwq888.cn/image/';
 Page({
 
   /**

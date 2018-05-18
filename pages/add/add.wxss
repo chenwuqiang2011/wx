@@ -10,6 +10,7 @@ page {
   height: 80rpx;
   line-height: 80rpx;
   border-bottom: 2rpx solid #ddd;
+  box-sizing: border-box;
   padding-left: 20rpx;
   box-sizing: border-box;
   font-size: 28rpx;
@@ -47,6 +48,7 @@ page {
   height: 120rpx;
   font-size: 28rpx;
   padding: 20rpx;  
+  box-sizing: border-box;
 }
 .save {
   width: 90%;

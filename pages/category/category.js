@@ -2,8 +2,8 @@
 var event = require('../../utils/event.js');
 var app = getApp();
 var baseUrl = app.data.baseUrl;
+var imgUrl = app.data.imgUrl;
 var qty = app.data.qty.toString();
-var imgUrl = 'http://www.cwq888.cn/image/';
 
 Page({
 

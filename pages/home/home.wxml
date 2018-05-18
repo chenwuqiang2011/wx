@@ -88,7 +88,7 @@
       <view class = "package-buy">立即抢购></view>
     </view>
     <view class = "package-right">
-      <image class = "package-img" src = "http://cwq888.cn/image/staple-food/Bacon-pizza-wit-potato-chips.jpg"></image>
+      <image class = "package-img" src = "{{imgUrl}}staple-food/Bacon-pizza-wit-potato-chips.jpg"></image>
     </view>
   </view>
   <!-- 推荐商品 -->
@@ -98,7 +98,7 @@
     </view>
     <scroll-view class = "goodslist" scroll-x = "true">
       <view class = "goods-item" wx:for = "{{goodslist}}" wx:key = "{{index}}">
-        <image class = "goods-item-img" src = "http://cwq888.cn/image/{{item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
+        <image class = "goods-item-img" src = "{{imgUrl+item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
         <text class = "goods-item-name">{{item.name}}</text>
       </view>
     </scroll-view>
@@ -117,7 +117,7 @@
   <image class = "foryou-img" src = "../libs/drink.jpg"></image>
   <scroll-view class = "drinks" scroll-x = "true"> 
       <view class = "drinks-item" wx:for = "{{drinks}}" wx:key = "{{index}}">
-        <image class = "drinks-img" src = "http://www.cwq888.cn/image/{{item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
+        <image class = "drinks-img" src = "{{imgUrl+item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
         <view class = "drinks-hot">热卖中</view> 
         <view class = "drinks-name">{{item.name}}</view>
         <view class = "drinks-price">￥{{item.nowPrice}}</view> 
@@ -127,7 +127,7 @@
   <image class = "foryou-img" src = "../libs/fruite.jpg"></image>
   <scroll-view class = "drinks" scroll-x = "true"> 
       <view class = "drinks-item" wx:for = "{{fruite}}" wx:key = "{{index}}">
-        <image class = "drinks-img" src = "http://www.cwq888.cn/image/{{item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
+        <image class = "drinks-img" src = "{{imgUrl+item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
         <view class = "drinks-hot">热卖中</view> 
         <view class = "drinks-name">{{item.name}}</view>
         <view class = "drinks-price">￥{{item.nowPrice}}</view> 
@@ -137,7 +137,7 @@
   <image class = "foryou-img" src = "../libs/rice.jpg"></image>
   <scroll-view class = "drinks" scroll-x = "true"> 
       <view class = "drinks-item" wx:for = "{{rice}}" wx:key = "{{index}}">
-        <image class = "drinks-img" src = "http://www.cwq888.cn/image/{{item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
+        <image class = "drinks-img" src = "{{imgUrl+item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
         <view class = "drinks-hot">热卖中</view> 
         <view class = "drinks-name">{{item.name}}</view>
         <view class = "drinks-price">￥{{item.nowPrice}}</view> 
