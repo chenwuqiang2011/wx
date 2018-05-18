@@ -1,10 +1,10 @@
 // pages/home/home.js
 var app = getApp();
 var baseUrl = app.data.baseUrl;
+var imgUrl = app.data.imgUrl;
 var QQMapWX = require('../libs/qqmap-wx-jssdk.js');
 var qqmapsdk;
 var ajaxCount = 0;
-var imgUrl = 'http://www.cwq888.cn';
 Page({
   
   /**
@@ -41,10 +41,11 @@ Page({
     left: 0,
     items: ['水果沙拉', '西餐', '广东特色', '陕西风味', '新疆肥羊' ,'甜点'],
     imgUrls: [
-      imgUrl + '/image/sala/Yogurt-mixed-fruit-salad.jpg',
-      imgUrl + '/image/main-course/Roasted-lobster-with-cream-cheese.jpg',
-      imgUrl + '/image/staple-food/Ham-salad-pasta.jpg'
+      imgUrl + 'sala/Yogurt-mixed-fruit-salad.jpg',
+      imgUrl + 'main-course/Roasted-lobster-with-cream-cheese.jpg',
+      imgUrl + 'staple-food/Ham-salad-pasta.jpg'
     ],
+    imgUrl: imgUrl,
     indicatorDots: true,
     autoplay: true,
     interval: 3000,

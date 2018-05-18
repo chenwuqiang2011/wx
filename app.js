@@ -6,7 +6,8 @@ App({
     goodslist: [],
     cart: [],
     qty: 0,
-    baseUrl: 'http://192.168.100.15:443/'
+    baseUrl: 'http://192.168.1.186:443/',
+    imgUrl: 'http://www.cwq888.cn/image'
   },
   addCart: function(){
     //消息提醒；适用于购物车或者消息提醒；

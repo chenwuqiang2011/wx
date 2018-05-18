@@ -1,6 +1,7 @@
 // pages/goods/goods.js
 var app = getApp();
 var baseUrl = app.data.baseUrl;
+var imgUrl = app.data.imgUrl;
 Page({
 
   /**
@@ -16,7 +17,8 @@ Page({
     interval: 3000,
     duration: 1000,
     circular: true,
-    qty: 0
+    qty: 0,
+    imgUrl: imgUrl
 
   },
 

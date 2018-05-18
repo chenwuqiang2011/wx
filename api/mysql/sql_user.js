@@ -53,14 +53,15 @@ module.exports = {
 		})
 	},
 	address: function(table, data, callback){
+		console.log(data)
 		var username = data.username;
-		var address = [data.address];
+		var address = [];
+		address.push(JSON.parse(data.address));
 
 		//先查询用户原来地址；
 		var condition = 'select * from '+ table +' where username = ?';
 		sql.query(condition, [username], function(err, results, fields){
 			if(results[0].address == ''){console.log('没有')
-				address = JSON.stringify(address);
 				console.log('66',address)
 			} else{
 				console.log('68',results[0].address);
@@ -72,9 +73,10 @@ module.exports = {
 					address.push(item);
 					console.log('push',item)
 				});
-				address = JSON.stringify(address);
-				console.log('75', address);
+				
 			}
+			address = JSON.stringify(address);
+			console.log('75', address);
 			//用户新增地址；
 
 			var modSql = 'UPDATE ' + table +' SET address = ? WHERE username = ?';
