@@ -61,6 +61,8 @@ module.exports = {
 		//先查询用户原来地址；
 		var condition = 'select * from '+ table +' where username = ?';
 		sql.query(condition, [username], function(err, results, fields){
+			console.log('64', results);
+			if(results.length <= 0) return false
 			if(results[0].address == ''){console.log('没有')
 				console.log('66',address)
 			} else{
@@ -92,7 +94,13 @@ module.exports = {
 		//先查询用户原来地址；
 		var condition = 'select * from '+ table +' where username = ?';
 		sql.query(condition, [username], function(err, results, fields){
-			callback({status: true, message: '查询到地址！', data: results});
+			console.log('95', results);
+			if(results.length > 0) {
+				callback({status: true, message: '查询到地址！', data: results});
+			} else {
+				callback({status: false, message: '该用户暂时没有收货地址！', data: null});
+			}
+			
 		})
 	},
 	updateAddress: function(table, data, callback){

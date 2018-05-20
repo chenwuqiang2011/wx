@@ -90,6 +90,8 @@ Page({
       },
       dataType: 'json',
       success: function (res) {
+        console.log(123, res)
+        if(!res.data.status) return false
         console.log(res.data.data[0].address)
         that.setData({
           addressList: JSON.parse(res.data.data[0].address)

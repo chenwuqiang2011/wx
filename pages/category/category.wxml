@@ -1,3 +1,6 @@
+   <import src="../../template/template.wxml"/>
+  
+   
    <!-- 搜索框 -->
   <view class = "category_search">
      <view class = "search">
@@ -7,14 +10,25 @@
   </view>
  
   <view class = "category">
-     <scroll-view class = "tabs" scroll-x = 'true' scroll-left = "{{left}}">
-      <view wx:for = "{{tabs}}" wx:key = "index" class = "tab-item {{currentTab == index ? 'active' : ''}}" data-current = "{{index}}" bindtap = "changeNav">{{item.category}}</view>
+    <view class = "category_title">
+      <scroll-view class = "tabs" scroll-x = 'true' scroll-left = "{{left}}">
+        <view wx:for = "{{tabs}}" wx:key = "index" class = "tab-item {{currentTab == index ? 'active' : ''}}" data-current = "{{index}}" bindtap = "changeNav">
+          {{item.category}}
+        </view>
     </scroll-view>
+      <view wx:if = "{{tabs.length >0}}" class = "second_css">
+        <image class = "list_view" wx:if = "{{list}}" src = "../list.png" bindtap='list'></image>
+        <image class = "list_view" wx:if = "{{!list}}"src = "../list_view.png" bindtap='list'></image>
+      </view>
+    </view>
+     
+      
   <swiper class = "tabs-content" current = "{{currentTab}}" bindchange = "changeTab">
     <swiper-item wx:for = "{{tabs}}" wx:key = "{{index}}" >
       <scroll-view scroll-y = "true" class = "scroll-y" style = "height: 100%; scrollbar: none">
-        <view wx:for = "{{item.data}}" wx:key = "index">
-          <view class = "details">
+
+          <!-- 一行一个商品 -->
+          <view wx:if = "{{list}}" class = "details" wx:for = "{{item.data}}" wx:key = "index">
             <view class = "details-left">
               <image class = "details-img" src="{{imgUrl+item.imgurl}}"  data-id = "{{item.ID}}" bindtap='toDetail'></image>
               <view class = "details-desc">
@@ -26,8 +40,13 @@
             <view class = "addCart">
               <image class = "addCart_img" src = "../add.png" bindtap='addCart' data-id = "{{item.ID}}"></image>
             </view>
+          </view> 
+          <!-- 一行两个商品 -->
+           <view wx:if = "{{!list}}" class = "d-details" wx:for = "{{item.data}}" wx:key = "index">
+            <template is="{{list?'single': 'double'}}" data="{{...item}}"/>
           </view>
-        </view>
+          
+        
       </scroll-view>
     </swiper-item>
   </swiper>

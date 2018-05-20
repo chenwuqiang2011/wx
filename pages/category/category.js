@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    list: true,
     msg: '原来的数据',
     helloMsg: '123',
     tabs: [],
@@ -28,6 +29,12 @@ Page({
     console.log(item.index)
     console.log(item.pagePath)
     console.log(item.text)
+  },
+  //改变商品排列显示样式；
+  list: function(){
+    this.setData({
+      list:!this.data.list
+    })
   },
   onLoad: function (options) {
     //动态设置页面标题。

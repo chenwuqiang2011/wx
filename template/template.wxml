@@ -39,3 +39,37 @@
     </view>
   </view>
 </template>
+
+<!-- --------------分割线------------- -->
+
+<template name = "double">
+    <view class = "d-details-left">
+      <image class = "d-details-img" src="http://www.cwq888.cn/image/{{imgurl}}"  data-id = "{{ID}}" bindtap='toDetail'></image>
+      <view class = "d-details-desc">
+        <view class = "d-details-name">{{name}}</view>
+        <view class = "d-details-sales">{{'已售： '+sales+' 份'}}</view>
+      </view>
+    </view>
+    <view class = "d-details-right d-details-price">￥{{nowPrice}}</view>
+    <view class = "d-addCart">
+      <image class = "d-addCart_img" src = "../add.png" bindtap='addCart' data-id = "{{ID}}"></image>
+    </view>
+
+</template>
+
+<!-- --------------分割线------------- -->
+
+<template name = "single">
+    <view class = "s-details-left">
+      <image class = "s-details-img" src="http://www.cwq888.cn/image/{{imgurl}}"  data-id = "{{ID}}" bindtap='toDetail'></image>
+      <view class = "s-details-desc">
+        <view class = "s-details-name">{{name}}</view>
+        <view class = "s-details-sales">{{'已售： '+sales+' 份'}}</view>
+      </view>
+    </view>
+    <view class = "s-details-right s-details-price">￥{{nowPrice}}</view>
+    <view class = "addCart">
+      <image class = "addCart_img" src = "../add.png" bindtap='addCart' data-id = "{{ID}}"></image>
+    </view>
+
+</template>
