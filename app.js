@@ -6,7 +6,7 @@ App({
     goodslist: [],
     cart: [],
     qty: 0,
-    baseUrl: 'http://192.168.1.186:443/',
+    baseUrl: 'http://192.168.100.11:443/',
     imgUrl: 'http://www.cwq888.cn/image/'
   },
   addCart: function(){
@@ -86,8 +86,17 @@ App({
       },
       url: this.data.baseUrl + 'getCart',
       success: function (res) {
-        console.log(res, res.data.data[0].cart)
-        that.data.cart = JSON.parse(res.data.data[0].cart);
+        console.log(res)
+        if(res.data.status){
+          console.log(res.data.data[0].cart)
+          that.data.cart = JSON.parse(res.data.data[0].cart);
+          //同时更新数量提示；
+          that.data.cart.map((item, idx)=>{
+            that.data.qty += item.qty;
+            that.addCart();
+          })
+        }
+        
       }
     })
   },
