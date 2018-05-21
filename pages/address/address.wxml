@@ -1,32 +1,31 @@
 <!--pages/address/address.wxml-->
-<view class = "address">
+<scroll-view scroll-y = 'true' class = "address">
   <view class = "addressList" wx:for = "{{addressList}}" wx:key = "{{index}}">
     <view class = "detail">
       <text class = "detail_name">{{item.name}}</text>
       <text class = "detail_tel">{{item.tel}}</text>
     </view>
     <view class = "recieve">
-      收货地址：{{item.province}}{{item.cify}}{{item.country}}{{item.detail}}
+      收货地址：{{item.province}}{{item.city}}{{item.county}}{{item.detail}}
     </view>
     <view class = "default">
-      <view class = "select">
-        <image class = "select_img" src = "../select.png"></image>
+      <view class = "select" bindtap='select' data-id = "{{index}}">
+        <image class = "select_img" src = "../{{item.checked? 'select': 'unselect'}}.png"></image>
         <text> 默认地址</text>
       </view>
-      <view class = "edit_del">
-        <view class = "edit">
+      <view class = "edit_del" >
+        <view class = "edit"  bindtap = "edit" data-id = "{{index}}">
           <image class = "edit_img" src = "../edit.png"></image>
           <text>编辑</text>
         </view>
-        <view class = "del">
+        <view class = "del" bindtap = "del" data-id = "{{index}}">
           <image class = "del_img" src = "../del.png"></image>
           <text>删除</text>
         </view>
       </view>
     </view>
   </view>
-  <view bindtap='aaa'>123</view>
-</view>
+</scroll-view>
 <view class = "address_fixed">
   <button class = "addAddress" bindtap='addAddress'>新增收货地址</button>
 </view>

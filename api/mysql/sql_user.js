@@ -64,13 +64,18 @@ module.exports = {
 			console.log('64', results);
 			if(results.length <= 0) return false
 			if(results[0].address == ''){console.log('没有')
+				//当前用户没有地址时，
+				address[0].checked = true;
 				console.log('66',address)
 			} else{
 				console.log('68',results[0].address);
 				var res = JSON.parse(results[0].address);
 				res.map(item=>{
-					if(address[0].value == 'true'){
-						item.value = false;
+					//如果新增地址的默认地址勾选时，则其他地址不勾选；
+					console.log('123', address[0].checked)
+					if(address[0].checked){
+						console.log('item.checked', item.checked)
+						item.checked = false;
 					}
 					address.push(item);
 					console.log('push',item)
@@ -94,8 +99,8 @@ module.exports = {
 		//先查询用户原来地址；
 		var condition = 'select * from '+ table +' where username = ?';
 		sql.query(condition, [username], function(err, results, fields){
-			console.log('95', results);
-			if(results.length > 0) {
+			console.log('95', results, results[0].address);
+			if(results.length > 0 && results[0].address) {
 				callback({status: true, message: '查询到地址！', data: results});
 			} else {
 				callback({status: false, message: '该用户暂时没有收货地址！', data: null});
@@ -105,8 +110,7 @@ module.exports = {
 	},
 	updateAddress: function(table, data, callback){
 		var username = data.username;
-		var address = JSON.stringify(data.address);
-		console.log(1)
+		var address = data.address;
 
 		//先查询用户原来地址；
 		var modSql = 'UPDATE ' + table +' SET address = ? WHERE username = ?';
@@ -180,6 +184,34 @@ module.exports = {
 				console.log(arr);
 				callback({status: true, message: '收藏商品展示成功！', data: arr})
 			})
+		})
+	},
+	//添加用户购物车；
+	cart: function(table, data, callback){
+		var username = data.username;
+		var cart = data.cart;
+		console.log('111111', data.cart)
+		//用户新增地址；
+
+		var modSql = 'UPDATE ' + table +' SET cart = ? WHERE username = ?';
+		
+		sql.query(modSql, [cart, username], function(err,results,fields){
+			callback({status: true, message: '购物车添加成功！', data: results});
+		});
+	},
+	//获取用户购物车
+	getCart: function(table, data, callback){
+		var username = data.username;
+		//先查询用户原来地址；
+		var condition = 'select * from '+ table +' where username = ?';
+		sql.query(condition, [username], function(err, results, fields){
+			
+			if(results.length > 0 && results[0].cart) {
+				callback({status: true, message: '查询购物车商品数量！', data: results});
+			} else {
+				callback({status: false, message: '该用户购物车暂时没有商品！', data: null});
+			}
+			
 		})
 	},
 	order: function(table, data, callback){

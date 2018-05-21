@@ -179,6 +179,8 @@ Page({
       min: this.data.min
     });
     app.data.cart = this.data.cart;
+    //把购物车更新到后端服务器
+    app.cart("13538966472");
    
     this.count();
   },
@@ -192,6 +194,7 @@ Page({
           
         } else {
           item.qty++;
+          
           //改变数量提示
           app.data.qty++;
           app.addCart();
@@ -203,6 +206,8 @@ Page({
       cart: this.data.cart
     });
     app.data.cart = this.data.cart;
+    //把购物车更新到后端服务器
+    app.cart("13538966472");
    
     this.count();
   },

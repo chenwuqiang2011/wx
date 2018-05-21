@@ -99,6 +99,90 @@ Page({
       }
     })
   },
+  select: function(e){
+    console.log(e)
+    var index = e.currentTarget.dataset.id;
+    //改变默认地址；
+    this.data.addressList.map((item, idx) => {
+      if(idx == index) {
+        item.checked = true;
+      } else {
+        item.checked = false;
+      }
+      console.log(item.checked)
+    });
+    this.setData({
+      addressList: this.data.addressList
+    });
+    //更新到后台服务器；
+    wx.request({
+      method: 'POST',
+      url: baseUrl + 'updateAddress',
+      data: { username: '13538966472', address: JSON.stringify(this.data.addressList)},
+      header: {
+        //  'content-type': 'application/json' // 默认值
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(123, res)
+        
+      }
+    })
+  },
+  //编辑地址；
+  edit: function(e){
+    console.log(e)
+    var index = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../add/add?id=' + index,
+    });
+  },
+  //删除地址；
+  del: function(e){
+    console.log(e)
+    var index = e.currentTarget.dataset.id;
+   
+    //如果删除的当前地址为默认地址且还在其它地址，则地址列表的第一个地址为默认地址；
+    if (this.data.addressList[index].checked && this.data.addressList.length > 0){
+      
+      //如果只有最后一个地址，直接删除即可；
+      if (this.data.addressList.length == 1){
+        //删除当前选择的地址；
+        this.data.addressList.splice(index, 1);
+      } else {
+        //删除当前选择的地址；
+        this.data.addressList.splice(index, 1);
+        //重新设置第一个为默认地址；
+        this.data.addressList[0].checked = true;
+      }
+      
+    } else {
+      //删除当前选择的地址；
+      this.data.addressList.splice(index, 1);
+    }
+  
+    console.log(this.data.addressList)
+    this.setData({
+      addressList: this.data.addressList
+    });
+
+    //更新到后台服务器；
+    wx.request({
+      method: 'POST',
+      url: baseUrl + 'updateAddress',
+      data: { username: '13538966472', address: JSON.stringify(this.data.addressList) },
+      header: {
+        //  'content-type': 'application/json' // 默认值
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(123, res)
+
+      }
+    })
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

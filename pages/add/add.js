@@ -20,7 +20,8 @@ Page({
       city: '',
       county: '',
       detail: '',
-      post: ''
+      post: '',
+      checked: true
     },
     reg: true  //验证手机号格式；
   },
@@ -29,7 +30,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    //判断用户地址是新增还是更改，更改标志设置为change; 
+    if(options.id){
+      this.setData({
+        change: true,
+        changeId: options.id
+      });
+    } else {
+      this.setData({
+        change: false
+      });
+    }
+   
+    console.log(options);    
   },
  
   /**
@@ -107,6 +120,11 @@ Page({
       })
     }
   },
+  switchChange: function(e){
+    //默认地址选择切换；
+    this.data.address.checked = !this.data.address.checked;
+    console.log(this.data.address.checked)
+  },
   save: function () {
     if(this.data.address.name == ''){
       wx.showToast({
@@ -129,44 +147,101 @@ Page({
         title: 'x 请输入详细地址！',
       })
     } else {
-      console.log('成功', this.data.address);
+      console.log('成功', this.data.address);      
 
-      //把新增的地址回传到上一个页面；
+     /* //把新增的地址回传到上一个页面；
       var pages = getCurrentPages();
       //当前页面；
       var currentPage = pages[pages.length - 1];
       //上一个页面；
       var prevPage = pages[pages.length - 2];
+      //如果当前地址默认地址为勾选状态，则其他地址为不勾选；
+      if(this.data.address.checked){
+        prevPage.data.addressList.map(item=>{
+          if(item.checked){
+            //改变之前设置的默认地址；
+            item.checked = false;
+          }
+        })
+      }
       //更新上一个页面的地址列表；
       prevPage.data.addressList.push(this.data.address);
       prevPage.setData({
         addressList: prevPage.data.addressList
-      });
-      var data = {
-        username: '13538966472', 
-        address: { name: 'chen', tel: '123' }
-      };
-      wx.request({
-        method: 'POST',
-        url: baseUrl + 'address',
-        data: {username: '13538966472', address: JSON.stringify(this.data.address)},
-        header: {
-        //  'content-type': 'application/json' // 默认值
-          'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
-        },
-        dataType: 'json',
-        success: function(res){
-          console.log(res)
-          if(res.data.status){
-            //地址更新成功时跳转到上一页面；同时把最新的数据回传到上一页面；
-            console.log('更新后的所有地址');
-             //新增成功之后跳转到上一个页面；
-            wx.navigateBack({
-              delta: 1
+      });*/
+
+      //判断是更改地址还是新增地址；
+      if(this.data.change){
+        //更改地址；
+        var pages = getCurrentPages();
+        //当前页面；
+        var currentPage = pages[pages.length - 1];
+        //上一个页面；
+        var prevPage = pages[pages.length - 2];
+        console.log(222222222, prevPage.data.addressList);
+
+        //改变相应的值；
+        prevPage.data.addressList.map((item, idx)=>{
+          //当前为默认地址时,其他设置为false；
+          if (this.data.address.checked) {
+            item.checked = false;
+          }
+          if(idx == this.data.changeId){
+            item.name = this.data.address.name;
+            item.tel = this.data.address.tel;
+            item.province = this.data.address.province;
+            item.city = this.data.address.city;
+            item.county = this.data.address.county;
+            item.detail = this.data.address.detail;
+            item.post = this.data.address.post;
+            item.checked = this.data.address.checked;
+          };
+         
+        });
+        //更新到后端服务器；
+        wx.request({
+          method: 'POST',
+          url: baseUrl + 'updateAddress',
+          data: { username: '13538966472', address: JSON.stringify(prevPage.data.addressList) },
+          header: {
+            //  'content-type': 'application/json' // 默认值
+            'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+          },
+          dataType: 'json',
+          success: function (res) {
+            console.log('地址更新成功', res);
+            wx.navigateTo({
+              url: '../address/address'
             });
           }
-        }
-      })
+        })
+
+
+      } else {
+        //新增地址；
+        wx.request({
+          method: 'POST',
+          url: baseUrl + 'address',
+          data: { username: '13538966472', address: JSON.stringify(this.data.address) },
+          header: {
+            //  'content-type': 'application/json' // 默认值
+            'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+          },
+          dataType: 'json',
+          success: function (res) {
+            console.log(res)
+            if (res.data.status) {
+              //地址更新成功时跳转到上一页面；同时把最新的数据回传到上一页面；
+              console.log('更新后的所有地址');
+              //新增成功之后跳转到上一个页面；
+              wx.navigateBack({
+                delta: 1
+              });
+            }
+          }
+        })
+      }
+      
     }
   },
 
@@ -174,7 +249,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**

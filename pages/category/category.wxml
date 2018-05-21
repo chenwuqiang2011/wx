@@ -12,7 +12,7 @@
   <view class = "category">
     <view class = "category_title">
       <scroll-view class = "tabs" scroll-x = 'true' scroll-left = "{{left}}">
-        <view wx:for = "{{tabs}}" wx:key = "index" class = "tab-item {{currentTab == index ? 'active' : ''}}" data-current = "{{index}}" bindtap = "changeNav">
+        <view wx:for = "{{tabs}}" wx:key = "{{index}}" class = "tab-item {{currentTab == index ? 'active' : ''}}" data-current = "{{index}}" bindtap = "changeNav">
           {{item.category}}
         </view>
     </scroll-view>

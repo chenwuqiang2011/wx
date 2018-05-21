@@ -22,6 +22,10 @@
   <text class = "text post">邮政编码</text>
   <input  class = "input post_input" placeholder='（选填）' data-name = "post" bindinput='bindinput' />
 </view>
+<view class = "list">
+  <text class = "text">默认地址</text>
+  <switch class = "selected_default" checked = "{{address.checked}}" bindchange="switchChange"/>
+</view>
 <button class = "save" bindtap = "save">保存</button>
 
 

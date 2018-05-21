@@ -108,18 +108,26 @@ Page({
 
                 //有相同商品时，数量 +1
                 item3.qty++;
+                //把购物车更新到后端服务器
+                app.cart("13538966472")
+
               } else if (!flag && idx3 == app.data.cart.length - 1) {
                 //没有相同商品时，数量 为1
                 item2.qty = 1;
                 app.data.cart.push(item2);
+                console.log(app.data.cart)
+                //把购物车更新到后端服务器
+                app.cart("13538966472")
               }
             })
           }else {
             //购物车没有商品时；
             item2.qty = 1;
             app.data.cart.push(item2);
+            console.log(app.data.cart)
+            //把购物车更新到后端服务器
+            app.cart("13538966472");
           }
-          
         }
       })
     });
@@ -139,6 +147,24 @@ Page({
       }
     })
   },
+  //将购物车数据更新到后台；
+  cart: function(){
+    wx.request({
+      method: 'POST',
+      data: {
+        username: '13538966472',
+        cart: JSON.stringify(app.data.cart)
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      url: baseUrl + 'cart',
+      success: function (res) {
+        console.log(res);
+      }
+    })
+  },
+
   toDetail: function(e){
     wx.request({
       method: 'POST',

@@ -6,7 +6,7 @@ App({
     goodslist: [],
     cart: [],
     qty: 0,
-    baseUrl: 'http://192.168.100.11:443/',
+    baseUrl: 'http://192.168.1.186:443/',
     imgUrl: 'http://www.cwq888.cn/image/'
   },
   addCart: function(){
@@ -22,6 +22,23 @@ App({
         text: this.data.qty.toString()
       });
     }
+  },
+  //将购物车数据更新到后台；
+  cart: function (username) {
+    wx.request({
+      method: 'POST',
+      data: {
+        username: username,
+        cart: JSON.stringify(this.data.cart)
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      url: this.data.baseUrl + 'cart',
+      success: function (res) {
+        console.log(res);
+      }
+    })
   },
   onLaunch: function () {
     this.addCart();
@@ -54,6 +71,23 @@ App({
             }
           })
         }
+      }
+    });
+
+    //获取用户购物车信息；
+    var that = this;
+    wx.request({
+      method: 'POST',
+      data: {
+        username: '13538966472'
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      url: this.data.baseUrl + 'getCart',
+      success: function (res) {
+        console.log(res, res.data.data[0].cart)
+        that.data.cart = JSON.parse(res.data.data[0].cart);
       }
     })
   },

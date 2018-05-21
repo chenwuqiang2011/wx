@@ -69,5 +69,17 @@ exports.register = function (app){
 		sql.order('user', request.body, function(data){
 			response.send(data);
 		})
+	});
+	//添加用户购物车；
+	app.post('/cart', urlencodedParser, function(request, response){
+		sql.cart('user', request.body, function(data){
+			response.send(data);
+		})
+	});
+	//获取用户购物车；
+	app.post('/getCart', urlencodedParser, function(request, response){
+		sql.getCart('user', request.body, function(data){
+			response.send(data);
+		})
 	})
 }
