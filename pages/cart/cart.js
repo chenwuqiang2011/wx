@@ -217,6 +217,15 @@ Page({
       url: '../category/category'
     })
   },
+  /*结算页面*/
+  acount: function(){
+    wx.navigateTo({
+      url: '../acount/acount',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
 
 
   //手指触摸动作开始 记录起点X坐标

@@ -6,7 +6,7 @@ App({
     goodslist: [],
     cart: [],
     qty: 0,
-    baseUrl: 'http://192.168.100.11:443/',
+    baseUrl: 'http://192.168.1.186:443/',
     imgUrl: 'http://www.cwq888.cn/image/'
   },
   addCart: function(){
@@ -51,6 +51,26 @@ App({
     wx.login({
       success: res => {console.log(res)
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        var code = res.code;
+        if (code) {
+          console.log('获取用户登录凭证：' + code);
+
+          // --------- 发送凭证 ------------------
+          wx.request({
+            method: 'POST',
+            url: this.data.baseUrl + 'onlogin',
+            data: { code: code },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+            },
+            success: function(res){
+              console.log(res)
+            }
+          })
+          
+        } else {
+          console.log('获取用户登录态失败：' + res.errMsg);
+        }
       }
     })
     // 获取用户信息

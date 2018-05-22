@@ -8,7 +8,9 @@
     "build": "webpack --progress --colors",
     "start": "webpack-dev-server --devtool eval --progress --port 10010 --colors --content-base ./"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "redis": "^2.8.0"
+  },
   "author": "DK.Lan",
   "license": "ISC",
   "dependencies": {

@@ -58,10 +58,27 @@ Page({
   },
   getUserInfo: function(e){
     console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+    wx.getUserInfo({
+      success: function (res) {
+        console.log(res);
+        app.globalData.userInfo = e.detail.userInfo
+        this.setData({
+          userInfo: e.detail.userInfo,
+          hasUserInfo: true
+        })
+      },
+      fail: function (err) {
+        console.log(err);
+        wx.showModal({
+          title: '警告',
+          content: '您拒绝了授权，部分功能体验将无法正常使用，请稍后再次点击授权!',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            }
+          }
+        })
+      }
     })
   },
   toCart: function(){
@@ -72,6 +89,17 @@ Page({
   toAddress: function(){
     wx.navigateTo({
       url: '../address/address'
+    })
+  },
+  contact: function(){
+    wx.makePhoneCall({
+      phoneNumber: '18520521259',
+      success: function(res){
+        console.log(res);
+      },
+      fail: function(err){
+        console.log(err);
+      }
     })
   },
   /*

@@ -82,7 +82,7 @@
       总价: ￥<text class = "totalPrice">{{totalPrice}}</text>
     </view>
   </view>
-  <view class = "bottom_right">
+  <view class = "bottom_right" bindtap = "acount">
     结算：(<text class = "totalPrice">{{totalNum}}</text>)
   </view>
 </view>

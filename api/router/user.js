@@ -22,6 +22,17 @@ exports.register = function (app){
 			response.send(data);
 		})
 	});
+
+
+	/*------------------------------------------------------------*/ 
+
+
+	//微信用户登录；
+	app.post('/onlogin', urlencodedParser, function(request, response){
+		sql.onlogin('user', request.body, function(data){
+			response.send(data);
+		})
+	});
 	//新增用户地址；
 	app.post("/address", urlencodedParser, function(request, response){
 		//请求数据库；

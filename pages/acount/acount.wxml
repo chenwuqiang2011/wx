@@ -1,0 +1,23 @@
+<!--pages/acount/acount.wxml-->
+<scroll-view scroll-y = "true" class = "acount">
+  <view class = "addressList" wx:for = "{{addressList}}" wx:key = "{{index}}" wx:if = "{{item.checked}}">
+    <view class = "detail">
+      <text class = "detail_name">收货人：{{item.name}}</text>
+      <text class = "detail_tel">收货电话：{{item.tel}}</text>
+    </view>
+    <view class = "recieve">
+      收货地址：{{item.province}}{{item.city}}{{item.county}}{{item.detail}}
+    </view>
+    <image class = "right" src = "../right.png"></image>
+    <image class = "envelope" src = "../envelope.png"></image>
+  </view>
+</scroll-view>
+<view class = "bottom">
+  <view class = "total">
+    实付: <text class = "totalPrice">￥{{totalPrice}}</text>
+  </view>
+  <view class = "submit" bindtap = "acount">
+    提交订单
+  </view>
+</view>
+

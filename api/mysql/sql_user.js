@@ -1,6 +1,17 @@
 //引入相应模块
 var mysql = require("mysql");
 
+//发送请求模块；
+var request = require('request');
+//创建redis连接服务对象
+var redis = require('redis');
+var client = redis.createClient();
+var redisServerIP = '127.0.0.1';
+var redisServerPort= '3306';
+
+var http = require('http');
+var qs = require('querystring'); 
+
 //定义数据库
 var sql = mysql.createConnection({
 	host:"localhost",
@@ -51,6 +62,48 @@ module.exports = {
 			}
 
 		})
+	},
+
+	/*------------------------------------------------------------*/ 
+
+	//微信用户登录凭证；
+	onlogin: function(table, data, callback){
+		
+		let code = data.code
+		console.log('code', code)
+		  request.get({
+		    uri: 'https://api.weixin.qq.com/sns/jscode2session',
+		    json: true,
+		    qs: {
+		      grant_type: 'authorization_code',
+		      appid: 'wx38ec27a265686f26',
+		      secret: '4e573f827483aa36444e41a08390864c',
+		      js_code: code
+		    }
+		  }, (err, response, data) => {
+		    if (response.statusCode === 200) {
+		    	console.log(data)
+		      	console.log("[openid]", data.openid)
+		      	console.log("[session_key]", data.session_key)
+
+			      //TODO: 生成一个唯一字符串sessionid作为键，将openid和session_key作为值，存入redis，超时时间设置为2小时
+			      //伪代码: redisStore.set(sessionid, openid + session_key, 7200)
+			      // redisStore.set(sessionid, openid + session_key, 7200);
+				client.hmset('sessionid', { username: 'kris', password: 'password' }, function(err) {
+					console.log(err)
+				});
+
+		      	//读取JavaScript(JSON)对象
+		      	client.hgetall('sessionid', function(err, object) {
+		        	console.log(111111111111111,object)
+		    	})
+
+		      // res.json({ sessionid: sessionid })
+		    } else {
+		      console.log("[error]", err)
+		      // res.json(err)
+		    }
+		  })
 	},
 	address: function(table, data, callback){
 		console.log(data)

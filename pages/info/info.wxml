@@ -46,6 +46,8 @@
   <text class = "address_text">地址管理</text>
   <image class = "address_right" src = "../right.png"></image>
 </view>
+<!-- 联系我们 -->
+<button class = "contact" bindtap="contact">联系我们</button>
 <!-- 地址模板 -->
 <!-- 引入地址模板 -->
 <import src="../../template/template.wxml"/>
