@@ -20,6 +20,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //获取用户默认地址；
+    var that = this;
+    wx.request({
+      method: 'POST',
+      url: baseUrl + 'getAddress',
+      data: { username: '13538966472' },
+      header: {
+        //  'content-type': 'application/json' // 默认值
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      dataType: 'json',
+      success: function (res) {
+        console.log(123, res)
+        if (!res.data.status) return false
+        console.log(res.data.data[0].address)
+        that.setData({
+          addressList: JSON.parse(res.data.data[0].address)
+        })
+      }
+    })
+
     console.log(options)
     var cart = JSON.parse(options.cart);
     this.setData({
@@ -41,7 +62,7 @@ Page({
   },
   toAddressList: function(){
     wx.navigateTo({
-      url: '../address/address'
+      url: '../address/address?flag=true'
     })
   },
 
@@ -56,27 +77,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (!this.data.addressList){
-      var that = this;
-      wx.request({
-        method: 'POST',
-        url: baseUrl + 'getAddress',
-        data: { username: '13538966472' },
-        header: {
-          //  'content-type': 'application/json' // 默认值
-          'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
-        },
-        dataType: 'json',
-        success: function (res) {
-          console.log(123, res)
-          if (!res.data.status) return false
-          console.log(res.data.data[0].address)
-          that.setData({
-            addressList: JSON.parse(res.data.data[0].address)
-          })
-        }
-      })
-    }
+   
+  console.log(this.data.addressList)
     
   },
 

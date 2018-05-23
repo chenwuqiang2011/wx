@@ -21,20 +21,33 @@ Page({
     //     console.log('收货地址列表')
     //   }
     // });
+    console.log(options.flag);
+    if(this.data.flag){
+      //订单选择地址时把标识设为true;
+      this.setData({
+        flag: options.flat
+      })
+    } else {
+      //管理地址时把标识设为false; 
+      this.setData({
+        flag: options.flag
+      })
+    }
+    
   },
   // 下单选择地址
   address: function(e){
     console.log(e);
-    this.data.addressList.map((item, index)=>{
-      if(index == e.currentTarget.dataset.id){
-        //返回上一层，同时把默认地址传回上一层；
-        var pages = getCurrentPages();
-        //当前页面；
-        var currentPage = pages[pages.length - 1];
-        //上一个页面；
-        var prevPage = pages[pages.length - 2];
-        //如果当前地址默认地址为勾选状态，则其他地址为不勾选；
-        if (prevPage.data.addressList) {
+    if (this.data.flag) {
+      this.data.addressList.map((item, index)=>{
+        if(index == e.currentTarget.dataset.id){
+          //返回上一层，同时把默认地址传回上一层；
+          var pages = getCurrentPages();
+          //当前页面；
+          var currentPage = pages[pages.length - 1];
+          //上一个页面；
+          var prevPage = pages[pages.length - 2];
+          //更新上一个页面的地址； 
           prevPage.setData({
             addressList:item
           });
@@ -44,11 +57,9 @@ Page({
             delta: 1
           })
         }
-      }
-    })
-    
-    
-   
+      })
+    }
+     
   },
   // 增加地址
   addAddress: function(){
@@ -119,7 +130,6 @@ Page({
       },
       dataType: 'json',
       success: function (res) {
-        console.log(123, res)
         if(!res.data.status) return false
         console.log(res.data.data[0].address)
         that.setData({

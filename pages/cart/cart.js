@@ -285,6 +285,11 @@ Page({
     this.setData({
       cart: this.data.cart
     });
+
+    app.data.cart = this.data.cart;
+    //把购物车更新到后端服务器
+    app.cart("13538966472");
+
     app.data.cart = this.data.cart;
     this.count();
     var num = 0;
