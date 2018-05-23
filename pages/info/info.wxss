@@ -62,7 +62,7 @@ page {
   text-align: center;
  
 }
-.address_left, .address_right {
+.address_left {
   display: block;
   width: 40rpx;
   height: 40rpx;
@@ -74,6 +74,11 @@ page {
 }
 .address_right {
   float: right;
+  display: block;
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: 20rpx;
+  margin-top: 10rpx;
 }
 .address_text {
   float: left;

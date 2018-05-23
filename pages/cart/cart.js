@@ -219,8 +219,9 @@ Page({
   },
   /*结算页面*/
   acount: function(){
+    console.log(this.data.cart)
     wx.navigateTo({
-      url: '../acount/acount',
+      url: '../acount/acount?cart=' + JSON.stringify(this.data.cart),
       success: function(res) {},
       fail: function(res) {},
       complete: function(res) {},

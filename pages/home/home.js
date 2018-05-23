@@ -30,7 +30,7 @@ Page({
     hots: [],
     goodslist: [],
     pageNo:1,
-    qty: 5,
+    qty: 10,
     address:'',
     height: '',
     hasmore: true,
