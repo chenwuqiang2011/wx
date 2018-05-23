@@ -1,13 +1,17 @@
 <!--pages/address/address.wxml-->
 <scroll-view scroll-y = 'true' class = "address">
   <view class = "addressList" wx:for = "{{addressList}}" wx:key = "{{index}}">
-    <view class = "detail">
-      <text class = "detail_name">{{item.name}}</text>
-      <text class = "detail_tel">{{item.tel}}</text>
+    <view class = "post" bindtap = "address" data-id = "{{index}}">
+      <view class = "detail">
+        <text class = "detail_name">{{item.name}}</text>
+        <text class = "detail_tel">{{item.tel}}</text>
+      </view>
+      <view class = "recieve">
+        收货地址：{{item.province}}{{item.city}}{{item.county}}{{item.detail}}
+      </view>
     </view>
-    <view class = "recieve">
-      收货地址：{{item.province}}{{item.city}}{{item.county}}{{item.detail}}
-    </view>
+    
+
     <view class = "default">
       <view class = "select" bindtap='select' data-id = "{{index}}">
         <image class = "select_img" src = "../{{item.checked? 'select': 'unselect'}}.png"></image>

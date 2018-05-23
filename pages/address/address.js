@@ -22,6 +22,35 @@ Page({
     //   }
     // });
   },
+  // 下单选择地址
+  address: function(e){
+    console.log(e);
+    this.data.addressList.map((item, index)=>{
+      if(index == e.currentTarget.dataset.id){
+        //返回上一层，同时把默认地址传回上一层；
+        var pages = getCurrentPages();
+        //当前页面；
+        var currentPage = pages[pages.length - 1];
+        //上一个页面；
+        var prevPage = pages[pages.length - 2];
+        //如果当前地址默认地址为勾选状态，则其他地址为不勾选；
+        if (prevPage.data.addressList) {
+          prevPage.setData({
+            addressList:item
+          });
+          console.log(prevPage.data.addressList)
+          //更新上一个页面的地址列表；
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      }
+    })
+    
+    
+   
+  },
+  // 增加地址
   addAddress: function(){
     wx.navigateTo({
       url: '../add/add'
