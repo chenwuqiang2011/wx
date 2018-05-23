@@ -6,7 +6,7 @@ App({
     goodslist: [],
     cart: [],
     qty: 0,
-    baseUrl: 'http://192.168.1.186:443/',
+    baseUrl: 'http://192.168.100.11:443/',
     imgUrl: 'http://www.cwq888.cn/image/'
   },
   addCart: function(){

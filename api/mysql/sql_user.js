@@ -4,10 +4,10 @@ var mysql = require("mysql");
 //发送请求模块；
 var request = require('request');
 //创建redis连接服务对象
-var redis = require('redis');
-var client = redis.createClient();
-var redisServerIP = '127.0.0.1';
-var redisServerPort= '3306';
+// var redis = require('redis');
+// var client = redis.createClient();
+// var redisServerIP = '127.0.0.1';
+// var redisServerPort= '3306';
 
 var http = require('http');
 var qs = require('querystring'); 
@@ -89,14 +89,14 @@ module.exports = {
 			      //TODO: 生成一个唯一字符串sessionid作为键，将openid和session_key作为值，存入redis，超时时间设置为2小时
 			      //伪代码: redisStore.set(sessionid, openid + session_key, 7200)
 			      // redisStore.set(sessionid, openid + session_key, 7200);
-				client.hmset('sessionid', { username: 'kris', password: 'password' }, function(err) {
-					console.log(err)
-				});
+				// client.hmset('sessionid', { username: 'kris', password: 'password' }, function(err) {
+				// 	console.log(err)
+				// });
 
-		      	//读取JavaScript(JSON)对象
-		      	client.hgetall('sessionid', function(err, object) {
-		        	console.log(111111111111111,object)
-		    	})
+		  //     	//读取JavaScript(JSON)对象
+		  //     	client.hgetall('sessionid', function(err, object) {
+		  //       	console.log(111111111111111,object)
+		  //   	})
 
 		      // res.json({ sessionid: sessionid })
 		    } else {
