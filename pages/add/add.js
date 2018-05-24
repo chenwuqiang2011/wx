@@ -62,6 +62,7 @@ Page({
     });
     template.animationEvents(this, 0, true, 400);
   },
+  nono: function(){},
   //隐藏picker-view
   hiddenFloatView: function (e) {
     console.log('hidden')

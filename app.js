@@ -18,7 +18,6 @@ App({
         index: 2
       });
     } else {
-      console.log(this.data.qty)
       wx.setTabBarBadge({
         index: 2,
         text: this.data.qty.toString()
@@ -43,7 +42,9 @@ App({
     })
   },
   onLaunch: function () {
-    this.addCart();
+    console.log(11111111)
+    
+    
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -96,31 +97,7 @@ App({
       }
     });
 
-    //获取用户购物车信息；
-    var that = this;
-    wx.request({
-      method: 'POST',
-      data: {
-        username: '13538966472'
-      },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
-      },
-      url: this.data.baseUrl + 'getCart',
-      success: function (res) {
-        console.log(res)
-        if(res.data.status){
-          console.log(res.data.data[0].cart)
-          that.data.cart = JSON.parse(res.data.data[0].cart);
-          //同时更新数量提示；
-          that.data.cart.map((item, idx)=>{
-            that.data.qty += item.qty;
-            that.addCart();
-          })
-        }
-        
-      }
-    })
+    
   },
   globalData: {
     userInfo: null
@@ -133,5 +110,33 @@ App({
     if(this.callback != null){
       this.callback(data);
     }
+  },
+  onShow: function(){
+    console.log('onshow')
+    //获取用户购物车信息；
+    var that = this;
+    wx.request({
+      method: 'POST',
+      data: {
+        username: '13538966472'
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      url: this.data.baseUrl + 'getCart',
+      success: function (res) {
+        if (res.data.status) {
+          that.data.cart = JSON.parse(res.data.data[0].cart);
+          //同时更新数量提示；
+          var qty = 0;
+          that.data.cart.map((item, idx) => {
+            qty += item.qty;
+            console.log(2222)
+          });
+          that.data.qty = qty;
+          that.addCart();
+        }
+      }
+    })
   }
 })

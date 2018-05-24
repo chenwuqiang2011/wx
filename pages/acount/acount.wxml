@@ -1,7 +1,9 @@
 <!--pages/acount/acount.wxml-->
+<import src="../../template/template.wxml"/>
+
 <scroll-view scroll-y = "true" class = "acount">
 <!-- 收货人地址 -->
-  <view class = "addressList" wx:for = "{{addressList}}" wx:key = "{{index}}" wx:if = "{{item.checked}}" bindtap = "toAddressList">
+  <view class = "addressList" wx:for = "{{addressList}}" wx:key = "{{index}}" bindtap = "toAddressList">
     <view class = "detail">
       <text class = "detail_name">收货人：{{item.name}}</text>
       <text class = "detail_tel">收货电话：{{item.tel}}</text>
@@ -26,15 +28,16 @@
     </view> 
   </view>
   <!-- 配送方式 -->
-  <view class = "send">
+  <view class = "send" bindtap="translate" data-name = "express">
     配送方式
-    <text class = "send_select"></text>
+    <text class = "send_select">{{express}}</text>
     <image class = "send_right" src = "../right.png"></image>
   </view>
   <!-- 支付方式 -->
-  <view class = "paid">
+  <view class = "paid" bindtap="translate" data-name = "paid">
+  
     支付方式
-    <text class = "paid_select"></text>
+    <text class = "paid_select">{{paid}}</text>
     <image class = "paid_right" src = "../right.png"></image>
   </view>
   <!-- 买家留言 -->
@@ -58,4 +61,8 @@
     提交订单
   </view>
 </view>
+
+<template is="{{flag?'paid': 'express'}}" data="{{...item}}"/>
+<!-- <template is="express" data="{{...item}}"/> -->
+
 

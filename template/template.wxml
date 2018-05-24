@@ -10,8 +10,7 @@
 
 <template name="areaData">
   <view class="animation-element-wrapper" animation="{{animation}}" style="visibility:{{show ? 'visible':'hidden'}}" bindtap="hiddenFloatView" data-id="444">
-     <!-- <view class="animation-element" catchtap="nono"> -->
-     <view class="animation-element">
+     <view class="animation-element" catchtap="nono">
         <text class="left-bt" catchtap="hiddenFloatView" data-id="555">取消</text>
         <text class="right-bt" catchtap="hiddenFloatView" data-id="666">确定</text>
           <view class="line"></view> 
@@ -72,4 +71,53 @@
       <image class = "addCart_img" src = "../add.png" bindtap='addCart' data-id = "{{ID}}"></image>
     </view>
 
+</template>
+
+<!-- --------------分割线------------- -->
+
+<template name = "paid">
+   <view class = "paid-wrapper" animation = "{{animationData}}" style="visibility:{{show ? 'visible':'hidden'}}" bindtap="hiddenFloatView">
+    <view class = "paid-element" catchtap='no'>
+      <view class = "paid-method" >
+        选择支付方式
+        <image class = "delete" src = "../delete.png" bindtap="hiddenFloatView"></image>
+      </view>
+      <view class = "paid-wx" data-name = "微信支付"  bindtap="hiddenFloatView">
+        微信支付
+        <image class = "wx" src = "../wx.png"></image>
+        <image class = "select" src = "../select.png"></image>
+        <!-- <image class = "unselect" src = "../unselect.png"></image>  -->
+      </view>
+      <!-- <view class = "paid-union" data-name = "union" bindtap="hiddenFloatView">
+        银联支付
+        <image class = "union" src = "../union.png"></image>
+        <image class = "select" src = "../select.png"></image>
+        <image class = "unselect" src = "../unselect.png"></image>
+      </view> -->
+      <!-- <view class = "paid-alipay" data-name = "alipay">
+        支付宝支付
+        <image class = "alipay" src = "../alipay.png"></image>
+        <image class = "select" src = "../select.png"></image>
+        <image class = "unselect" src = "../unselect.png"></image>
+      </view> -->
+    </view>
+   </view>
+</template>
+
+<!-- --------------分割线------------- -->
+
+<template name = "express">
+   <view class = "paid-wrapper" animation = "{{animationData}}" style="visibility:{{show ? 'visible':'hidden'}}" bindtap="hiddenFloatView">
+    <view class = "paid-element" catchtap='no'>
+      <view class = "paid-method" >
+        选择快递方式
+        <image class = "delete" src = "../delete.png" bindtap="hiddenFloatView"></image>
+      </view>
+      <view class = "paid-wx" data-name = " 快递 免运费"  bindtap="hiddenFloatView">
+        快递 免运费
+        <image class = "wx" src = "../receiving.png"></image>
+        <image class = "select" src = "../select.png"></image>
+      </view>
+    </view>
+   </view>
 </template>

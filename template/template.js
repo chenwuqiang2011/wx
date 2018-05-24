@@ -133,7 +133,7 @@ function animationEvents(that, moveY, show, duration) {
     timingFunction: "ease",
     delay: 0
   })
-  that.animation.translateY(moveY + 'vh').step()
+  // that.animation.translateY(moveY + 'vh').step()
   //赋值
   assignmentData(that,show)
 
@@ -152,6 +152,31 @@ function assignmentData(that, show) {
     }
   })
 }
+
+//支付选择动画事件
+function animationEvents(that, moveY, show, duration) {
+  console.log("moveY:" + moveY + "\nshow:" + show);
+  that.animation = wx.createAnimation({
+    transformOrigin: "50% 50%",
+    duration: duration,
+    timingFunction: "ease",
+    delay: 0
+  })
+  that.animation.translateY(moveY + 'vh').step()
+  //赋值
+  that.setData({
+    item: {
+      animation: that.animation.export(),
+      show: show,
+      provinces: provinces,
+      citys: citys,
+      countys: countys,
+      value: value
+    }
+  })
+}
+
+
 
 module.exports = {
   updateAreaData: updateAreaData,

@@ -49,7 +49,7 @@ Page({
           var prevPage = pages[pages.length - 2];
           //更新上一个页面的地址； 
           prevPage.setData({
-            addressList:item
+            addressList: [item]
           });
           console.log(prevPage.data.addressList)
           //更新上一个页面的地址列表；

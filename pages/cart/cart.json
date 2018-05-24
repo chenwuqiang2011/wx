@@ -1,7 +1,3 @@
 {
-  "backgroundTextStyle": "light",
-  "navigationBarBackgroundColor": "#fff",
-  "navigationBarTitleText": "藏宝阁",
-  "navigationBarTextStyle": "black",
-  "enablePullDownRefresh": false
+  "navigationBarTitleText": "购物袋"
 }

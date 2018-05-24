@@ -14,9 +14,9 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#f55a4b",
     "navigationBarTitleText": "农品正源",
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "#fff",
     "enablePullDownRefresh": false
   },
   "tabBar": {
