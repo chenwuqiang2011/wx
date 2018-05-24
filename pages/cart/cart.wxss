@@ -100,8 +100,8 @@ page{
   text-align: center;
 }
 .addCart {
-  width: 154rpx;
-  height: 50rpx;
+  width: 158rpx;
+  height: 54rpx;
   position: absolute;
   right: 30rpx;
   bottom: 30rpx;
