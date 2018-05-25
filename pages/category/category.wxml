@@ -15,7 +15,7 @@
         <view wx:for = "{{tabs}}" wx:key = "{{index}}" class = "tab-item {{currentTab == index ? 'active' : ''}}" data-current = "{{index}}" bindtap = "changeNav">
           {{item.category}}
         </view>
-    </scroll-view>
+      </scroll-view>
       <view wx:if = "{{tabs.length >0}}" class = "second_css">
         <image class = "list_view" wx:if = "{{list}}" src = "../list.png" bindtap='list'></image>
         <image class = "list_view" wx:if = "{{!list}}"src = "../list_view.png" bindtap='list'></image>

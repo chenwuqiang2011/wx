@@ -28,7 +28,7 @@
           <image class = "sub2" src = "../sub2.png" wx:if = "{{min}}"  data-id = "{{item.ID}}"></image>
         </view>
         <view class = "num">
-          <input type = "number" value="{{item.qty}}"/>
+          <input type = "number" value="{{item.qty}}" bindinput='bindinput'/>
         </view>
         <view class = "plus" bindtap="plus">
           <image class = "plus1" src = "../plus1.png" wx:if = "{{!max}}" data-id = "{{item.ID}}"></image>

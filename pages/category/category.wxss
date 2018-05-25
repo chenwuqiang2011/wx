@@ -61,7 +61,8 @@ page {
 .second_css {
   float: left;
   width: 8%;
-  margin: 0 1%;
+  padding: 0 1%;
+  background: #fff;
   height: 100%;
   position: relative;
 }

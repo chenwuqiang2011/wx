@@ -100,18 +100,18 @@ page{
   text-align: center;
 }
 .addCart {
-  width: 158rpx;
-  height: 54rpx;
+  width: 184rpx;
+  height: 60rpx;
   position: absolute;
   right: 30rpx;
-  bottom: 30rpx;
+  bottom: 20rpx;
   border: 2rpx solid #ddd;
 }
 .plus, .num, .sub {
   float: left;
-  width: 50rpx;
-  height: 50rpx;
-  line-height: 50rpx;
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
   text-align: center;
 }
 

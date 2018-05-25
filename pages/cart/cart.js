@@ -211,6 +211,10 @@ Page({
    
     this.count();
   },
+  //直接更改输入框数量；
+  bindinput:function(e){
+    console.log(e.detail.value);
+  },
   /*跳转主页*/
   tocategory: function(){
     wx.switchTab({

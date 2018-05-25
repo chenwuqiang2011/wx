@@ -26,7 +26,7 @@ Page({
     flag: true  //判断点击的是配送方式 还是 支付方式；
   },
   translate: function(e){
-    console.log(e)
+    console.log(e.currentTarget.dataset.name)
     if(e.currentTarget.dataset.name == "paid"){
       this.setData({
         flag: true
@@ -47,11 +47,16 @@ Page({
   //隐藏
   hiddenFloatView: function(e){
     this.animation(400, false, 200);
-    if(e.target.dataset.name){
+    if(e.target.dataset.name == '微信支付'){
       //把选择方式回传；
-      console.log(e)
+      console.log(e.target.dataset.name)
       this.setData({
         paid: e.target.dataset.name
+      })
+    } else {
+      console.log(e.target.dataset.name)
+      this.setData({
+        express: e.target.dataset.name
       })
     }
   },

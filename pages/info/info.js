@@ -57,12 +57,13 @@ Page({
     }
   },
   getUserInfo: function(e){
+    var that = this;
     console.log(e)
     wx.getUserInfo({
       success: function (res) {
         console.log(res);
         app.globalData.userInfo = e.detail.userInfo
-        this.setData({
+        that.setData({
           userInfo: e.detail.userInfo,
           hasUserInfo: true
         })

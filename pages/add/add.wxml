@@ -8,7 +8,7 @@
 </view>
 <view class = "list">
   <text class = "text tel" type = "idcard">联系电话</text>
-  <input  class = "input tel_input" placeholder='请输入' data-name = "tel" bindinput='bindinput' bindblur='bindblur'/>
+  <input  class = "input tel_input" type="number" maxlength='11' placeholder='请输入' data-name = "tel" bindinput='bindinput' bindblur='bindblur'/>
 </view>
 <view class = "list " bindtap="translate">
   <text class = "text address">地址：</text>
