@@ -3,7 +3,7 @@ var app = getApp();
 var baseUrl = app.data.baseUrl;
 var imgUrl = app.data.imgUrl;
 var template = require('../../template/template.js');
-
+var moment = require('../../utils/moment.js');
 
 Page({
 
@@ -84,6 +84,10 @@ Page({
   },
   //提交订单；
   acount: function(){
+    var d = new Date();
+    var time = d.getDate();
+    var moment1 = moment().format('YYYY-MM-DD h:mm:ss')  //MMMM Do YYYY, h:mm:ss a
+    console.log(time, moment1)
     var obj = {};
     obj.addressList = this.data.addressList;
     obj.cart = this.data.cart;

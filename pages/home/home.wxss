@@ -294,7 +294,7 @@ swiper{
   line-height: 32rpx;
   margin: 20rpx;
   text-align: right;
-  background: url(https://www.cwq888.cn/image/refresh.png) no-repeat;
+  background: url(http://www.cwq888.cn/image/refresh.png) no-repeat;
   background-size: 32rpx 32rpx;
   background-position-x: 85%;
 }
