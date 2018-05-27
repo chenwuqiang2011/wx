@@ -8,8 +8,32 @@ App({
     qty: 0,
 
     baseUrl: 'http://112.74.33.109:444/',
-    // baseUrl: 'http://192.168.1.186:443/',
+    // baseUrl: 'http://192.168.100.11:443/',
     imgUrl: 'http://www.cwq888.cn/image/'
+  },
+  showLoading: function(){
+    wx.showModal({
+      title: '温馨提示：',
+      content: '请先授权小程序后才能访问哦！',
+      success: function(res){
+        if(res.confirm){
+          //跳转授权页面；
+          wx.switchTab({
+            url: '../info/info',
+            success: function (res) {
+              console.log('跳转登录页面')
+            }
+          })
+          console.log('确定')
+        } else {
+          console.log('取消');
+        }
+        
+      },
+      fail: function(err){
+        console.log('取消')
+      }
+    })
   },
   addCart: function(){
     //消息提醒；适用于购物车或者消息提醒；

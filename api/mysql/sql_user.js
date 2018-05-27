@@ -152,7 +152,7 @@ module.exports = {
 		//先查询用户原来地址；
 		var condition = 'select * from '+ table +' where username = ?';
 		sql.query(condition, [username], function(err, results, fields){
-			console.log('95', results, results[0].address);
+			// console.log('95', results, results[0].address);
 			if(results.length > 0 && results[0].address) {
 				callback({status: true, message: '查询到地址！', data: results});
 			} else {

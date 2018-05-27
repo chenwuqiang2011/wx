@@ -25,12 +25,12 @@ Page({
     if(this.data.flag){
       //订单选择地址时把标识设为true;
       this.setData({
-        flag: options.flat
+        flag: options.flag
       })
     } else {
       //管理地址时把标识设为false; 
       this.setData({
-        flag: options.flag
+        flag: false
       })
     }
     
@@ -120,6 +120,10 @@ Page({
    */
   onShow: function () {
     var that = this;
+    if (!app.globalData.userInfo){
+      app.showLoading();
+      return false
+    }
     wx.request({
       method: 'POST',
       url: baseUrl + 'getAddress',

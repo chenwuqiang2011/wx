@@ -18,6 +18,7 @@ Page({
     imgUrl: imgUrl,
     item: {
       show: false,
+      select: true, //勾选符号；
       animationData: ''
     },
     msg: '',
@@ -26,7 +27,7 @@ Page({
     flag: true  //判断点击的是配送方式 还是 支付方式；
   },
   translate: function(e){
-    console.log(e.currentTarget.dataset.name)
+    console.log(e.currentTarget.dataset.name, this.data.item.select)
     if(e.currentTarget.dataset.name == "paid"){
       this.setData({
         flag: true
@@ -36,28 +37,33 @@ Page({
         flag: false
       })
     }
-    console.log(333)
-
-    this.animation(400, true, 0);
+    this.animation(400, true, this.data.item.select, 0);
   },
-  translate2: function(){
-
-  },
-
   //隐藏
   hiddenFloatView: function(e){
-    this.animation(400, false, 200);
+    console.log(this.data.item.select)
     if(e.target.dataset.name == '微信支付'){
+      this.animation(400, false, true, 200);
+      
       //把选择方式回传；
       console.log(e.target.dataset.name)
       this.setData({
         paid: e.target.dataset.name
       })
-    } else {
+    } else if(e.target.dataset.name == '银联支付'){
+      this.animation(400, false, false, 200);      
       console.log(e.target.dataset.name)
+      this.setData({
+        paid: e.target.dataset.name
+      })
+    } else if (e.target.dataset.name == '快递 免运费') {
+      console.log(e.target.dataset.name)
+      this.animation(400, false, true, 200);      
       this.setData({
         express: e.target.dataset.name
       })
+    } else {
+      this.animation(400, false, this.data.item.select, 200);  
     }
   },
   //catchtap防止事件传播；
@@ -65,7 +71,7 @@ Page({
     // console.log(123)
   },
   //动画显示隐藏函数；
-  animation: function(duration, show, moveY){
+  animation: function(duration, show, select, moveY){
     var animation = wx.createAnimation({
       transformOrigin: "50% 50%",
       duration: duration,
@@ -78,31 +84,36 @@ Page({
     this.setData({
       item: {
         show: show,
+        select: select, //勾选符号；
         animationData: animation.export()
       }
     })
   },
   //提交订单；
   acount: function(){
-    var d = new Date();
-    var time = d.getDate();
-    var moment1 = moment().format('YYYY-MM-DD h:mm:ss')  //MMMM Do YYYY, h:mm:ss a
-    console.log(time, moment1)
+    // var d = new Date();
+    // var time = d.getDate();
+    var createTime = moment().format('YYYY-MM-DD h:mm:ss')  //https://www.helloweba.net/javascript/271.html
+    console.log(createTime)
     var obj = {};
+    obj.username = app.globalData.userInfo.nickName
     obj.addressList = this.data.addressList;
-    obj.cart = this.data.cart;
+    obj.goods = this.data.cart;
     obj.express = this.data.express;
     obj.paid = this.data.paid;
     obj.msg = this.data.msg;
     obj.qty = this.data.qty;
     obj.price = this.data.price;
+    obj.createTime = createTime;
+    obj.statu = 0; //0: 待付款；1: 待发货；2: 待收货；3: 已收货；
     console.log(obj)
+    console.log(app.globalData.userInfo)
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.animation(0, false, 200);
+    this.animation(0, false, this.data.item.select, 200);
     //获取用户默认地址；
     var that = this;
     wx.request({
