@@ -328,7 +328,6 @@ Page({
         show: false
       });
     }
-    console.log(234)
     app.data.cart.map(item=>{
       item.isSelect = true;
       item.isTouchMove = false; //默认全隐藏删除

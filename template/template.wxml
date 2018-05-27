@@ -85,15 +85,15 @@
       <view class = "paid-wx" data-name = "微信支付"  bindtap="hiddenFloatView">
         微信支付
         <image class = "wx" src = "../wx.png"></image>
-        <image class = "select" src = "../select.png"></image>
-        <!-- <image class = "unselect" src = "../unselect.png"></image>  -->
+        <image wx:if = "{{select}}" class = "select" src = "../select.png"></image>
+        <image wx:else class = "unselect" src = "../unselect.png"></image>  
       </view>
-      <!-- <view class = "paid-union" data-name = "union" bindtap="hiddenFloatView">
+       <view class = "paid-union" data-name = "银联支付" bindtap="hiddenFloatView">
         银联支付
         <image class = "union" src = "../union.png"></image>
-        <image class = "select" src = "../select.png"></image>
-        <image class = "unselect" src = "../unselect.png"></image>
-      </view> -->
+        <image wx:if = "{{!select}}" class = "select" src = "../select.png"></image>
+        <image wx:else class = "unselect" src = "../unselect.png"></image>
+      </view> 
       <!-- <view class = "paid-alipay" data-name = "alipay">
         支付宝支付
         <image class = "alipay" src = "../alipay.png"></image>
