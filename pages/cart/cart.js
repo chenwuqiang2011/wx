@@ -316,6 +316,7 @@ Page({
    */
   onShow: function () {
     console.log(333, app.data.cart);
+    app.onShow();
     // 购物车为空时;
     if(app.data.cart.length <= 0){
       // this.data.show = true;

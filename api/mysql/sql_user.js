@@ -269,59 +269,57 @@ module.exports = {
 	},
 	order: function(table, data, callback){
 
-		var username = data.username;
-		//查询是否存在订单；
-		var condition = 'select ordering from ' + table + ' where username = ?';
-		var arr = [];
-		var arr2 = [];
-		sql.query(condition, [username], function(err, results, fields){
+		var  addSql = 'INSERT INTO ordering VALUES(0,?,?,?,?,?,?,?,?,?,?)';
+		//var  addSqlParams = [data.goods, data.address, data.price, JSON.stringify(data.msg), JSON.stringify(data.express), data.qty, JSON.stringify(data.paid), data.status, JSON.stringify(data.username), JSON.stringify(data.createTime)];
+		var addSqlParams = [data.username, data.goods, data.address, data.price, data.qty, data.paid, data.express, data.msg, data.status, data.createTime]
+		
+		sql.query(addSql, addSqlParams, function(err,results,fields){
+			if(results.affectedRows){
+				//同时减掉购物车的商品；
+				var username = '13538966472';
+				//先查询用户原来地址；
+				var condition = 'select * from '+ table +' where username = ?';
+				sql.query(condition, [username], function(err, results, fields){
+					
+					if(results.length > 0 && results[0].cart) {
+						var goods = JSON.parse(data.goods);
+						var cart = JSON.parse(results[0].cart);
+						//订单如果是在购物车下单的，代表购物车有商品；
+						goods.map((item, idx)=>{
+							cart.map((item2, idx2, self)=>{
+								//减去订单的商品；
+								if(item.ID == item2.ID){
+									self.splice(idx2, 1);
+								}
+							})
+						});
 
-			//存在订单时，PUSH（）追加；
-			if(results[0].ordering !== ''){
-				JSON.parse(results[0].ordering).map(item=>{
-					arr.push(item);
-				})
-				
-			}
 
-			//没有订单时
-			// var  addSql = 'INSERT INTO user(userId, username, password) VALUES(0,?,?)';
-			// var condition = 'UPDATE ' + table +' SET collected = ? WHERE username = ?';
+						//更新购物车商品；
+						cart = JSON.stringify(cart);
+						console.log(1111, cart)
 
-
-			var condition2 = 'UPDATE ' + table + ' SET ordering = ? WHERE username = ?';
-			
-			arr.push(data);
-			//查询相关商品；
-			var condition3 = 'select * from products where ID = ?';
-			arr.map(item=>{
-				sql.query(condition3, [item.ID], function(err3, results3, fields3){
-					arr2.push(1);
-				});
-			})
-			console.log('arr,arr2', arr, arr2)
-			arr = JSON.stringify(arr);
-
-			sql.query(condition2, [arr, username], function(err2, results2, fields2){
-				// console.log('results2', arr, results2);
-				/*arr = JSON.parse(arr);
-				var id, condition3, res;
-				arr.map(item=>{
-					id = item.ID;
-
-					condition3 = 'select * from products where ID = ?';
-					sql.query(condition3, [id], function(err3, results3, fields3){
-						arr2.push(results3[0]);
-						console.log(111, id, results3[0], arr2);
+						var modSql = 'UPDATE user SET cart = ? WHERE username = ?';
 						
-					})
+						sql.query(modSql, [cart, username], function(err,results,fields){
 
-				});
-				arr = JSON.stringify(arr);
-				console.log('arr2', arr2)*/
-				callback({status: true, msg: '查询到订单', data: arr});
-			})
-		})
+							callback({status: true, message: '恭喜您！订单提交成功！购物车更新成功！', data: results});
+							
+						});
+
+					} else {
+						//订单如果查在商品详情下单的，购物车不一定有商品；
+						callback({status: false, message: '该用户购物车暂时没有商品！', data: null});
+					}
+					
+				})
+
+			} else {
+				//订单不成功时提示；
+				callback({status: false, message: '订单提交不成功', data: null});
+			}
+			
+		});
 	}
 }
 

@@ -89,6 +89,11 @@ Page({
       }
     })
   },
+  getMsg: function(e){
+    this.setData({
+      msg: e.detail.value
+    })
+  },
   //提交订单；
   acount: function(){
     // var d = new Date();
@@ -96,18 +101,37 @@ Page({
     var createTime = moment().format('YYYY-MM-DD h:mm:ss')  //https://www.helloweba.net/javascript/271.html
     console.log(createTime)
     var obj = {};
-    obj.username = app.globalData.userInfo.nickName
-    obj.addressList = this.data.addressList;
-    obj.goods = this.data.cart;
+    obj.username = app.globalData.userInfo.nickName;
+    obj.address = JSON.stringify(this.data.addressList);
+    obj.goods = JSON.stringify(this.data.cart);
     obj.express = this.data.express;
     obj.paid = this.data.paid;
     obj.msg = this.data.msg;
     obj.qty = this.data.qty;
     obj.price = this.data.price;
     obj.createTime = createTime;
-    obj.statu = 0; //0: 待付款；1: 待发货；2: 待收货；3: 已收货；
-    console.log(obj)
-    console.log(app.globalData.userInfo)
+    obj.status = 0; //0: 待付款；1: 待发货；2: 待收货；3: 已收货；
+    console.log(obj);
+    //把订单数据更新到后台数据库；
+    wx.request({
+      method: 'POST',
+      url: baseUrl + 'order',
+      data: obj,
+      header: {
+        //  'content-type': 'application/json' // 默认值
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      dataType: 'json',
+      success: function(res){
+        console.log(res);
+        wx.redirectTo({
+          url: '../order/order'
+        })
+      },
+      fail: function(err){
+        console.log(err);
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -142,20 +166,20 @@ Page({
     })
 
     console.log(options)
-    var cart = JSON.parse(options.cart);
-    this.setData({
-      cart: cart
-    });
-    
+    var cart = JSON.parse(options.cart);    
     //计算商品数量；
     cart.map((item, idx) => {
-      //计算商品数量；
-      this.data.qty += item.qty;
-    //计算商品总价；
-      this.data.price += item.qty * item.nowPrice;
+      if(item.isSelect) {
+        //显示的商品；
+        this.data.cart.push(item);
+        //计算商品数量；
+        this.data.qty += item.qty;
+        //计算商品总价；
+        this.data.price += item.qty * item.nowPrice;
+      }
     });
-
     this.setData({
+      cart: this.data.cart,
       qty: this.data.qty,
       price: this.data.price.toFixed(2)
     })

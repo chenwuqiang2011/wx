@@ -22,7 +22,7 @@ Page({
     //   }
     // });
     console.log(options.flag);
-    if(this.data.flag){
+    if(options.flag){
       //订单选择地址时把标识设为true;
       this.setData({
         flag: options.flag

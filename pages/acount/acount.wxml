@@ -43,7 +43,7 @@
   <!-- 买家留言 -->
   <view class = "msg">
     买家留言
-    <input class = "msg_write" placeholder='选填' />
+    <input class = "msg_write" placeholder='选填' bindblur='getMsg'/>
   </view>
   <!-- 商品数量 -->
   <view class = "count">
