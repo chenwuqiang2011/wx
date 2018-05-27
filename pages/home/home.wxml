@@ -10,7 +10,7 @@
   </scroll-view>
 </view> -->
 
-<scroll-view class = "body" scroll-y = "true" style = "height: {{height}}rpx" bindscrolltolower = "lower" lower-threshold = "100">
+<scroll-view class = "body" scroll-y = "true" style = "height: 100%" bindscrolltolower = "lower" lower-threshold = "100">
   <!-- 显示位置 -->
   
   <view class = "location" bindtap = "choseLocation">
@@ -38,7 +38,7 @@
     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular = "{{circular}}">
     <block wx:for="{{imgUrls}}" wx:key = "index">
       <swiper-item>
-        <image src="{{item}}" class="slide-image" width="355" height="150"/>
+        <image src="{{item}}" class="slide-image"/>
       </swiper-item>
     </block>
   </swiper>
