@@ -110,6 +110,7 @@ swiper{
 }
 .slide-image {
   width: 100%;
+  height: 480rpx;
 }
 
 /* 会员信息 */
