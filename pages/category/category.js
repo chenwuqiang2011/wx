@@ -166,19 +166,9 @@ Page({
   },
 
   toDetail: function(e){
-    wx.request({
-      method: 'POST',
-      url: baseUrl + 'getProduct',
-      data: { id: e.target.dataset.id },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
-      },
-      success: function (res) {
-        wx.navigateTo({
-          rediret: true,
-          url: '../goods/goods?id=' + e.target.dataset.id
-        })
-      } 
+    wx.navigateTo({
+      rediret: true,
+      url: '../goods/goods?id=' + e.target.dataset.id
     });
   },
   changeNav: function (e) {

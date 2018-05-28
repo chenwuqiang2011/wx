@@ -98,6 +98,7 @@ Page({
   acount: function(){
     // var d = new Date();
     // var time = d.getDate();
+    var that = this;
     var createTime = moment().format('YYYY-MM-DD h:mm:ss')  //https://www.helloweba.net/javascript/271.html
     console.log(createTime)
     var obj = {};
@@ -107,12 +108,24 @@ Page({
     obj.express = this.data.express;
     obj.paid = this.data.paid;
     obj.msg = this.data.msg;
-    obj.qty = this.data.qty;
+    obj.qty = this.data.qty.toFixed(2);
     obj.price = this.data.price;
     obj.createTime = createTime;
     obj.status = 0; //0: 待付款；1: 待发货；2: 待收货；3: 已收货；
     console.log(obj);
     //把订单数据更新到后台数据库；
+    if(this.data.addressList.length <= 0){
+      wx.showModal({
+        title: '温馨提示：',
+        content: '请添加一个收货地址！',
+        success: function(res){
+          if(res.confirm){
+            that.toAddressList();
+          }
+        }
+      });
+      return false;
+    }
     wx.request({
       method: 'POST',
       url: baseUrl + 'order',
@@ -124,6 +137,8 @@ Page({
       dataType: 'json',
       success: function(res){
         console.log(res);
+        app.onShow();
+
         wx.redirectTo({
           url: '../order/order'
         })

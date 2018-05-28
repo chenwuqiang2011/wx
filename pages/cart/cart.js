@@ -316,13 +316,17 @@ Page({
    */
   onShow: function () {
     console.log(333, app.data.cart);
-    app.onShow();
+    app.addCart();
     // 购物车为空时;
     if(app.data.cart.length <= 0){
       // this.data.show = true;
+      
       this.setData({
-        show: true
+        show: true,
+        cart: []  //提交订单时清空购物车时重新计算购物车数量；
       });
+      ////提交订单时清空购物车时重新计算购物车数量；
+      this.count();
       return false
     } else {
       this.setData({

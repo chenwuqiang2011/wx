@@ -1,0 +1,161 @@
+/* pages/orderDetail/orderDetail.wxss */
+page {
+  background: #eee;
+  font-size: 28rpx;
+  margin-bottom: 120rpx;
+}
+.order_status {
+  position: relative;
+  height: 200rpx;
+  margin-bottom: 20rpx;
+}
+.status {
+  position: absolute;
+  left: 50rpx;
+  top: 80rpx;
+  font-size: 40rpx;
+  line-height: 40rpx;
+  color: #fff;
+
+}
+.status_img {
+  height: 100%;
+  width: 100%;
+}
+/* 地址样式 */
+.addressList {
+  /* height: 200rpx; */
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 2rpx solid #ddd;
+}
+
+.express, .detail, .recieve {
+  height: 60rpx;
+  line-height: 60rpx; 
+  padding: 0 20rpx;
+}
+.detail_name{
+  float: left;
+  height: 100%;
+  line-height: 60rpx;
+}
+.detail_tel {
+  float: right;
+  height: 100%;
+  line-height: 60rpx;
+  margin-right: 60rpx;
+}
+
+.envelope {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1000rpx;
+  width: 10rpx;
+}
+/* 物流详情 */
+.logistics {
+  height: 80rpx;
+  line-height: 80rpx;
+  padding-left: 40rpx;
+  position: relative;
+  font-size: 28rpx;
+  background: #fff;
+  border-bottom: 2rpx solid #ddd;
+  margin-bottom: 20rpx;
+}
+.right {
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+/* 商品详情 */
+.goods {
+  padding: 20rpx;
+  height: 120rpx;
+  background: #fff;
+  border-bottom: 2rpx solid #ddd;
+}
+.goods_img {
+  height: 120rpx;
+  width: 120rpx;
+  float: left;
+}
+.goods_detail {
+  float: left;
+  width: 500rpx;
+  margin-left: 40rpx;
+}
+.total_price, .fare, .contact {
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0 20rpx;
+  background: #fff;
+  border-bottom: 2rpx solid #ddd;
+  position: relative;
+}
+.total_price {
+  margin-top: 20rpx;
+}
+.fare {
+  margin-bottom: 20rpx;
+}
+.contact {
+  text-align: center;
+  margin-bottom: 20rpx;
+}
+.price, .freight {
+  position: absolute;
+  top: 0;
+  right: 20rpx;
+  height: 100%;
+  line-height: 80rpx;
+}
+.contact_us {
+  position: absolute;
+  top: 20rpx;
+  left: 35%;
+  width: 40rpx;
+  height: 40rpx;
+}
+.about {
+  padding: 20rpx;
+  background: #fff;
+  font-size: 24rpx;
+}
+.order_code, .createTime {
+  height: 40rpx;
+  line-height: 40rpx;
+}
+
+/* 底部固定样式 */
+.fixed {
+  width: 100%;
+  height: 100rpx;
+  position: fixed;
+  left:0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background: #fff;
+  border-top: 2rpx solid #ddd;
+}
+.close, .paid {
+  margin-top: 25rpx;
+  width: 140rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  margin-right: 30rpx;
+  text-align: center;
+  border: 2rpx solid #ddd;
+}
+.paid {
+  color: red;
+}

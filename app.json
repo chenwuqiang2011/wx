@@ -10,7 +10,9 @@
     "pages/address/address",
     "pages/add/add",
     "pages/order/order",
-    "pages/acount/acount"
+    "pages/acount/acount",
+    "pages/orderDetail/orderDetail",
+    "pages/logistics/logistics"
   ],
   "window": {
     "backgroundTextStyle": "light",

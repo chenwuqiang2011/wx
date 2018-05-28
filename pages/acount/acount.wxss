@@ -12,6 +12,16 @@ page {
 }
 
 /* 地址样式 */
+/* 没有地址时的样式 */
+.addAddress {
+  height: 100rpx;
+  line-height: 100rpx;
+  padding: 20rpx;
+  background: #fff;
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+
+}
 .addressList {
   /* height: 200rpx; */
   padding: 20rpx 0;

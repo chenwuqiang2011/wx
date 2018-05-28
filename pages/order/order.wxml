@@ -1,3 +1,26 @@
 <!--pages/order/order.wxml-->
 <view>订单列表</view>
+<view class = "orders" wx:for = "{{orders}}" wx:key = "{{index}}" data-id = "{{index}}" bindtap = "orderDetail">
+  <view class = "time">
+    <view class = "createTime">下单时间：{{item.createTime}}</view>
+    <view class = "status">{{item.status}}</view>
+  </view>
+  <view class = "goods" >
+    <view class = "more" wx:for = "{{item.goods}}" wx:for-item = "items" wx:for-index = "idx" wx:key = "{{idx}}" >
+      <image src = "{{imgUrl+items.imgurl}}" class = "imgs" ></image>
+      <view class = "details" wx:if = "{{item.goods.length <= 1}}">
+        <view class = "name">{{items.name}}</view>
+        <view class = "qty">数量 {{item.qty}}</view>
+      </view>
+    </view>
+    
+  </view>
+  <view class = "total">
+    <view class = "num">
+      <text>共{{item.qty}}件商品</text>
+      <text>共计：￥{{item.price}}</text>
+    </view>
+    <view class = "toPaid">去支付</view>
+  </view>
+</view>
 

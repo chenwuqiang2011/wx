@@ -272,7 +272,7 @@ module.exports = {
 		var  addSql = 'INSERT INTO ordering VALUES(0,?,?,?,?,?,?,?,?,?,?)';
 		//var  addSqlParams = [data.goods, data.address, data.price, JSON.stringify(data.msg), JSON.stringify(data.express), data.qty, JSON.stringify(data.paid), data.status, JSON.stringify(data.username), JSON.stringify(data.createTime)];
 		var addSqlParams = [data.username, data.goods, data.address, data.price, data.qty, data.paid, data.express, data.msg, data.status, data.createTime]
-		
+		console.log(addSqlParams)
 		sql.query(addSql, addSqlParams, function(err,results,fields){
 			if(results.affectedRows){
 				//同时减掉购物车的商品；
@@ -320,6 +320,51 @@ module.exports = {
 			}
 			
 		});
+	},
+	getOrder: function(table, data, callback){
+		var username = data.username;
+		var condition = 'select * from '+ table +' where username = ?';
+		var orders = [];
+		sql.query(condition, [username], function(err, results, fields){
+			console.log(results);
+			results.map((item, idx)=>{
+				var status = '';
+				var obj = {}
+				switch(item.status){
+					case 0:
+						status = '待支付';
+						break
+					case 1:
+						status = '待发货';
+						break
+					case 2:
+						status = '待收货';
+						break
+					case 3:
+						status = '已收货';
+						break
+					case 4:
+						status = '已关闭';
+						break
+					default:
+						status = '错误'
+				}
+				obj.orderId = item.orderId;
+				obj.username = item.username;
+				obj.goods = JSON.parse(item.goods);
+				obj.address = JSON.parse(item.address);
+				obj.price = item.price;
+				obj.qty = item.qty;
+				obj.paid = item.paid;
+				obj.express = item.express;
+				obj.msg = item.msg;
+				obj.status = status;
+				obj.createTime = item.createTime;
+				orders.push(obj);
+			})
+			callback({status: true, message: '订单查询成功', data: orders});
+		})
+
 	}
 }
 

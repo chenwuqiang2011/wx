@@ -3,6 +3,11 @@
 
 <scroll-view scroll-y = "true" class = "acount">
 <!-- 收货人地址 -->
+  <view class = "addAddress" wx:if = "{{addressList.length <= 0}}">
+    请添加地址
+    <image class = "right" src = "../right.png"></image>
+  </view>
+  
   <view class = "addressList" wx:for = "{{addressList}}" wx:key = "{{index}}" bindtap = "toAddressList">
     <view class = "detail">
       <text class = "detail_name">收货人：{{item.name}}</text>

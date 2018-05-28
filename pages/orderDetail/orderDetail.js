@@ -1,4 +1,4 @@
-// pages/order/order.js
+// pages/orderDetail/orderDetail.js
 var app = getApp();
 var baseUrl = app.data.baseUrl;
 var imgUrl = app.data.imgUrl;
@@ -8,27 +8,34 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orders: [],
+    detail: {},
     imgUrl: imgUrl
-  },
-  orderDetail: function(e){
-    console.log(e)
-    var id = e.currentTarget.dataset.id;
-    this.data.orders.map((item, idx)=>{
-      if(idx == id){
-        var obj = JSON.stringify(item)
-        wx.navigateTo({
-          url: '../orderDetail/orderDetail?detail=' + obj
-        })
-      }
-    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    console.log(options.detail)
+    this.setData({
+      detail: JSON.parse(options.detail)
+    })
+  },
+  contact: function(){
+    wx.makePhoneCall({
+      phoneNumber: '18520521259'
+    })
+  },
+  goToPaid: function(){
+    wx.showModal({
+      title: '提示',
+      content: '敬请期待！'
+    })
+  },
+  logistics: function(){
+    wx.navigateTo({
+      url: '../logistics/logistics?com=百世快递&No=71341656189044'
+    })
   },
 
   /**
@@ -42,26 +49,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this;
-    app.onShow();
-    wx.request({
-      method: 'POST',
-      url: baseUrl + 'getOrder',
-      data: {
-        username: app.globalData.userInfo.nickName
-      }, 
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
-      },
-      success: function(res){
-        console.log(res);
-        if(res.data.status){
-          that.setData({
-            orders: res.data.data
-          })
-        }
-      }
-    })
+  
   },
 
   /**

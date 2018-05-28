@@ -82,6 +82,11 @@ Page({
       }
     })
   },
+  toOrders: function(){
+    wx.navigateTo({
+      url: '../order/order'
+    })
+  },
   toCart: function(){
     wx.switchTab({
       url: '../cart/cart'

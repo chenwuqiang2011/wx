@@ -10,10 +10,10 @@
   </block>
 </view>
 <!-- 全部订单 -->
-<view class = "address">
+<view class = "address" bindtap='toOrders'>
   <text class = "address_text">全部订单</text>
   <image class = "address_right" src = "../right.png"></image>
-  <text class = "checkout">查看全部订单</text>
+  <text class = "checkout" >查看全部订单</text>
 </view>
 <!-- 发货状态 -->
 <view class = "orderlist">

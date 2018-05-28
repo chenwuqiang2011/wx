@@ -6,7 +6,7 @@
 </scroll-view>
 </view> -->
 
-<scroll-view scroll-y = "true" class = "scroll" >
+<scroll-view scroll-y = "true" class = "scroll" wx:if = "{{!show}}">
   <!-- 样式1 -->
   <view wx:for = "{{cart}}"  wx:key = "index" data-index="{{index}}" class="details {{item.isTouchMove ? 'touch-move-active' : ''}}" bindtouchstart="touchstart" bindtouchmove="touchmove">
     <view class = "slide">
