@@ -99,5 +99,11 @@ exports.register = function (app){
 		sql.getOrder('ordering', request.body, function(data){
 			response.send(data);
 		})
+	});
+	//快递api;
+	app.post('/express', urlencodedParser, function(request, response){
+		sql.express('user', request.body, function(data){
+			response.send(data)
+		})
 	})
 }

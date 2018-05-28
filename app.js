@@ -7,9 +7,10 @@ App({
     cart: [],
     qty: 0,
 
-    // baseUrl: 'http://120.78.221.246:444/',
-    // baseUrl: 'http://192.168.100.11:443/',
-    baseUrl: 'http://192.168.1.186:443/',
+    // baseUrl: 'http://120.78.221.246:999/',
+    // baseUrl: 'http://www.cwq888.cn:444/',
+    baseUrl: 'http://192.168.100.11:443/',
+    // baseUrl: 'http://192.168.1.186:443/',
     imgUrl: 'http://www.cwq888.cn/image/'
   },
   showLoading: function(){

@@ -9,6 +9,9 @@ var request = require('request');
 // var redisServerIP = '127.0.0.1';
 // var redisServerPort= '3306';
 
+// MD5
+var md5 = require('md5');
+
 var http = require('http');
 var qs = require('querystring'); 
 
@@ -364,7 +367,47 @@ module.exports = {
 			})
 			callback({status: true, message: '订单查询成功', data: orders});
 		})
+	},
+	express: function(table, data, callback){
+		var userID = '1347013';
+		var keyValue = 'b6b4fba5-b2ab-4d6e-a244-4d3eca36c76e';
+		var url = 'http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx';
+		
+		var DataType = '2';
+		var charset = 'UTF-8';
+		var str = { OrderCode:'', ShipperCode: 'SF', LogisticCode: 118461988807 };
 
+		var jsonStr = new Buffer(JSON.stringify(str));
+		var res = jsonStr.toString('base64');
+		res = md5(res + keyValue);
+
+		var PostStr = 'RequestType=1002&EBusinessID= userID &RequestData=jsonStr&DataSign= datasign&DataType=DataType';
+
+
+		var postData=qs.stringify({  
+		    msg: PostStr  
+		});  
+		var options={  
+		   hostname:'http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx',  
+		   path:'/',  
+		   method:'POST',  
+		   headers:{  
+		    //'Content-Type':'application/x-www-form-urlencoded',  
+		    'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8',  
+		    'Content-Length':Buffer.byteLength(postData)  
+		   }  
+		}  
+		var req = http.request(options, function(res) {  
+		    console.log('Status:',res.statusCode);  
+		    console.log('headers:',JSON.stringify(res.headers));  
+		    res.setEncoding('utf-8');  
+		    res.on('data',function(chun){  
+		        console.log('body分隔线---------------------------------\r\n');  
+		        console.info(chun);  
+		    });  
+		    res.on('end',function(){  
+		        console.log('No more data in response.********');  
+		    });  
+		});  
 	}
 }
-

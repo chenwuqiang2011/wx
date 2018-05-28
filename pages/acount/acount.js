@@ -99,7 +99,7 @@ Page({
     // var d = new Date();
     // var time = d.getDate();
     var that = this;
-    var createTime = moment().format('YYYY-MM-DD h:mm:ss')  //https://www.helloweba.net/javascript/271.html
+    var createTime = moment().format('YYYY-MM-DD HH:mm:ss')  //https://www.helloweba.net/javascript/271.html
     console.log(createTime)
     var obj = {};
     obj.username = app.globalData.userInfo.nickName;
