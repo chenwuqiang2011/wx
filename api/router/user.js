@@ -104,6 +104,11 @@ exports.register = function (app){
 	app.post('/updateOrder', urlencodedParser, function(request, response){
 		sql.updateOrder('ordering', request.body, function(data){
 			response.send(data);
+
+	//快递api;
+	app.post('/express', urlencodedParser, function(request, response){
+		sql.express('user', request.body, function(data){
+			response.send(data)
 		})
 	})
 }

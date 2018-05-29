@@ -59,6 +59,17 @@ Page({
       url: '../goods/goods?id=' + e.target.dataset.id
     })
   },
+  api: function(){
+    wx.request({
+      method: 'POST',
+      data: {},
+      url: baseUrl + 'express',
+      header: {'content-type': 'application/x-www-form-urlencoded'},
+      success: function(res){
+        console.log(res)
+      }
+    })
+  },
 
   // 上拉加载更多
   lower: function(){

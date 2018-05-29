@@ -8,8 +8,13 @@ App({
     qty: 0,
 
     // baseUrl: 'http://120.78.221.246:999/',
+<<<<<<< HEAD
     baseUrl: 'http://www.cwq888.cn:443/',
     // baseUrl: 'http://192.168.100.11:443/',
+=======
+    // baseUrl: 'http://www.cwq888.cn:444/',
+    baseUrl: 'http://192.168.100.11:443/',
+>>>>>>> e7a53d6586f64b11ec5e9f1f6334760d226f2cf2
     // baseUrl: 'http://192.168.1.186:443/',
     imgUrl: 'http://www.cwq888.cn/image/'
   },

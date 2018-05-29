@@ -48,7 +48,7 @@
   <!-- <slider bindchange="durationChange" show-value min="500" max="2000"/> 延长时间 -->
 
   <!-- 会员中心 -->
-  <view class = "section-item">
+  <view class = "section-item" bindtap = "api">
     <view class = "member">
       <image class = "member-img" src = "../libs/imgs/member.jpg"></image>
     </view>
