@@ -1,7 +1,7 @@
 <!--pages/orderDetail/orderDetail.wxml-->
 <view class = "order_status">
   <text class = "status">{{detail.status}}</text>
-  <image class = "status_img" src = "../orders.jpg"></image>
+  <image class = "status_img" src = "../libs/imgs/orders.jpg"></image>
 </view>
 <view class = "addressList" wx:for = "{{detail.address}}" wx:key = "{{index}}" >
   <view class = "express">配送方式：{{detail.express}}</view> 
@@ -12,11 +12,11 @@
   <view class = "recieve">
     收货地址：{{item.province}}{{item.city}}{{item.county}}{{item.detail}}
   </view>
-  <image class = "envelope" src = "../envelope.png"></image>
+  <image class = "envelope" src = "../libs/imgs/envelope.png"></image>
 </view>
 <view class = "logistics" bindtap = "logistics">
   查看物流详情
-   <image class = "right" src = "../right.png"></image> 
+   <image class = "right" src = "../libs/imgs/right.png"></image> 
 </view>
 <!-- 商品列表 -->
 <view class = "goods" wx:for = "{{detail.goods}}" wx:key = "{{index}}">
@@ -44,16 +44,18 @@
 </view>
 <!-- 联系我们 -->
 <view class = "contact" bindtap = "contact">
-  <image class = "contact_us" src = "../contact.png"></image>
+  <image class = "contact_us" src = "../libs/imgs/contact.png"></image>
   联系我们
 </view>
 <!-- 订单编号、下单时间 -->
 <view class = "about">
   <view class = "order_code">订单编号：123456789</view>
   <view class = "createTime">下单时间：{{detail.createTime}}</view>
+  <view class = "completeTime" wx:if = "{{detail.completeTime}}">完成时间：{{detail.completeTime}}</view>
 </view>
 
-<view class = "fixed">
-  <view class = "close" bindtap = "close">关闭订单</view>
-  <view class = "paid" bindtap = "goToPaid">去支付</view>
+<view class = "fixed" wx:if = "{{detail.status == '待支付'||detail.status == '待评价'}}">
+  <view class = "close" bindtap = "close" wx:if = "{{detail.status == '待支付'}}">关闭订单</view>
+  <view class = "paid" bindtap = "goToPaid" wx:if = "{{detail.status == '待支付'}}">去支付</view>
+  <view class = "paid" bindtap = "goToPaid" wx:if = "{{detail.status == '待评价'}}">去评价</view>
 </view>

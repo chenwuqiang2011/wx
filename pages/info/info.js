@@ -83,8 +83,68 @@ Page({
     })
   },
   toOrders: function(){
+    //请求前判断是否已授权；
+    if (!app.globalData.userInfo){
+      wx.showModal({
+        title: '提示',
+        content: '请先授权登录'
+      });
+      return false;
+    }
     wx.navigateTo({
       url: '../order/order'
+    })
+  },
+  unpaid: function(){
+    //请求前判断是否已授权；
+    if (!app.globalData.userInfo) {
+      wx.showModal({
+        title: '提示',
+        content: '请先授权登录'
+      });
+      return false;
+    }
+    wx.navigateTo({
+      url: '../order/order?status=unpaid'
+    })
+  },
+  undelivery: function(){
+    //请求前判断是否已授权；
+    if (!app.globalData.userInfo) {
+      wx.showModal({
+        title: '提示',
+        content: '请先授权登录'
+      });
+      return false;
+    }
+    wx.navigateTo({
+      url: '../order/order?status=undelivery'
+    })
+  },
+  receiving: function () {
+    //请求前判断是否已授权；
+    if (!app.globalData.userInfo) {
+      wx.showModal({
+        title: '提示',
+        content: '请先授权登录'
+      });
+      return false;
+    }
+    wx.navigateTo({
+      url: '../order/order?status=receiving'
+    })
+  },
+  unevaluate: function () {
+    //请求前判断是否已授权；
+    if (!app.globalData.userInfo) {
+      wx.showModal({
+        title: '提示',
+        content: '请先授权登录'
+      });
+      return false;
+    }
+    wx.navigateTo({
+      url: '../order/order?status=unevaluate'
     })
   },
   toCart: function(){
@@ -93,6 +153,14 @@ Page({
     })
   },
   toAddress: function(){
+    //请求前判断是否已授权；
+    if (!app.globalData.userInfo){
+      wx.showModal({
+        title: '提示',
+        content: '请先授权登录'
+      });
+      return false;
+    }
     wx.navigateTo({
       url: '../address/address'
     })

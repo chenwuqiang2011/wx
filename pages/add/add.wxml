@@ -13,7 +13,7 @@
 <view class = "list " bindtap="translate">
   <text class = "text address">地址：</text>
   <text class = "input animation-button" >{{address.province}} {{address.city}} {{address.county}}</text>
-  <image class = "right" src = "../right.png"></image>
+  <image class = "right" src = "../libs/imgs/right.png"></image>
 </view>
 <view class = "detail"> 
   <textarea wx:if = "{{show}}" class = "detail_input" placeholder='请填写详细地址' data-name = "detail" bindinput='bindinput'></textarea>

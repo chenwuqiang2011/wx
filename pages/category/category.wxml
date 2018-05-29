@@ -4,7 +4,7 @@
    <!-- 搜索框 -->
   <view class = "category_search">
      <view class = "search">
-      <image src = "../search.png" class = "search-img"></image>
+      <image src = "../libs/imgs/search.png" class = "search-img"></image>
       <input class = "search-input" placeholder="请输入您要搜索的美食名称" />
     </view>
   </view>
@@ -17,8 +17,8 @@
         </view>
       </scroll-view>
       <view wx:if = "{{tabs.length >0}}" class = "second_css">
-        <image class = "list_view" wx:if = "{{list}}" src = "../list.png" bindtap='list'></image>
-        <image class = "list_view" wx:if = "{{!list}}"src = "../list_view.png" bindtap='list'></image>
+        <image class = "list_view" wx:if = "{{list}}" src = "../libs/imgs/list.png" bindtap='list'></image>
+        <image class = "list_view" wx:if = "{{!list}}"src = "../libs/imgs/list_view.png" bindtap='list'></image>
       </view>
     </view>
      
@@ -38,7 +38,7 @@
             </view>
             <view class = "details-right details-price">￥{{item.nowPrice}}</view>
             <view class = "addCart">
-              <image class = "addCart_img" src = "../add.png" bindtap='addCart' data-id = "{{item.ID}}"></image>
+              <image class = "addCart_img" src = "../libs/imgs/add.png" bindtap='addCart' data-id = "{{item.ID}}"></image>
             </view>
           </view> 
           <!-- 一行两个商品 -->

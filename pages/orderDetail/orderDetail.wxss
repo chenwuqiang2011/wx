@@ -129,7 +129,7 @@ page {
   background: #fff;
   font-size: 24rpx;
 }
-.order_code, .createTime {
+.order_code, .createTime, .completeTime {
   height: 40rpx;
   line-height: 40rpx;
 }

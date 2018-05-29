@@ -411,6 +411,9 @@ Page({
    */
   onPullDownRefresh: function () {
     // wx.startPullDownRefresh()
+    console.log('pullDown')
+    wx.stopPullDownRefresh()
+    app.onShow();
   },
 
   /**

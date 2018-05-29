@@ -2,6 +2,8 @@
 var app = getApp();
 var baseUrl = app.data.baseUrl;
 var imgUrl = app.data.imgUrl;
+var moment = require('../../utils/moment.js');
+
 Page({
 
   /**
@@ -24,6 +26,27 @@ Page({
   contact: function(){
     wx.makePhoneCall({
       phoneNumber: '18520521259'
+    })
+  },
+  close: function(){
+    var that = this;
+    //关闭时间；
+    var completeTime = moment().format('YYYY-MM-DD h:mm:ss')  //https://www.helloweba.net/javascript/271.html
+    wx.request({
+      method: 'POST',
+      url: baseUrl + 'updateOrder',
+      data: {
+        username: app.globalData.userInfo.nickName,
+        orderId: that.data.detail.orderId,
+        completeTime: completeTime
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      success: function (res) {
+        console.log(res);
+        wx.navigateBack();
+      }
     })
   },
   goToPaid: function(){

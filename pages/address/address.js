@@ -124,6 +124,10 @@ Page({
       app.showLoading();
       return false
     }
+    //提示加载中；
+    wx.showLoading({
+      title: '加载中'
+    })
     wx.request({
       method: 'POST',
       url: baseUrl + 'getAddress',
@@ -134,10 +138,30 @@ Page({
       },
       dataType: 'json',
       success: function (res) {
+        //隐藏加载中；
+        wx.hideLoading();
+
         if(!res.data.status) return false
         console.log(res.data.data[0].address)
         that.setData({
           addressList: JSON.parse(res.data.data[0].address)
+        })
+      },
+      fail: function (err) {
+        //去除加载提示；
+        wx.hideLoading();
+        //可提示重新发送请求；
+        wx.showModal({
+          title: '加载失败！',
+          content: '是否要重新获取数据？',
+          success: function (res) {
+            if (res.confirm) {
+              //重新发送请求；
+              that.onShow();
+            } else {
+              console.log('取消')
+            }
+          }
         })
       }
     })
@@ -169,7 +193,19 @@ Page({
       dataType: 'json',
       success: function (res) {
         console.log(123, res)
-        
+        //更改成功提示；
+        wx.showToast({
+          title: '设置成功！',
+          duration: 400
+        })
+      },
+      fail: function(err){
+        //更改成功提示；
+        wx.showToast({
+          title: '设置失败！',
+          icon: 'none',
+          duration: 400
+        })
       }
     })
   },

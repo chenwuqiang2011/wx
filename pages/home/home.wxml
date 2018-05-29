@@ -14,14 +14,14 @@
   <!-- 显示位置 -->
   
   <view class = "location" bindtap = "choseLocation">
-    <image class = "location-img" src = "../location.png"></image>
+    <image class = "location-img" src = "../libs/imgs/location.png"></image>
     <view class = "location-address">
       当前位置为：<text>{{address}}</text>
     </view> 
   </view> 
   <!-- 搜索框 -->
   <view class = "search">
-    <image src = "../search.png" class = "search-img"></image>
+    <image src = "../libs/imgs/search.png" class = "search-img"></image>
     <input class = "search-input" placeholder="请输入您要搜索的美食名称" />
   </view>
   <!-- 推荐 -->
@@ -50,10 +50,10 @@
   <!-- 会员中心 -->
   <view class = "section-item">
     <view class = "member">
-      <image class = "member-img" src = "../libs/member.jpg"></image>
+      <image class = "member-img" src = "../libs/imgs/member.jpg"></image>
     </view>
     <view class = "gift">
-      <image class = "member-img" src = "../libs/gift.jpg"></image>
+      <image class = "member-img" src = "../libs/imgs/gift.jpg"></image>
     </view>
   </view>
 
@@ -114,7 +114,7 @@
     </view>
   </view>
   <!-- 新鲜果汁 -->
-  <image class = "foryou-img" src = "../libs/drink.jpg"></image>
+  <image class = "foryou-img" src = "../libs/imgs/drink.jpg"></image>
   <scroll-view class = "drinks" scroll-x = "true"> 
       <view class = "drinks-item" wx:for = "{{drinks}}" wx:key = "{{index}}">
         <image class = "drinks-img" src = "{{imgUrl+item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
@@ -124,7 +124,7 @@
       </view>
   </scroll-view>
   <!-- 饭后水果 -->
-  <image class = "foryou-img" src = "../libs/fruite.jpg"></image>
+  <image class = "foryou-img" src = "../libs/imgs/fruite.jpg"></image>
   <scroll-view class = "drinks" scroll-x = "true"> 
       <view class = "drinks-item" wx:for = "{{fruite}}" wx:key = "{{index}}">
         <image class = "drinks-img" src = "{{imgUrl+item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
@@ -134,7 +134,7 @@
       </view>
   </scroll-view>
   <!-- 养生五谷 -->
-  <image class = "foryou-img" src = "../libs/rice.jpg"></image>
+  <image class = "foryou-img" src = "../libs/imgs/rice.jpg"></image>
   <scroll-view class = "drinks" scroll-x = "true"> 
       <view class = "drinks-item" wx:for = "{{rice}}" wx:key = "{{index}}">
         <image class = "drinks-img" src = "{{imgUrl+item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>

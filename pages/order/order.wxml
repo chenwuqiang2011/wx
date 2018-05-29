@@ -1,5 +1,7 @@
 <!--pages/order/order.wxml-->
-<view>订单列表</view>
+<view class = "none" wx:if = "{{orders.length <= 0}}">
+  暂时没有数据！
+</view>
 <view class = "orders" wx:for = "{{orders}}" wx:key = "{{index}}" data-id = "{{index}}" bindtap = "orderDetail">
   <view class = "time">
     <view class = "createTime">下单时间：{{item.createTime}}</view>
@@ -20,7 +22,7 @@
       <text>共{{item.qty}}件商品</text>
       <text>共计：￥{{item.price}}</text>
     </view>
-    <view class = "toPaid">去支付</view>
+    <view class = "toPaid" wx:if = "{{item.status == '待支付'||item.status == '待评价'}}">{{item.status}}</view>
   </view>
 </view>
 

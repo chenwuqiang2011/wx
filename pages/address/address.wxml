@@ -14,16 +14,16 @@
 
     <view class = "default">
       <view class = "select" bindtap='select' data-id = "{{index}}">
-        <image class = "select_img" src = "../{{item.checked? 'select': 'unselect'}}.png"></image>
+        <image class = "select_img" src = "../libs/imgs/{{item.checked? 'select': 'unselect'}}.png"></image>
         <text> 默认地址</text>
       </view>
       <view class = "edit_del" >
         <view class = "edit"  bindtap = "edit" data-id = "{{index}}">
-          <image class = "edit_img" src = "../edit.png"></image>
+          <image class = "edit_img" src = "../libs/imgs/edit.png"></image>
           <text>编辑</text>
         </view>
         <view class = "del" bindtap = "del" data-id = "{{index}}">
-          <image class = "del_img" src = "../del.png"></image>
+          <image class = "del_img" src = "../libs/imgs/del.png"></image>
           <text>删除</text>
         </view>
       </view>

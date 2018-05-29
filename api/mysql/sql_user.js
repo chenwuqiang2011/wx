@@ -323,7 +323,24 @@ module.exports = {
 	},
 	getOrder: function(table, data, callback){
 		var username = data.username;
-		var condition = 'select * from '+ table +' where username = ?';
+		var condition;
+		switch(data.status){
+			case 'unpaid':
+				condition = 'select * from '+ table +' where username = ?&&status = 0';
+				break;
+			case 'undelivery':
+				condition = 'select * from '+ table +' where username = ?&&status = 1';
+				break; 
+			case 'receiving':
+				condition = 'select * from '+ table +' where username = ?&&status = 2';
+				break;
+			case 'unevaluate':
+				condition = 'select * from '+ table +' where username = ?&&status = 5';
+				break;
+			default:
+				condition = 'select * from '+ table +' where username = ?';
+		}
+
 		var orders = [];
 		sql.query(condition, [username], function(err, results, fields){
 			console.log(results);
@@ -333,19 +350,22 @@ module.exports = {
 				switch(item.status){
 					case 0:
 						status = '待支付';
-						break
+						break;
 					case 1:
 						status = '待发货';
-						break
+						break;
 					case 2:
 						status = '待收货';
-						break
+						break;
 					case 3:
 						status = '已收货';
-						break
+						break;
 					case 4:
 						status = '已关闭';
-						break
+						break;
+					case 5:
+						status = '待评价';
+						break;
 					default:
 						status = '错误'
 				}
@@ -360,11 +380,23 @@ module.exports = {
 				obj.msg = item.msg;
 				obj.status = status;
 				obj.createTime = item.createTime;
-				orders.push(obj);
+				obj.completeTime = item.completeTime;
+				orders.unshift(obj);
 			})
 			callback({status: true, message: '订单查询成功', data: orders});
 		})
-
+	},
+	//更新订单；
+	updateOrder: function(table, data, callback){
+		var username = data.username;
+		var orderId = data.orderId;
+		var completeTime = data.completeTime;
+		var params = [data.completeTime, data.username, data.orderId];
+		var condition = 'UPDATE ordering SET status = 4, completeTime = ? WHERE username = ?&&orderId = ?';
+		sql.query(condition, params, function(err, results, fields){
+			console.log(results);
+			callback({status: true, message: '订单已关闭', data: results});
+		} )
 	}
 }
 

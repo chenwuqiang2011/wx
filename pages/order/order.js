@@ -28,7 +28,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    //根据传过来的识别码判断要查询的订单；
+    switch(options.status){
+      case 'unpaid':
+        this.data.status = options.status;
+        break;
+      case 'undelivery':
+        this.data.status = options.status;
+        break; 
+      case 'receiving':
+        this.data.status = options.status;
+        break;
+      case 'unevaluate':
+        this.data.status = options.status;
+        break;
+      default:
+        this.data.status = 'getOrder';
+    }
+    this.setData({
+      status: this.data.status
+    })
   },
 
   /**
@@ -44,22 +63,47 @@ Page({
   onShow: function () {
     var that = this;
     app.onShow();
+    //加载提示；
+    wx.showLoading({
+      title: '加载中'
+    });
+
     wx.request({
       method: 'POST',
       url: baseUrl + 'getOrder',
       data: {
-        username: app.globalData.userInfo.nickName
+        username: app.globalData.userInfo.nickName,
+        status: that.data.status
       }, 
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
       },
       success: function(res){
         console.log(res);
+        //去除加载提示；
+        wx.hideLoading();
         if(res.data.status){
           that.setData({
             orders: res.data.data
           })
         }
+      },
+      fail: function(err){
+        //去除加载提示；
+        wx.hideLoading();
+        //可提示重新发送请求；
+        wx.showModal({
+          title: '加载失败！',
+          content: '是否要重新获取数据？',
+          success: function(res){
+            if(res.confirm){
+              //重新发送请求；
+              that.onShow();
+            } else {
+              console.log('取消')
+            }
+          }
+        })
       }
     })
   },

@@ -99,5 +99,11 @@ exports.register = function (app){
 		sql.getOrder('ordering', request.body, function(data){
 			response.send(data);
 		})
+	});
+	//更新订单
+	app.post('/updateOrder', urlencodedParser, function(request, response){
+		sql.updateOrder('ordering', request.body, function(data){
+			response.send(data);
+		})
 	})
 }

@@ -51,7 +51,7 @@
     </view>
     <view class = "d-details-right d-details-price">￥{{nowPrice}}</view>
     <view class = "d-addCart">
-      <image class = "d-addCart_img" src = "../add.png" bindtap='addCart' data-id = "{{ID}}"></image>
+      <image class = "d-addCart_img" src = "../libs/imgs/add.png" bindtap='addCart' data-id = "{{ID}}"></image>
     </view>
 
 </template>
@@ -68,7 +68,7 @@
     </view>
     <view class = "s-details-right s-details-price">￥{{nowPrice}}</view>
     <view class = "addCart">
-      <image class = "addCart_img" src = "../add.png" bindtap='addCart' data-id = "{{ID}}"></image>
+      <image class = "addCart_img" src = "../libs/imgs/add.png" bindtap='addCart' data-id = "{{ID}}"></image>
     </view>
 
 </template>
@@ -80,25 +80,25 @@
     <view class = "paid-element" catchtap='no'>
       <view class = "paid-method" >
         选择支付方式
-        <image class = "delete" src = "../delete.png" bindtap="hiddenFloatView"></image>
+        <image class = "delete" src = "../libs/imgs/delete.png" bindtap="hiddenFloatView"></image>
       </view>
       <view class = "paid-wx" data-name = "微信支付"  bindtap="hiddenFloatView">
         微信支付
-        <image class = "wx" src = "../wx.png"></image>
-        <image wx:if = "{{select}}" class = "select" src = "../select.png"></image>
-        <image wx:else class = "unselect" src = "../unselect.png"></image>  
+        <image class = "wx" src = "../libs/imgs/wx.png"></image>
+        <image wx:if = "{{select}}" class = "select" src = "../libs/imgs/select.png"></image>
+        <image wx:else class = "unselect" src = "../libs/imgs/unselect.png"></image>  
       </view>
        <view class = "paid-union" data-name = "银联支付" bindtap="hiddenFloatView">
         银联支付
-        <image class = "union" src = "../union.png"></image>
-        <image wx:if = "{{!select}}" class = "select" src = "../select.png"></image>
-        <image wx:else class = "unselect" src = "../unselect.png"></image>
+        <image class = "union" src = "../libs/imgs/union.png"></image>
+        <image wx:if = "{{!select}}" class = "select" src = "../libs/imgs/select.png"></image>
+        <image wx:else class = "unselect" src = "../libs/imgs/unselect.png"></image>
       </view> 
       <!-- <view class = "paid-alipay" data-name = "alipay">
         支付宝支付
-        <image class = "alipay" src = "../alipay.png"></image>
-        <image class = "select" src = "../select.png"></image>
-        <image class = "unselect" src = "../unselect.png"></image>
+        <image class = "alipay" src = "../libs/imgs/alipay.png"></image>
+        <image class = "select" src = "../libs/imgs/select.png"></image>
+        <image class = "unselect" src = "../libs/imgs/unselect.png"></image>
       </view> -->
     </view>
    </view>
@@ -111,12 +111,12 @@
     <view class = "paid-element" catchtap='no'>
       <view class = "paid-method" >
         选择快递方式
-        <image class = "delete" src = "../delete.png" bindtap="hiddenFloatView"></image>
+        <image class = "delete" src = "../libs/imgs/delete.png" bindtap="hiddenFloatView"></image>
       </view>
       <view class = "paid-wx" data-name = " 快递 免运费"  bindtap="hiddenFloatView">
         快递 免运费
-        <image class = "wx" src = "../receiving.png"></image>
-        <image class = "select" src = "../select.png"></image>
+        <image class = "wx" src = "../libs/imgs/receiving.png"></image>
+        <image class = "select" src = "../libs/imgs/select.png"></image>
       </view>
     </view>
    </view>

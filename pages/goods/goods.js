@@ -31,6 +31,11 @@ Page({
     var id = options.id;
     this.id = options.id;
     var that = this;
+    //加载提示；
+    wx.showLoading({
+      title: '加载中'
+    });
+
     wx.request({
       method: 'POST',
       url: baseUrl +'getProduct',
@@ -40,9 +45,29 @@ Page({
       },
       success: function(res){
         console.log(res)
+        //隐藏加载提示；
+        wx.hideLoading();
+
         that.setData({
           goods: res.data.data[0]
         });
+      },
+      fail: function (err) {
+        //去除加载提示；
+        wx.hideLoading();
+        //可提示重新发送请求；
+        wx.showModal({
+          title: '加载失败！',
+          content: '是否要重新获取数据？',
+          success: function (res) {
+            if (res.confirm) {
+              //重新发送请求；
+              that.onLoad();
+            } else {
+              console.log('取消')
+            }
+          }
+        })
       }
     })
   },

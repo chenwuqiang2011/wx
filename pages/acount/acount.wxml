@@ -5,7 +5,7 @@
 <!-- 收货人地址 -->
   <view class = "addAddress" wx:if = "{{addressList.length <= 0}}">
     请添加地址
-    <image class = "right" src = "../right.png"></image>
+    <image class = "right" src = "../libs/imgs/right.png"></image>
   </view>
   
   <view class = "addressList" wx:for = "{{addressList}}" wx:key = "{{index}}" bindtap = "toAddressList">
@@ -16,8 +16,8 @@
     <view class = "recieve">
       收货地址：{{item.province}}{{item.city}}{{item.county}}{{item.detail}}
     </view>
-    <image class = "right" src = "../right.png"></image>
-    <image class = "envelope" src = "../envelope.png"></image>
+    <image class = "right" src = "../libs/imgs/right.png"></image>
+    <image class = "envelope" src = "../libs/imgs/envelope.png"></image>
   </view>
   <!-- 商品列表 -->
   <view class = "goodslist">
@@ -36,14 +36,14 @@
   <view class = "send" bindtap="translate" data-name = "express">
     配送方式
     <text class = "send_select">{{express}}</text>
-    <image class = "send_right" src = "../right.png"></image>
+    <image class = "send_right" src = "../libs/imgs/right.png"></image>
   </view>
   <!-- 支付方式 -->
   <view class = "paid" bindtap="translate" data-name = "paid">
   
     支付方式
     <text class = "paid_select">{{paid}}</text>
-    <image class = "paid_right" src = "../right.png"></image>
+    <image class = "paid_right" src = "../libs/imgs/right.png"></image>
   </view>
   <!-- 买家留言 -->
   <view class = "msg">
