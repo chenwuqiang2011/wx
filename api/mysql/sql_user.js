@@ -401,8 +401,7 @@ module.exports = {
 			console.log(results);
 			callback({status: true, message: '订单已关闭', data: results});
 		} )
-	}
-},
+	},
 	express: function(table, data, callback){
 		var userID = '1347013';
 		var keyValue = 'b6b4fba5-b2ab-4d6e-a244-4d3eca36c76e';

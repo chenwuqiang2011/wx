@@ -6,16 +6,10 @@ App({
     goodslist: [],
     cart: [],
     qty: 0,
-
     // baseUrl: 'http://120.78.221.246:999/',
-<<<<<<< HEAD
-    baseUrl: 'http://www.cwq888.cn:443/',
+    // baseUrl: 'http://www.cwq888.cn:443/',
     // baseUrl: 'http://192.168.100.11:443/',
-=======
-    // baseUrl: 'http://www.cwq888.cn:444/',
-    baseUrl: 'http://192.168.100.11:443/',
->>>>>>> e7a53d6586f64b11ec5e9f1f6334760d226f2cf2
-    // baseUrl: 'http://192.168.1.186:443/',
+    baseUrl: 'http://192.168.1.186:443/',
     imgUrl: 'http://www.cwq888.cn/image/'
   },
   showLoading: function(){
@@ -145,25 +139,25 @@ App({
   onShow: function(){
     console.log('onshow')
     //获取用户购物车信息；
-    if (!this.globalData.userInfo){
-      wx.showModal({
-        title: '温馨提示',
-        content: '请先授权登录哦！',
-        success: function(res){
-          if(res.confirm){
-            wx.switchTab({
-              url: '../info/info'
-            })
-          } else {
-            console.log("取消")
-          }
-        },
-        fail: function(err){
+    // if (!this.globalData.userInfo){
+    //   wx.showModal({
+    //     title: '温馨提示',
+    //     content: '请先授权登录哦！',
+    //     success: function(res){
+    //       if(res.confirm){
+    //         wx.switchTab({
+    //           url: '../info/info'
+    //         })
+    //       } else {
+    //         console.log("取消")
+    //       }
+    //     },
+    //     fail: function(err){
 
-        }
-      });
-      return false;
-    }
+    //     }
+    //   });
+    //   return false;
+    // }
     //提示加载中；
     wx.showLoading({
       title: '加载中'

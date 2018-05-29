@@ -1,16 +1,11 @@
 <!--pages/order/order.wxml-->
-<<<<<<< HEAD
+
 <view class = "none" wx:if = "{{orders.length <= 0}}">
   暂时没有数据！
 </view>
-=======
-<!-- 当前用户没有订单时 -->
-<view class = "none" wx:if = "{{orders.length <= 0}}">
-  <view class = "tips">您还没有相关订单哦！</view>
-</view>
 
 <!-- 当前用户存在订单时 -->
->>>>>>> e7a53d6586f64b11ec5e9f1f6334760d226f2cf2
+
 <view class = "orders" wx:for = "{{orders}}" wx:key = "{{index}}" data-id = "{{index}}" bindtap = "orderDetail">
   <view class = "time">
     <view class = "createTime">下单时间：{{item.createTime}}</view>
