@@ -6,9 +6,12 @@ App({
     goodslist: [],
     cart: [],
     qty: 0,
-    baseUrl: 'http://120.78.221.246:999/',
-    // baseUrl: 'http://www.cwq888.cn:443/',
+    // baseUrl: 'http://120.78.221.246:999/',
+    baseUrl: 'https://www.cwq888.cn/',
+    
+    // baseUrl: 'http://www.cwq888.cn:888/',
     // baseUrl: 'http://192.168.100.11:443/',
+    // baseUrl: 'http://172.20.10.2:443/',
     // baseUrl: 'http://192.168.1.186:443/',
     imgUrl: 'http://www.cwq888.cn/image/'
   },
@@ -110,7 +113,7 @@ App({
             success: res => {console.log(res)
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
-
+              this.onShow();
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -140,54 +143,54 @@ App({
     console.log('onshow', this.globalData.userInfo)
     //获取用户购物车信息；
     if (!this.globalData.userInfo) return false;
-      //提示加载中；
-      wx.showLoading({
-        title: '加载中'
-      })
-      //获取用户购物车信息；
-      var that = this;
-      wx.request({
-        method: 'POST',
-        data: {
-          username: '13538966472'
-        },
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
-        },
-        url: that.data.baseUrl + 'getCart',
-        success: function (res) {
-          //隐藏加载中；
-          wx.hideLoading()
-          if (res.data.status) {
-            that.data.cart = JSON.parse(res.data.data[0].cart);
-            //同时更新数量提示；
-            var qty = 0;
-            that.data.cart.map((item, idx) => {
-              qty += item.qty;
-              console.log(2222)
-            });
-            that.data.qty = qty;
-            that.addCart();
-          }
-        },
-        fail: function (err) {
-          //去除加载提示；
-          wx.hideLoading();
-          //可提示重新发送请求；
-          wx.showModal({
-            title: '加载失败！',
-            content: '是否要重新获取数据？',
-            success: function (res) {
-              if (res.confirm) {
-                //重新发送请求；
-                that.onShow();
-              } else {
-                console.log('取消')
-              }
-            }
-          })
+    //提示加载中；
+    wx.showLoading({
+      title: '加载中'
+    })
+    //获取用户购物车信息；
+    var that = this;
+    wx.request({
+      method: 'POST',
+      data: {
+        username: this.globalData.userInfo.nickName
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      url: that.data.baseUrl + 'getCart',
+      success: function (res) {
+        //隐藏加载中；
+        wx.hideLoading()
+        if (res.data.status) {
+          that.data.cart = JSON.parse(res.data.data[0].cart);
+          //同时更新数量提示；
+          var qty = 0;
+          that.data.cart.map((item, idx) => {
+            qty += item.qty;
+            console.log(2222)
+          });
+          that.data.qty = qty;
+          that.addCart();
         }
-      })
+      },
+      fail: function (err) {
+        //去除加载提示；
+        wx.hideLoading();
+        //可提示重新发送请求；
+        wx.showModal({
+          title: '加载失败！',
+          content: '是否要重新获取数据？',
+          success: function (res) {
+            if (res.confirm) {
+              //重新发送请求；
+              that.onShow();
+            } else {
+              console.log('取消')
+            }
+          }
+        })
+      }
+    })
      
   }
 })

@@ -73,7 +73,7 @@
 </movable-area> -->
 
 </scroll-view>
-<view class = "bottom_fixed" wx:if = "{{cart.length != 0}}">
+<view class = "bottom_fixed">
   <view class = "bottom_left">
     <image class = "selectAll" src = "../libs/imgs/select.png" wx:if = "{{selected}}" bindtap="selectAll"></image>
     <image class = "selectAll" src = "../libs/imgs/unselect.png" wx:if = "{{!selected}}" bindtap="selectAll"></image>
@@ -83,12 +83,11 @@
     </view>
   </view>
   <view class = "bottom_right" bindtap = "acount">
-    结算：(<text class = "totalPrice">{{totalNum}}</text>)
+    结算：({{totalNum}})
   </view>
 </view>
 <!-- 购物车为空时  -->
-<view class = "empty" wx:if = "{{show}}" bindtap="tocategory">
-  <view>购物车为空！</view>
+<view class = "empty" wx:if = "{{show}}">
   <image class = "empty_img" src = "../libs/imgs/empty.png"></image>
-  <view>前往更多好货</view>
+  <view bindtap="tocategory">前往更多好货</view>
 </view>

@@ -3,7 +3,7 @@
 
 <scroll-view scroll-y = "true" class = "acount">
 <!-- 收货人地址 -->
-  <view class = "addAddress" wx:if = "{{addressList.length <= 0}}">
+  <view class = "addAddress" wx:if = "{{addressList.length <= 0}}" bindtap = "toAddressList">
     请添加地址
     <image class = "right" src = "../libs/imgs/right.png"></image>
   </view>

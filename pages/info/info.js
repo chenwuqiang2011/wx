@@ -1,5 +1,6 @@
 // pages/info/info.js
 var app = getApp();
+var baseUrl = app.data.baseUrl;
 var template = require('../../template/template.js');
 
 var show = false;
@@ -17,7 +18,13 @@ Page({
     item: {
       show: show
     },
-    province: '请输入地址'
+    orders: '',
+    qty: {
+      unpaid: 0,
+      undelivery: 0,
+      receiving: 0,
+      unevaluate: 0
+    }
   },
   onLoad: function () {
     //动态设置页面标题。跟json配置功能一样；
@@ -63,10 +70,10 @@ Page({
       success: function (res) {
         console.log(res);
         app.globalData.userInfo = e.detail.userInfo;
-        
-        //获取购物车信息；
-        app.onShow();
 
+        //登录成功，更新购物车信息；
+        app.onShow();
+        
         that.setData({
           userInfo: e.detail.userInfo,
           hasUserInfo: true
@@ -188,31 +195,75 @@ Page({
     //请求数据
     template.updateAreaData(that, 0, e);
   },
-  //点击选择城市按钮显示picker-view
-  translate: function (e) {
-    template.animationEvents(this, 0, true, 400);
-  },
-  //隐藏picker-view
-  hiddenFloatView: function (e) {
-    template.animationEvents(this, 200, false, 400);
-    console.log(123, this.data.item)
-    this.setData({
-      province: item.provinces[item.value[0]].name,
-      city: item.citys[item.value[1]].name,
-      county: item.countys[item.value[2]].name
-    });
-  },
-  //滑动事件
-  bindChange: function (e) {
-    template.updateAreaData(this, 1, e);
-    item = this.data.item;
-
-  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
- 
+    if(!app.globalData.userInfo) return false;
+    var that = this;
+    wx.showLoading({
+      title: '加载中'
+    });
+    wx.request({
+      method: 'POST',
+      url: baseUrl + 'getOrder',
+      data: {
+        username: app.globalData.userInfo.nickName,
+        status: 'getOrder'
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      success: function (res) {
+        console.log(res);
+        //去除加载提示；
+        wx.hideLoading();
+      
+        if (res.data.status) {
+          //重置数量显示；
+          that.data.qty.unpaid = 0;
+          that.data.qty.undelivery = 0;
+          that.data.qty.receiving = 0;
+          that.data.qty.unevaluate = 0;
+          res.data.data.map((item, idx) => {
+            switch (item.status) {
+              case '待支付':
+                that.data.qty.unpaid++;
+                break;
+              case '待发货':
+                that.data.qty.undelivery++;
+                break;
+              case '待收货':
+                that.data.qty.receiving++;
+                break;
+              case '待评价':
+                that.data.qty.unevaluate++;
+                break;
+            }
+          });
+          that.setData({
+            qty: that.data.qty
+          })
+        }
+      },
+      fail: function (err) {
+        //去除加载提示；
+        wx.hideLoading();
+        //可提示重新发送请求；
+        wx.showModal({
+          title: '加载失败！',
+          content: '是否要重新获取数据？',
+          success: function (res) {
+            if (res.confirm) {
+              //重新发送请求；
+              that.onShow();
+            } else {
+              console.log('取消')
+            }
+          }
+        })
+      }
+    })
   },
 
   /**
@@ -233,6 +284,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+  
   },
 
   /**

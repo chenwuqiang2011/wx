@@ -41,9 +41,9 @@ Page({
     left: 0,
     items: ['水果沙拉', '西餐', '广东特色', '陕西风味', '新疆肥羊' ,'甜点'],
     imgUrls: [
-      imgUrl + 'sala/Yogurt-mixed-fruit-salad.jpg',
-      imgUrl + 'main-course/Roasted-lobster-with-cream-cheese.jpg',
-      imgUrl + 'staple-food/Ham-salad-pasta.jpg'
+      imgUrl + 'cpu/intel-i7-8700.jpg',
+      imgUrl + 'memory/ddr4-3200-16g.jpg',
+      imgUrl + 'mainboard/giga-b350.jpg'
     ],
     imgUrl: imgUrl,
     indicatorDots: true,
@@ -59,15 +59,9 @@ Page({
       url: '../goods/goods?id=' + e.target.dataset.id
     })
   },
-  api: function(){
-    wx.request({
-      method: 'POST',
-      data: {},
-      url: baseUrl + 'express',
-      header: {'content-type': 'application/x-www-form-urlencoded'},
-      success: function(res){
-        console.log(res)
-      }
+  toInfo: function(){
+    wx.switchTab({
+      url: '../info/info'
     })
   },
 
@@ -102,7 +96,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getLocation();
+    
     var that = this;
     app.addListener(function (changedData) {
       console.log(123, changedData)
@@ -117,28 +111,15 @@ Page({
         })
       }
     });
-    var that = this;
-    // wx.showModal({
-    //   title: '提示',
-    //   content: '允许获取地理位置吗？',
-    //   success: function (res) {
-    //     if (res.confirm) {
-    //       console.log('用户点击确定');
-         
-
-    //       that.getLocation();
-    //     } else if (res.cancel) {
-    //       console.log('用户点击取消');
-    //     }
-    //   }
-    // });
+    //获取地址位置；
+    this.getLocation()
     //加载商品；
     this.goodsLoading();
     //获取端口数据；
     wx.request({
       method: 'POST',
       url: baseUrl + 'queryProducts',
-      data: { pageNo: 1, qty: 100 },
+      data: { pageNo: 1, qty: 110 },
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
       },
@@ -212,9 +193,6 @@ Page({
       url:  baseUrl + 'queryProducts',
       data: { pageNo: this.data.pageNo, qty: this.data.qty },
       header: {
-        //         对于 GET 方法的数据，会将数据转换成 query string（encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
-        //       对于 POST 方法且 header['content-type'] 为 application/ json 的数据，会对数据进行 JSON 序列化
-        // 对于 POST 方法且 header['content-type'] 为 application/ x - www - form - urlencoded 的数据，会将数据转换成 query string （encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
       },
       success: function (res) {
@@ -245,7 +223,7 @@ Page({
     wx.request({
       method: 'POST',
       url:  baseUrl + 'queryProducts',
-      data: { pageNo: 10, qty: 8 },
+      data: { pageNo: 7, qty: 8 },
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
       },
@@ -261,7 +239,7 @@ Page({
     wx.request({
       method: 'POST',
       url:  baseUrl + 'queryProducts',
-      data: { pageNo: 7, qty: 8 },
+      data: { pageNo: 10, qty: 8 },
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
       },
@@ -397,16 +375,15 @@ Page({
   onPullDownRefresh: function () {
     // wx.startPullDownRefresh()
     console.log('pullDown')
-    app.onShow();
     wx.stopPullDownRefresh()
-    
+    app.onShow();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    
+    this.lower();
   },
 
   /**

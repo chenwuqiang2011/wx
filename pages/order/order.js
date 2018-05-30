@@ -23,6 +23,12 @@ Page({
       }
     })
   },
+  toPaid: function(){
+    wx.showToast({
+      title: '敬请期待！',
+      icon: 'none'
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

@@ -26,7 +26,8 @@
       <text>共{{item.qty}}件商品</text>
       <text>共计：￥{{item.price}}</text>
     </view>
-    <view class = "toPaid" wx:if = "{{item.status == '待支付'||item.status == '待评价'}}">{{item.status}}</view>
+    <view class = "toPaid" wx:if = "{{item.status == '待支付'}}" catchtap='toPaid'>去支付</view>
+    <view class = "toPaid" wx:if = "{{item.status == '待评价'}}" catchtap='toPaid'>去评价</view>
   </view>
 </view>
 

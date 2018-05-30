@@ -28,7 +28,9 @@ Page({
       phoneNumber: '18520521259'
     })
   },
-  close: function(){
+  close: function(e){
+    var status = e.currentTarget.dataset.status; //3：收货，4：关闭；
+    console.log(status)
     var that = this;
     //关闭时间；
     var completeTime = moment().format('YYYY-MM-DD h:mm:ss')  //https://www.helloweba.net/javascript/271.html
@@ -38,7 +40,8 @@ Page({
       data: {
         username: app.globalData.userInfo.nickName,
         orderId: that.data.detail.orderId,
-        completeTime: completeTime
+        completeTime: completeTime,
+        status: status
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
@@ -54,6 +57,10 @@ Page({
       title: '提示',
       content: '敬请期待！'
     })
+  },
+  //确认收货；
+  confirm: function(){
+    console.log('收货')
   },
   logistics: function(){
     wx.navigateTo({

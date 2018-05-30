@@ -170,7 +170,7 @@ Page({
     });
     app.data.cart = this.data.cart;
     //把购物车更新到后端服务器
-    app.cart("13538966472");
+    app.cart(app.globalData.userInfo.nickName);
    
     this.count();
   },
@@ -197,7 +197,7 @@ Page({
     });
     app.data.cart = this.data.cart;
     //把购物车更新到后端服务器
-    app.cart("13538966472");
+    app.cart(app.globalData.userInfo.nickName);
    
     this.count();
   },
@@ -213,21 +213,13 @@ Page({
   },
   /*结算页面*/
   acount: function(){
-    console.log(this.data.cart)
-    if (!app.globalData.userInfo) {
-      wx.showModal({
-        title: '温馨提示',
-        content: '请先授权登录哦！',
-        success: function (res) {
-          if (res.confirm) {
-            wx.switchTab({
-              url: '../info/info'
-            })
-          } else {
-
-          }
-        }
-      })
+    console.log(this.data.cart);
+    if (this.data.totalNum == 0){
+      wx.showToast({
+        title: '您还没有选择商品哦！',
+        icon: 'none',
+        duration: 800
+      });
       return false;
     }
     wx.navigateTo({
@@ -298,7 +290,7 @@ Page({
 
     app.data.cart = this.data.cart;
     //把购物车更新到后端服务器
-    app.cart("13538966472");
+    app.cart(app.globalData.userInfo.nickName);
 
     app.data.cart = this.data.cart;
     this.count();
@@ -321,7 +313,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-   
+    console.log(333, app.data.cart);
     app.addCart();
     // 购物车为空时;
     if(app.data.cart.length <= 0){

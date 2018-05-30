@@ -272,14 +272,15 @@ module.exports = {
 	},
 	order: function(table, data, callback){
 
-		var  addSql = 'INSERT INTO ordering VALUES(0,?,?,?,?,?,?,?,?,?,?)';
+		var  addSql = 'INSERT INTO ordering VALUES(0,?,?,?,?,?,?,?,?,?,?,?)';
+		var completeTime = '';
 		//var  addSqlParams = [data.goods, data.address, data.price, JSON.stringify(data.msg), JSON.stringify(data.express), data.qty, JSON.stringify(data.paid), data.status, JSON.stringify(data.username), JSON.stringify(data.createTime)];
-		var addSqlParams = [data.username, data.goods, data.address, data.price, data.qty, data.paid, data.express, data.msg, data.status, data.createTime]
+		var addSqlParams = [data.username, data.goods, data.address, data.price, data.qty, data.paid, data.express, data.msg, data.status, data.createTime, completeTime]
 		console.log(addSqlParams)
 		sql.query(addSql, addSqlParams, function(err,results,fields){
 			if(results.affectedRows){
 				//同时减掉购物车的商品；
-				var username = '13538966472';
+				var username = data.username;
 				//先查询用户原来地址；
 				var condition = 'select * from '+ table +' where username = ?';
 				sql.query(condition, [username], function(err, results, fields){
@@ -395,8 +396,10 @@ module.exports = {
 		var username = data.username;
 		var orderId = data.orderId;
 		var completeTime = data.completeTime;
-		var params = [data.completeTime, data.username, data.orderId];
-		var condition = 'UPDATE ordering SET status = 4, completeTime = ? WHERE username = ?&&orderId = ?';
+		var status = data.status;
+		var params = [data.status, data.completeTime, data.username, data.orderId];
+
+		var condition = 'UPDATE ordering SET status = ?, completeTime = ? WHERE username = ?&&orderId = ?';
 		sql.query(condition, params, function(err, results, fields){
 			console.log(results);
 			callback({status: true, message: '订单已关闭', data: results});
