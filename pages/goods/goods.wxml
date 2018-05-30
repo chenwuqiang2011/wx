@@ -28,58 +28,35 @@
   </view>
   <!-- 商品属性 -->
   <view class = "goods_details">
-    <text>颜色:</text>
+    <text>口味:</text>
     <view class = "colors">
-      <view class = "color {{currentTab == 0 ? 'active' : ''}}" data-current = "0" bindtap='changeNav'>红色</view>
-      <view class = "color {{currentTab == 1 ? 'active' : ''}}" data-current = "1" bindtap='changeNav'>黄色</view>
-      <view class = "color {{currentTab == 2 ? 'active' : ''}}" data-current = "2" bindtap='changeNav'>蓝色</view>
+      <view class = "color {{currentTab == 0 ? 'active' : ''}}" data-current = "0" bindtap='changeNav'>原味</view>
+      <view class = "color {{currentTab == 1 ? 'active' : ''}}" data-current = "1" bindtap='changeNav'>西式</view>
+      <view class = "color {{currentTab == 2 ? 'active' : ''}}" data-current = "2" bindtap='changeNav'>中式</view>
     </view>
-    <text>尺码:</text>
+    <text>加料区:</text>
     <view class = "size">
-      <view class = "color {{currentTab2 == 0 ? 'active' : ''}}" data-current = "0" bindtap='changeNav2'>S</view>
-      <view class = "color {{currentTab2 == 1 ? 'active' : ''}}" data-current = "1" bindtap='changeNav2'>M</view>
-      <view class = "color {{currentTab2 == 2 ? 'active' : ''}}" data-current = "2" bindtap='changeNav2'>L</view>
-      <view class = "color {{currentTab2 == 3 ? 'active' : ''}}" data-current = "3" bindtap='changeNav2'>XL</view>
-      <view class = "color {{currentTab2 == 4 ? 'active' : ''}}" data-current = "4" bindtap='changeNav2'>XXL</view>
+      <view class = "color {{currentTab2 == 0 ? 'active' : ''}}" data-current = "0" bindtap='changeNav2'>啥都不要</view>
+      <view class = "color {{currentTab2 == 1 ? 'active' : ''}}" data-current = "1" bindtap='changeNav2'>加辣</view>
+      <view class = "color {{currentTab2 == 2 ? 'active' : ''}}" data-current = "2" bindtap='changeNav2'>加糖</view>
+      <view class = "color {{currentTab2 == 3 ? 'active' : ''}}" data-current = "3" bindtap='changeNav2'>加奶</view>
+      <view class = "color {{currentTab2 == 4 ? 'active' : ''}}" data-current = "4" bindtap='changeNav2'>加柠檬汁</view>
     </view>
   </view>
   <!-- 商品信息 -->
+
+  <view class = "welcome" >感谢您的光临，我们将会竭情为您服务！</view>
   <view class = "message">
-    <text>美西编号：</text>
-    <text class = "msg">90516</text>
+  对于美食，我们有着坚定的信念——我们普及健康食材，引导品质生活方式：食物的美妙味感固然值得玩味，但只有吃的健康，才算吃的美好。帮助人们吃的安全、健康、美好，是老友记的社会责任；我们传承美食文化，传递美食正能量：美食是一种文化，需要传承，渴望创新。
   </view>
-    <view class = "message">
-      <text>颜　　色：</text>
-      <text class = "msg">	蓝色</text>
-    </view>
-    <view class = "message">
-      <text>商品货号：</text>
-      <text class = "msg">	16P0980 200</text>
-    </view>
-    <view class = "message">
-      <text>材　　质：</text>
-      <text class = "msg">	全棉</text>
-    </view>
-    <view class = "message">
-      <text>产　　地：</text>
-      <text class = "msg">	意大利</text>
-    </view>
-    <view class = "message">
-      <text>适用人群：</text>
-      <text class = "msg">	男士</text>
-    </view>
-    <view class = "message">
-      <text>商品描述：</text>
-      <text class = "msg">	蓝色全棉材质，品牌Logo绣饰，纽扣闭合，长袖POLO衫款式</text>
-    </view>
-    <view class = "message">
-      <text>到货时间：</text>
-      <text class = "msg">	该商品到货时间预计5-10个工作日</text>
-    </view>
-    <view class = "message">
-      <text>退货说明：</text>
-      <text class = "msg">	若该商品无质量问题不支持退换货。</text>
-    </view>
+  <view class = "message">
+  向经典致敬，向大师取经；让传统新生，为创意开道，是老友记的传播使命；我们凝聚达人力量，成就美食梦想：每一个达人都有美食梦想，每一个有梦想的人都可能成为明星。
+  </view>
+  <view class = "message">
+  为爱美食的人圆梦，是老友记的前行动力；我们搭建互动平台，创造美食社交新生活：选择美食，就是选择用开放分享的态度拥抱生活。成为美食家们的分享沙龙，创造美食社交新生活，是老友记的价值和骄傲。而所有这一切，都是为了——“让吃更美好！”
+  </view>
+
+ 
     <!-- 商品详情图片 -->
     <view class = "imgs" wx:if = "{{goods.imgurl}}">
     <!-- fail to load image:还是处理下比较好，错误出现的原因就是初始的时候image_url没有值，导致src="http://livec.dev/storage/"，所以报了404，后面逻辑处理的时候对image_url赋值了，图片才出来，处理的方式也简单，先判断image_url，没有就用wx:if隐藏下 -->
@@ -91,7 +68,7 @@
 </view>
 <view class = "fixed">
   <view class = "cart" bindtap='toCart'>
-    <image class = "cart_img" src = "../cart_on.png"></image>
+    <image class = "cart_img" src = "../libs/imgs/cart_on.png"></image>
     <text class = "qty" wx:if = "{{qty!==0}}">{{qty}}</text>
   </view>
   <view class = "add" bindtap="add">加入购物车</view>

@@ -170,7 +170,7 @@ Page({
     });
     app.data.cart = this.data.cart;
     //把购物车更新到后端服务器
-    app.cart("13538966472");
+    app.cart(app.globalData.userInfo.nickName);
    
     this.count();
   },
@@ -197,7 +197,7 @@ Page({
     });
     app.data.cart = this.data.cart;
     //把购物车更新到后端服务器
-    app.cart("13538966472");
+    app.cart(app.globalData.userInfo.nickName);
    
     this.count();
   },
@@ -213,7 +213,15 @@ Page({
   },
   /*结算页面*/
   acount: function(){
-    console.log(this.data.cart)
+    console.log(this.data.cart);
+    if (this.data.totalNum == 0){
+      wx.showToast({
+        title: '您还没有选择商品哦！',
+        icon: 'none',
+        duration: 800
+      });
+      return false;
+    }
     wx.navigateTo({
       url: '../acount/acount?cart=' + JSON.stringify(this.data.cart),
       success: function(res) {},
@@ -282,7 +290,7 @@ Page({
 
     app.data.cart = this.data.cart;
     //把购物车更新到后端服务器
-    app.cart("13538966472");
+    app.cart(app.globalData.userInfo.nickName);
 
     app.data.cart = this.data.cart;
     this.count();

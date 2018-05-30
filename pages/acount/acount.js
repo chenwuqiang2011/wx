@@ -158,7 +158,7 @@ Page({
     wx.request({
       method: 'POST',
       url: baseUrl + 'getAddress',
-      data: { username: '13538966472' },
+      data: { username: app.globalData.userInfo.nickName },
       header: {
         //  'content-type': 'application/json' // 默认值
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值

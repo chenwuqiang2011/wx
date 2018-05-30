@@ -48,6 +48,21 @@ page {
 .status {
   width: 25%;
   height: 100rpx;
+  position: relative;
+}
+.num {
+  position: absolute;
+  right: 50rpx;
+  top: 10rpx;
+  font-size: 24rpx;
+  color: red;
+  width: 30rpx;
+  height: 30rpx;
+  border: 2rpx solid red;
+  border-radius: 50%;
+  line-height: 30rpx;
+  background: #fff;
+  text-align: center;
 }
 .status_img {
   display: block;

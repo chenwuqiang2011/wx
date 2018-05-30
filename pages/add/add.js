@@ -203,7 +203,7 @@ Page({
         wx.request({
           method: 'POST',
           url: baseUrl + 'updateAddress',
-          data: { username: '13538966472', address: JSON.stringify(prevPage.data.addressList) },
+          data: { username: app.globalData.userInfo.nickName, address: JSON.stringify(prevPage.data.addressList) },
           header: {
             //  'content-type': 'application/json' // 默认值
             'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
@@ -223,7 +223,7 @@ Page({
         wx.request({
           method: 'POST',
           url: baseUrl + 'address',
-          data: { username: '13538966472', address: JSON.stringify(this.data.address) },
+          data: { username: app.globalData.userInfo.nickName, address: JSON.stringify(this.data.address) },
           header: {
             //  'content-type': 'application/json' // 默认值
             'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值

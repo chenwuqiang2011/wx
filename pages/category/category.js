@@ -93,6 +93,20 @@ Page({
     })
   },
   addCart: function (e) {
+    if (!app.globalData.userInfo) {
+      wx.showModal({
+        title: '提示',
+        content: '请先授权登录哦！',
+        success: function(res){
+          if(res.confirm){
+            wx.switchTab({
+              url: '../info/info'
+            });
+          }
+        }
+      });
+      return false;
+    };
     //要加入购物车的商品为；
     app.goodslist.map(item=>{
       item.data.map(item2=>{
@@ -109,7 +123,7 @@ Page({
                 //有相同商品时，数量 +1
                 item3.qty++;
                 //把购物车更新到后端服务器
-                app.cart("13538966472")
+                app.cart(app.globalData.userInfo.nickName)
 
               } else if (!flag && idx3 == app.data.cart.length - 1) {
                 //没有相同商品时，数量 为1
@@ -117,7 +131,7 @@ Page({
                 app.data.cart.push(item2);
                 console.log(app.data.cart)
                 //把购物车更新到后端服务器
-                app.cart("13538966472")
+                app.cart(app.globalData.userInfo.nickName)
               }
             })
           }else {
@@ -126,7 +140,7 @@ Page({
             app.data.cart.push(item2);
             console.log(app.data.cart)
             //把购物车更新到后端服务器
-            app.cart("13538966472");
+            app.cart(app.globalData.userInfo.nickName);
           }
         }
       })
@@ -152,7 +166,7 @@ Page({
     wx.request({
       method: 'POST',
       data: {
-        username: '13538966472',
+        username: app.globalData.userInfo.nickName,
         cart: JSON.stringify(app.data.cart)
       },
       header: {

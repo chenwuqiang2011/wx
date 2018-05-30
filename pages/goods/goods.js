@@ -83,7 +83,21 @@ Page({
     })
   },
   add: function(){
-    console.log(app.data.cart)
+    console.log(app.data.cart);
+    if (!app.globalData.userInfo) {
+      wx.showModal({
+        title: '提示',
+        content: '请先授权登录哦！',
+        success: function (res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '../info/info'
+            });
+          }
+        }
+      });
+      return false;
+    };
     
     //要加入购物车的商品为；
     app.goodslist.map(item => {console.log(111)

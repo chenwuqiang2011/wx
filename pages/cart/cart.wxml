@@ -83,7 +83,7 @@
     </view>
   </view>
   <view class = "bottom_right" bindtap = "acount">
-    结算：(<text class = "totalPrice">{{totalNum}}</text>)
+    结算：({{totalNum}})
   </view>
 </view>
 <!-- 购物车为空时  -->

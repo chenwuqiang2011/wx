@@ -54,8 +54,9 @@
   <view class = "completeTime" wx:if = "{{detail.completeTime}}">完成时间：{{detail.completeTime}}</view>
 </view>
 
-<view class = "fixed" wx:if = "{{detail.status == '待支付'||detail.status == '待评价'}}">
-  <view class = "close" bindtap = "close" wx:if = "{{detail.status == '待支付'}}">关闭订单</view>
+<view class = "fixed" wx:if = "{{detail.status == '待支付'||detail.status == '待评价'||detail.status == '待收货'}}">
+  <view class = "close" bindtap = "close" wx:if = "{{detail.status == '待支付'}}" data-status = '4'>关闭订单</view>
   <view class = "paid" bindtap = "goToPaid" wx:if = "{{detail.status == '待支付'}}">去支付</view>
   <view class = "paid" bindtap = "goToPaid" wx:if = "{{detail.status == '待评价'}}">去评价</view>
+  <view class = "paid" bindtap = "close" wx:if = "{{detail.status == '待收货'}}" data-status = '3'>确认收货</view>
 </view>

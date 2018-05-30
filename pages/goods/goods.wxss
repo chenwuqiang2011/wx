@@ -68,19 +68,18 @@
   background: #000;
   color: #fff;
 }
-.message {
-  padding: 0 20rpx;
-  margin-bottom: 20rpx;
-  color: #333;
-  font-size: 32rpx;
-  line-height: 32rpx;
-  font-weight: 500;
+.welcome {
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 34rpx;
+  text-align: center;
+  margin: 20rpx;
 }
-.msg{
-  color: #666;
-  font-weight: 400;
+.message {
+  line-height: 50rpx;
   font-size: 28rpx;
-  
+  text-indent: 60rpx;
+  margin: 20rpx;
 }
 .imgs {
   text-align: center;

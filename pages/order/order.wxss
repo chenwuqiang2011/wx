@@ -3,8 +3,7 @@
 .none {
   width: 100%;
   height: 100%;
-  background: #fff;
-  /* position: relative; */
+  font-size: 34rpx;
 }
 .tips {
   width: 100%;
