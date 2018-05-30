@@ -62,7 +62,11 @@ Page({
     wx.getUserInfo({
       success: function (res) {
         console.log(res);
-        app.globalData.userInfo = e.detail.userInfo
+        app.globalData.userInfo = e.detail.userInfo;
+        
+        //获取购物车信息；
+        app.onShow();
+
         that.setData({
           userInfo: e.detail.userInfo,
           hasUserInfo: true
@@ -229,7 +233,6 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
   },
 
   /**

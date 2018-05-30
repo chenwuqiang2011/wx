@@ -102,7 +102,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.getLocation();
     var that = this;
     app.addListener(function (changedData) {
       console.log(123, changedData)
@@ -207,23 +207,6 @@ Page({
   goodsLoading: function(){
     // 加载商品
     var that = this;
-    // wx.showLoading({
-    //   title: '加载中',
-    //   mask: false,
-    //   success: function () {
-
-    //   }
-    // })
-
-    // setTimeout(function () {
-    //   wx.hideLoading();
-    //   wx.showToast({
-    //     title: '成功',
-    //     icon: 'success',
-    //     duration: 2000
-    //   });
-    // }, 2000);
-
     wx.request({
       method: 'POST',
       url:  baseUrl + 'queryProducts',
@@ -248,9 +231,6 @@ Page({
       url:  baseUrl + 'queryProducts',
       data: { pageNo: 12, qty: 8 },
       header: {
-        //         对于 GET 方法的数据，会将数据转换成 query string（encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
-        //       对于 POST 方法且 header['content-type'] 为 application/ json 的数据，会对数据进行 JSON 序列化
-        // 对于 POST 方法且 header['content-type'] 为 application/ x - www - form - urlencoded 的数据，会将数据转换成 query string （encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
       },
       success: function (res) {
@@ -267,9 +247,6 @@ Page({
       url:  baseUrl + 'queryProducts',
       data: { pageNo: 10, qty: 8 },
       header: {
-        //         对于 GET 方法的数据，会将数据转换成 query string（encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
-        //       对于 POST 方法且 header['content-type'] 为 application/ json 的数据，会对数据进行 JSON 序列化
-        // 对于 POST 方法且 header['content-type'] 为 application/ x - www - form - urlencoded 的数据，会将数据转换成 query string （encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
       },
       success: function (res) {
@@ -286,9 +263,6 @@ Page({
       url:  baseUrl + 'queryProducts',
       data: { pageNo: 7, qty: 8 },
       header: {
-        //         对于 GET 方法的数据，会将数据转换成 query string（encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
-        //       对于 POST 方法且 header['content-type'] 为 application/ json 的数据，会对数据进行 JSON 序列化
-        // 对于 POST 方法且 header['content-type'] 为 application/ x - www - form - urlencoded 的数据，会将数据转换成 query string （encodeURIComponent(k)=encodeURIComponent(v)&encodeURIComponent(k)=encodeURIComponent(v)...）
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
       },
       success: function (res) {
@@ -423,8 +397,9 @@ Page({
   onPullDownRefresh: function () {
     // wx.startPullDownRefresh()
     console.log('pullDown')
-    wx.stopPullDownRefresh()
     app.onShow();
+    wx.stopPullDownRefresh()
+    
   },
 
   /**

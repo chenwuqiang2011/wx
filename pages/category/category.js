@@ -93,6 +93,22 @@ Page({
     })
   },
   addCart: function (e) {
+    if (!app.globalData.userInfo){
+      wx.showModal({
+        title: '温馨提示',
+        content: '请先授权登录哦！',
+        success: function(res){
+          if(res.confirm){
+            wx.switchTab({
+              url: '../info/info'
+            })
+          } else {
+            
+          }
+        }
+      })
+      return false;
+    }
     //要加入购物车的商品为；
     app.goodslist.map(item=>{
       item.data.map(item2=>{

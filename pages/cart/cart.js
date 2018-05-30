@@ -214,6 +214,22 @@ Page({
   /*结算页面*/
   acount: function(){
     console.log(this.data.cart)
+    if (!app.globalData.userInfo) {
+      wx.showModal({
+        title: '温馨提示',
+        content: '请先授权登录哦！',
+        success: function (res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '../info/info'
+            })
+          } else {
+
+          }
+        }
+      })
+      return false;
+    }
     wx.navigateTo({
       url: '../acount/acount?cart=' + JSON.stringify(this.data.cart),
       success: function(res) {},
@@ -305,7 +321,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(333, app.data.cart);
+   
     app.addCart();
     // 购物车为空时;
     if(app.data.cart.length <= 0){
