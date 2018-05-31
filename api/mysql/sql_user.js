@@ -31,19 +31,18 @@ module.exports = {
 		console.log('name', data.username)
 
 		var condition = 'select * from '+ table +' where username = ?';
-		// //查询数据库
-		// sql.query( condition, [data.category], function(err, results, fields){
-		// 	callback({status: true,data: results})
-		// })
-
+		
 		//查询数据库
 		sql.query(condition, [data.username], function(err,results,fields){
 			console.log(results)
 			if(results.length > 0){
-				callback({status: false, message: '该手机号已注册！请重新注册！', data: null});
+				callback({status: false, message: '用户已存在！', data: null});
 			} else {
-				var  addSql = 'INSERT INTO user(userId, username, password) VALUES(0,?,?)';
-				var  addSqlParams = [data.username, data.password];
+				var address = '';
+				var collected = '';
+				var cart = '';
+				var  addSql = 'INSERT INTO user VALUES(0,?,?,?,?)';
+				var  addSqlParams = [data.username, address, collected, cart];
 				//增
 				sql.query(addSql, addSqlParams, function(err,results,fields){
 					callback({status: true, message: '恭喜您！注册成功！', data: results});

@@ -62,7 +62,16 @@ page {
 .details {
   float: left;
   margin-top: 20rpx;
-  width: 370rpx;
+  width: 530rpx;
+}
+/* 两行缺省 */
+.name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: box;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .total {
   width: 100%;

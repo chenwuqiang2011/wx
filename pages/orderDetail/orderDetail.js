@@ -23,6 +23,12 @@ Page({
       detail: JSON.parse(options.detail)
     })
   },
+  toDetail: function(e){
+    console.log(e)
+    wx.navigateTo({
+      url: '../goods/goods?id=' + e.currentTarget.dataset.id
+    })
+  },
   contact: function(){
     wx.makePhoneCall({
       phoneNumber: '18520521259'

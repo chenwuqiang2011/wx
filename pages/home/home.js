@@ -39,11 +39,12 @@ Page({
     latitude: '',
     currentTab: 0,
     left: 0,
-    items: ['CPU', '内存', '主板', '硬盘', '显卡' ,'电源', '机箱', '显示器', '鼠标', '键盘'],
+    items: ['CPU', '内存', '硬盘', '主板', '显卡', '显示器', '电源', '机箱', '鼠标', '键盘', '音响'],
     imgUrls: [
-      imgUrl + 'mainboard/asus-b360.jpg',
-      imgUrl + 'memory/ad-ddr4-3200-16g.jpg',
-      imgUrl + 'cpu/intel-i5-7600K.jpg'
+      imgUrl + 'mainboard/giga-b350.jpg',
+      imgUrl + 'memory/ddr4-3200-16g.jpg',
+      imgUrl + 'gpu/msi-1060.jpg',
+      imgUrl + 'monitor/tcl-31.5.jpg'
     ],
     imgUrl: imgUrl,
     indicatorDots: true,
@@ -234,7 +235,7 @@ Page({
         });
       }
     });
-
+    
     //获取五谷分类;
     wx.request({
       method: 'POST',

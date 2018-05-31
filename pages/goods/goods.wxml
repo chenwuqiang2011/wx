@@ -44,30 +44,43 @@
     </view> -->
   </view>
   <!-- 商品信息 -->
+  <view class = "size">
+    <view class = "tabItem {{currentTab2 == 0 ? 'active1' : ''}}" data-current = "0" bindtap='changeNav2'>商品详情</view>
+    <view class = "tabItem {{currentTab2 == 1 ? 'active1' : ''}}" data-current = "1" bindtap='changeNav2'>评价</view>
+  </view>
+  <swiper class = "tabs-content" current = "{{currentTab2}}" bindchange = "changeTab">
+    <swiper-item style="height: 5000rpx;">
+      <view class = "welcome" >感谢您的光临，我们将会竭情为您服务！</view>
+      <view class = "message">
+      我们致力于创建优质的商户泛经营平台，为同行商户提供极具竞争力的价格、便捷的物流服务及售后代理服务，让商户更好地集中资源去开展业务、营销以达到盈利目的，实现共赢。
+      </view>
+      <view class = "message">
+      鼎超秉承“放下过去，把握现在，共建未来”的核心信念，用振奋人心的工作热情及对浩瀚知识的敬畏，不断学习，共同进步，一起成长！设计完整、实在、有效的职业生涯发展规划及内部晋升机制，为每位加入鼎超的袍泽能抓住未来，步向成功，实现理想！
+      </view>
+      <view class = "message">
+      鼎超电子自2012年改革以来，在事业版图上更有了突破性的发展：进驻白云、黄埔、天河、广州卫星城市等主要IT集散地建立公司节点；拥有电源、机箱等一系列自营品牌；创立“E家电脑”直营店……直至今天，我们的步伐并没有停止，我们渴望成长，追求成功，期望我们的付出能为国内IT行业的蓬勃发展尽份绵力！也希望有更多的贤才能认同我们，加入我们，共同努力，共创辉煌！
+      </view>
+      <view class = "message">
+        鼎超因你而精彩！
+      </view>
 
-  <view class = "welcome" >感谢您的光临，我们将会竭情为您服务！</view>
-  <view class = "message">
-  我们致力于创建优质的商户泛经营平台，为同行商户提供极具竞争力的价格、便捷的物流服务及售后代理服务，让商户更好地集中资源去开展业务、营销以达到盈利目的，实现共赢。
-  </view>
-  <view class = "message">
-  鼎超秉承“放下过去，把握现在，共建未来”的核心信念，用振奋人心的工作热情及对浩瀚知识的敬畏，不断学习，共同进步，一起成长！设计完整、实在、有效的职业生涯发展规划及内部晋升机制，为每位加入鼎超的袍泽能抓住未来，步向成功，实现理想！
-  </view>
-  <view class = "message">
-  鼎超电子自2012年改革以来，在事业版图上更有了突破性的发展：进驻白云、黄埔、天河、广州卫星城市等主要IT集散地建立公司节点；拥有电源、机箱等一系列自营品牌；创立“E家电脑”直营店……直至今天，我们的步伐并没有停止，我们渴望成长，追求成功，期望我们的付出能为国内IT行业的蓬勃发展尽份绵力！也希望有更多的贤才能认同我们，加入我们，共同努力，共创辉煌！
-  </view>
-  <view class = "message">
-     鼎超因你而精彩！
-  </view>
+    
+      <!-- 商品详情图片 -->
+      <view class = "imgs" wx:if = "{{goods.imgurl}}">
+      <!-- fail to load image:还是处理下比较好，错误出现的原因就是初始的时候image_url没有值，导致src="http://livec.dev/storage/"，所以报了404，后面逻辑处理的时候对image_url赋值了，图片才出来，处理的方式也简单，先判断image_url，没有就用wx:if隐藏下 -->
+        <image src= "{{imgUrl+goods.imgurl}}"></image> 
+        <image src= "{{imgUrl+goods.imgurl}}"></image> 
+        <image src= "{{imgUrl+goods.imgurl}}"></image> 
+        <image src= "{{imgUrl+goods.imgurl}}"></image> 
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <view>
+        评价
+      </view>
+    </swiper-item>
+  </swiper>
 
- 
-    <!-- 商品详情图片 -->
-    <view class = "imgs" wx:if = "{{goods.imgurl}}">
-    <!-- fail to load image:还是处理下比较好，错误出现的原因就是初始的时候image_url没有值，导致src="http://livec.dev/storage/"，所以报了404，后面逻辑处理的时候对image_url赋值了，图片才出来，处理的方式也简单，先判断image_url，没有就用wx:if隐藏下 -->
-        <image src= "{{imgUrl+goods.imgurl}}"></image> 
-        <image src= "{{imgUrl+goods.imgurl}}"></image> 
-        <image src= "{{imgUrl+goods.imgurl}}"></image> 
-        <image src= "{{imgUrl+goods.imgurl}}"></image> 
-    </view>
 </view>
 <view class = "fixed">
   <view class = "cart" bindtap='toCart'>
@@ -75,5 +88,5 @@
     <text class = "qty" wx:if = "{{qty!==0}}">{{qty}}</text>
   </view>
   <view class = "add" bindtap="add">加入购物车</view>
-  <view class = "buy">立即购买</view>
+  <view class = "buy" bindtap = "buy">立即购买</view>
 </view>

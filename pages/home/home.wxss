@@ -52,6 +52,8 @@ page {
   overflow: hidden;
    font-size: 28rpx;
   color: #000;
+  border-bottom: 2rpx solid #ddd;
+  
 }
 .nav_left {
   float: left;

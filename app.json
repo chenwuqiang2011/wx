@@ -18,6 +18,9 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#f55a4b",
     "navigationBarTitleText": "鼎超电子",
+
+    "navigationBarTitleText": "鼎超电子科技",
+
     "navigationBarTextStyle": "#fff",
     "enablePullDownRefresh": false
   },

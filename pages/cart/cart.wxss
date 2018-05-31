@@ -10,12 +10,11 @@ page{
 .details {
   height: 200rpx;
   width: 100%;
-  padding: 20rpx 0 20rpx 20rpx;
+  padding-left: 20rpx;
   box-sizing: border-box;
   border-bottom: 2rpx solid #ccc;
   font-size: 26rpx;
   position: relative; 
-
   display:flex;
   justify-content:space-between;
   overflow:hidden; 
@@ -86,15 +85,26 @@ page{
 }
 .details-desc {
   float: left;
-  /* height: 90%; */
-  margin-left: 5%;
-  margin-top: 8%;
+  height: 100%;
   width: 45%;
+  margin-left: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* 两行缺省 */
+.details-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: box;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .details-right {
   float: right;
   width: 20%;
-  padding-right: 70rpx;
+  /* padding-right: 70rpx; */
   margin-top: 30rpx;
   box-sizing: border-box;
   text-align: center;
@@ -103,7 +113,7 @@ page{
   width: 184rpx;
   height: 60rpx;
   position: absolute;
-  right: 30rpx;
+  right:20rpx;
   bottom: 20rpx;
   border: 2rpx solid #ddd;
 }
@@ -145,25 +155,23 @@ page{
 }
 .bottom_left {
   float: left;
-  /* width: 60%; */
+  width: 70%;
   height: 50rpx;
-  margin-right: 5%;
-  /* margin-left: 5%; */
   margin-top: 20rpx;
-  /* background: #555; */
 }
 .select_text {
   float: left;
   height: 50rpx;
   margin-left: 40rpx;
   line-height: 50rpx;
-  margin-right: 50rpx;
+  margin-right: 40rpx;
 }
 .total {
   height: 50rpx;
   line-height: 50rpx;
-  float: right;
-  margin-right: 50rpx;
+  float: left;
+  width: 329rpx;
+  overflow: hidden;
 }
 .selectAll, .unselectAll {
   float: left;
