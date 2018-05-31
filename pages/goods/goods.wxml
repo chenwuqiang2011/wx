@@ -23,37 +23,40 @@
     <view class = "goods_category">{{goods.category}}</view>
     <view class = "goods_price">
       <text class = "lf price">{{goods.nowPrice}}</text>
-      <text class = "rf sales">已售：{{goods.sales}}（份）</text>
+      <text class = "rf sales">已售：{{goods.sales}}（件）</text>
     </view>
   </view>
   <!-- 商品属性 -->
   <view class = "goods_details">
-    <text>口味:</text>
+    <text>规格:</text>
     <view class = "colors">
-      <view class = "color {{currentTab == 0 ? 'active' : ''}}" data-current = "0" bindtap='changeNav'>原味</view>
-      <view class = "color {{currentTab == 1 ? 'active' : ''}}" data-current = "1" bindtap='changeNav'>西式</view>
-      <view class = "color {{currentTab == 2 ? 'active' : ''}}" data-current = "2" bindtap='changeNav'>中式</view>
+      <view class = "color {{currentTab == 0 ? 'active' : ''}}" data-current = "0" bindtap='changeNav'>原包</view>
+      <view class = "color {{currentTab == 1 ? 'active' : ''}}" data-current = "1" bindtap='changeNav'>翻包</view>
+      <!-- <view class = "color {{currentTab == 2 ? 'active' : ''}}" data-current = "2" bindtap='changeNav'></view> -->
     </view>
-    <text>加料区:</text>
+    <!-- <text>加料区:</text>
     <view class = "size">
       <view class = "color {{currentTab2 == 0 ? 'active' : ''}}" data-current = "0" bindtap='changeNav2'>啥都不要</view>
       <view class = "color {{currentTab2 == 1 ? 'active' : ''}}" data-current = "1" bindtap='changeNav2'>加辣</view>
       <view class = "color {{currentTab2 == 2 ? 'active' : ''}}" data-current = "2" bindtap='changeNav2'>加糖</view>
       <view class = "color {{currentTab2 == 3 ? 'active' : ''}}" data-current = "3" bindtap='changeNav2'>加奶</view>
       <view class = "color {{currentTab2 == 4 ? 'active' : ''}}" data-current = "4" bindtap='changeNav2'>加柠檬汁</view>
-    </view>
+    </view> -->
   </view>
   <!-- 商品信息 -->
 
   <view class = "welcome" >感谢您的光临，我们将会竭情为您服务！</view>
   <view class = "message">
-  对于美食，我们有着坚定的信念——我们普及健康食材，引导品质生活方式：食物的美妙味感固然值得玩味，但只有吃的健康，才算吃的美好。帮助人们吃的安全、健康、美好，是老友记的社会责任；我们传承美食文化，传递美食正能量：美食是一种文化，需要传承，渴望创新。
+  我们致力于创建优质的商户泛经营平台，为同行商户提供极具竞争力的价格、便捷的物流服务及售后代理服务，让商户更好地集中资源去开展业务、营销以达到盈利目的，实现共赢。
   </view>
   <view class = "message">
-  向经典致敬，向大师取经；让传统新生，为创意开道，是老友记的传播使命；我们凝聚达人力量，成就美食梦想：每一个达人都有美食梦想，每一个有梦想的人都可能成为明星。
+  鼎超秉承“放下过去，把握现在，共建未来”的核心信念，用振奋人心的工作热情及对浩瀚知识的敬畏，不断学习，共同进步，一起成长！设计完整、实在、有效的职业生涯发展规划及内部晋升机制，为每位加入鼎超的袍泽能抓住未来，步向成功，实现理想！
   </view>
   <view class = "message">
-  为爱美食的人圆梦，是老友记的前行动力；我们搭建互动平台，创造美食社交新生活：选择美食，就是选择用开放分享的态度拥抱生活。成为美食家们的分享沙龙，创造美食社交新生活，是老友记的价值和骄傲。而所有这一切，都是为了——“让吃更美好！”
+  鼎超电子自2012年改革以来，在事业版图上更有了突破性的发展：进驻白云、黄埔、天河、广州卫星城市等主要IT集散地建立公司节点；拥有电源、机箱等一系列自营品牌；创立“E家电脑”直营店……直至今天，我们的步伐并没有停止，我们渴望成长，追求成功，期望我们的付出能为国内IT行业的蓬勃发展尽份绵力！也希望有更多的贤才能认同我们，加入我们，共同努力，共创辉煌！
+  </view>
+  <view class = "message">
+     鼎超因你而精彩！
   </view>
 
  

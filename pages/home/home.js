@@ -41,9 +41,9 @@ Page({
     left: 0,
     items: ['水果沙拉', '西餐', '广东特色', '陕西风味', '新疆肥羊' ,'甜点'],
     imgUrls: [
-      imgUrl + 'sala/Yogurt-mixed-fruit-salad.jpg',
-      imgUrl + 'main-course/Roasted-lobster-with-cream-cheese.jpg',
-      imgUrl + 'staple-food/Ham-salad-pasta.jpg'
+      imgUrl + 'cpu/intel-i7-8700.jpg',
+      imgUrl + 'memory/ddr4-3200-16g.jpg',
+      imgUrl + 'mainboard/giga-b350.jpg'
     ],
     imgUrl: imgUrl,
     indicatorDots: true,
@@ -119,7 +119,7 @@ Page({
     wx.request({
       method: 'POST',
       url: baseUrl + 'queryProducts',
-      data: { pageNo: 1, qty: 100 },
+      data: { pageNo: 1, qty: 110 },
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
       },
@@ -223,7 +223,7 @@ Page({
     wx.request({
       method: 'POST',
       url:  baseUrl + 'queryProducts',
-      data: { pageNo: 10, qty: 8 },
+      data: { pageNo: 7, qty: 8 },
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
       },
@@ -239,7 +239,7 @@ Page({
     wx.request({
       method: 'POST',
       url:  baseUrl + 'queryProducts',
-      data: { pageNo: 7, qty: 8 },
+      data: { pageNo: 10, qty: 8 },
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
       },

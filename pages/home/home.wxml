@@ -82,13 +82,13 @@
   <!-- 品质套餐 -->
   <view class = "package">
     <view class = "package-left">
-      <view class = "package-name">品质套餐</view>
+      <view class = "package-name">高端配置</view>
       <!-- <rich-text nodes="{{nodes}}"></rich-text> -->
-      <view class = "package-slogen">搭配案例吃得好</view>
+      <view class = "package-slogen">吃鸡搭配爽歪歪</view>
       <view class = "package-buy">立即抢购></view>
     </view>
     <view class = "package-right">
-      <image class = "package-img" src = "{{imgUrl}}staple-food/Bacon-pizza-wit-potato-chips.jpg"></image>
+      <image class = "package-img" src = "{{imgUrl}}mainboard/asus-z370.jpg"></image>
     </view>
   </view>
   <!-- 推荐商品 -->
@@ -114,7 +114,7 @@
     </view>
   </view>
   <!-- 新鲜果汁 -->
-  <image class = "foryou-img" src = "../libs/imgs/drink.jpg"></image>
+  <image class = "foryou-img" src = "../libs/imgs/power.jpg"></image>
   <scroll-view class = "drinks" scroll-x = "true"> 
       <view class = "drinks-item" wx:for = "{{drinks}}" wx:key = "{{index}}">
         <image class = "drinks-img" src = "{{imgUrl+item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
@@ -124,7 +124,7 @@
       </view>
   </scroll-view>
   <!-- 饭后水果 -->
-  <image class = "foryou-img" src = "../libs/imgs/fruite.jpg"></image>
+  <image class = "foryou-img" src = "../libs/imgs/hd.jpg"></image>
   <scroll-view class = "drinks" scroll-x = "true"> 
       <view class = "drinks-item" wx:for = "{{fruite}}" wx:key = "{{index}}">
         <image class = "drinks-img" src = "{{imgUrl+item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
@@ -134,7 +134,7 @@
       </view>
   </scroll-view>
   <!-- 养生五谷 -->
-  <image class = "foryou-img" src = "../libs/imgs/rice.jpg"></image>
+  <image class = "foryou-img" src = "../libs/imgs/gpu.jpg"></image>
   <scroll-view class = "drinks" scroll-x = "true"> 
       <view class = "drinks-item" wx:for = "{{rice}}" wx:key = "{{index}}">
         <image class = "drinks-img" src = "{{imgUrl+item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
