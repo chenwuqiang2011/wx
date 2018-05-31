@@ -86,13 +86,14 @@ Page({
       },
       success: function(res){
         console.log(res);
-        //去除加载提示；
-        wx.hideLoading();
+        
         if(res.data.status){
           that.setData({
             orders: res.data.data
           })
-        }
+        };
+        //去除加载提示；
+        wx.hideLoading();
       },
       fail: function(err){
         //去除加载提示；

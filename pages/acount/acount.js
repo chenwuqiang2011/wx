@@ -108,11 +108,11 @@ Page({
     obj.express = this.data.express;
     obj.paid = this.data.paid;
     obj.msg = this.data.msg;
-    obj.qty = this.data.qty.toFixed(2);
+    obj.qty = this.data.qty;
     obj.price = this.data.price;
     obj.createTime = createTime;
     obj.status = 0; //0: 待付款；1: 待发货；2: 待收货；3: 已收货；
-    console.log(obj);
+    console.log(obj.price, this.data.price);
     //把订单数据更新到后台数据库；
     if(this.data.addressList.length <= 0){
       wx.showModal({
@@ -136,7 +136,6 @@ Page({
       },
       dataType: 'json',
       success: function(res){
-        console.log(res);
         app.onShow();
 
         wx.redirectTo({
@@ -165,7 +164,6 @@ Page({
       },
       dataType: 'json',
       success: function (res) {
-        console.log(123, res)
         if (!res.data.status) return false
         console.log(res.data.data[0].address);
         var addressList = JSON.parse(res.data.data[0].address);
@@ -179,9 +177,8 @@ Page({
         })
       }
     })
-
-    console.log(options)
-    var cart = JSON.parse(options.cart);    
+    var cart = JSON.parse(options.cart); 
+    console.log(cart)   
     //计算商品数量；
     cart.map((item, idx) => {
       if(item.isSelect) {
@@ -217,7 +214,7 @@ Page({
    */
   onShow: function () {
    
-  console.log(this.data.addressList)
+    console.log(this.data.addressList)
     
   },
 

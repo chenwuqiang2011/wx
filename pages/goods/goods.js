@@ -82,6 +82,12 @@ Page({
       currentTab2: e.target.dataset.current
     })
   },
+  changeTab: function(e){
+    console.log(e.detail.current)
+    this.setData({
+      currentTab2: e.detail.current
+    });
+  },
   add: function(){
     console.log(app.data.cart);
     if (!app.globalData.userInfo) {
@@ -157,6 +163,18 @@ Page({
   toCart: function(){
     wx.switchTab({
       url: '../cart/cart'
+    })
+  },
+  buy: function(){
+    var goods = [];
+    this.data.goods.isSelect = true;
+    this.data.goods.qty = 1;
+    goods.push(this.data.goods);
+    wx.navigateTo({
+      url: '../acount/acount?cart=' + JSON.stringify(goods),
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
     })
   },
 

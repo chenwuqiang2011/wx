@@ -52,6 +52,8 @@ page {
   overflow: hidden;
    font-size: 28rpx;
   color: #000;
+  border-bottom: 2rpx solid #ddd;
+  
 }
 .nav_left {
   float: left;
@@ -75,7 +77,7 @@ page {
   display: inline-block;
   /* width: 30%;  */
   height: 100%;
-  margin-right: 25rpx;
+  margin-right: 50rpx;
   line-height: 80rpx;
  
 }

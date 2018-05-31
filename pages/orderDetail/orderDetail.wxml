@@ -19,7 +19,7 @@
    <image class = "right" src = "../libs/imgs/right.png"></image> 
 </view>
 <!-- 商品列表 -->
-<view class = "goods" wx:for = "{{detail.goods}}" wx:key = "{{index}}">
+<view class = "goods" wx:for = "{{detail.goods}}" wx:key = "{{index}}"  data-id = "{{item.ID}}" bindtap="toDetail">
   <image class = "goods_img" src = "{{imgUrl + item.imgurl}}"></image>
   <view class = "goods_detail">
     <view class = "goods_name">{{item.name}}</view>

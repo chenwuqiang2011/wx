@@ -39,17 +39,17 @@
   </view>
 </template>
 
-<!-- --------------分割线------------- -->
+<!-- --------------分割线，一行两个商品------------- -->
 
 <template name = "double">
     <view class = "d-details-left">
       <image class = "d-details-img" src="http://www.cwq888.cn/image/{{imgurl}}"  data-id = "{{ID}}" bindtap='toDetail'></image>
       <view class = "d-details-desc">
         <view class = "d-details-name">{{name}}</view>
-        <view class = "d-details-sales">{{'已售： '+sales+' 份'}}</view>
+        <view class = "d-details-sales">{{'已售： '+sales+' 件'}}</view>
+        <view class = "d-details-right d-details-price">￥{{nowPrice}}</view>
       </view>
     </view>
-    <view class = "d-details-right d-details-price">￥{{nowPrice}}</view>
     <view class = "d-addCart">
       <image class = "d-addCart_img" src = "../libs/imgs/add.png" bindtap='addCart' data-id = "{{ID}}"></image>
     </view>

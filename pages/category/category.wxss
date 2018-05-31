@@ -121,6 +121,8 @@ page {
   float: left;
   width: 80%;
   height: 100%;
+
+
 }
 .details-left .details-img {
   height: 100%;
@@ -128,10 +130,23 @@ page {
   float: left;
 }
 .details-desc {
-  float: left;
+  float: left; 
   margin-left: 5%;
-  margin-top: 10%;
-  width: 45%;
+  width: 60%;
+  line-height: 40rpx;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* 两行超出范围缺省显示 */
+.details-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: box;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .details-right {
   float: right;
@@ -169,7 +184,7 @@ page {
 }
 .d-details-left {
   width: 100%;
-  height: 450rpx;
+  height: 580rpx;
 }
 .d-details-right {
   margin: 4rpx 0;
@@ -178,8 +193,21 @@ page {
   width: 370rpx;
   height: 370rpx;
 }
-.d-details-desc, .d-details-right {
+.d-details-desc {
+  height: 180rpx;
   padding-left: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* 两行超出范围缺省显示 */
+.d-details-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: box;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .d-addCart {

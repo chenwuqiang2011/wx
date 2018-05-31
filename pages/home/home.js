@@ -39,11 +39,12 @@ Page({
     latitude: '',
     currentTab: 0,
     left: 0,
-    items: ['水果沙拉', '西餐', '广东特色', '陕西风味', '新疆肥羊' ,'甜点'],
+    items: ['CPU', '内存', '硬盘', '主板', '显卡', '显示器', '电源', '机箱', '鼠标', '键盘', '音响'],
     imgUrls: [
-      imgUrl + 'cpu/intel-i7-8700.jpg',
+      imgUrl + 'mainboard/giga-b350.jpg',
       imgUrl + 'memory/ddr4-3200-16g.jpg',
-      imgUrl + 'mainboard/giga-b350.jpg'
+      imgUrl + 'gpu/msi-1060.jpg',
+      imgUrl + 'hd/sam-250g.jpg'
     ],
     imgUrl: imgUrl,
     indicatorDots: true,

@@ -68,6 +68,29 @@
   background: #000;
   color: #fff;
 }
+.tabs-content {
+ height: 3000rpx;
+}
+.tabItem {
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+}
+.active1 {
+  color: red;
+  position: relative;
+}
+.active1:after{ 
+  content: "";
+  display: block;
+  height: 4rpx;
+  width: 100%;
+  background: #ddd;
+  position: absolute; 
+  bottom: -10rpx;
+  left: 0;
+  border-radius: 16rpx;
+}
 .welcome {
   height: 50rpx;
   line-height: 50rpx;

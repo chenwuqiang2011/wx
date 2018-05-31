@@ -73,10 +73,29 @@ Page({
 
         //登录成功，更新购物车信息；
         app.onShow();
-        
+        that.onShow();
         that.setData({
           userInfo: e.detail.userInfo,
           hasUserInfo: true
+        });
+
+        //把用户写入数据库；
+        wx.request({
+          method: 'POST',
+          url: baseUrl + 'register',
+          data: {
+            username: e.detail.userInfo.nickName
+          },
+          header: {
+            'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+          },
+          success: function (res) {
+            console.log(res);
+           
+          },
+          fail: function (err) {
+            console.log(err);
+          }
         })
       },
       fail: function (err) {

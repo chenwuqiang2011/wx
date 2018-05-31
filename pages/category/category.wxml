@@ -33,7 +33,7 @@
               <image class = "details-img" src="{{imgUrl+item.imgurl}}"  data-id = "{{item.ID}}" bindtap='toDetail'></image>
               <view class = "details-desc">
                 <view class = "details-name">{{item.name}}</view>
-                <view class = "details-sales">{{'已售： '+item.sales+' 份'}}</view>
+                <view class = "details-sales">{{'已售： '+item.sales+' 件'}}</view>
               </view>
             </view>
             <view class = "details-right details-price">￥{{item.nowPrice}}</view>
