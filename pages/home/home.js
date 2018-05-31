@@ -39,11 +39,11 @@ Page({
     latitude: '',
     currentTab: 0,
     left: 0,
-    items: ['水果沙拉', '西餐', '广东特色', '陕西风味', '新疆肥羊' ,'甜点'],
+    items: ['CPU', '内存', '主板', '硬盘', '显卡' ,'电源', '机箱', '显示器', '鼠标', '键盘'],
     imgUrls: [
-      imgUrl + 'cpu/intel-i7-8700.jpg',
-      imgUrl + 'memory/ddr4-3200-16g.jpg',
-      imgUrl + 'mainboard/giga-b350.jpg'
+      imgUrl + 'mainboard/asus-b360.jpg',
+      imgUrl + 'memory/ad-ddr4-3200-16g.jpg',
+      imgUrl + 'cpu/intel-i5-7600K.jpg'
     ],
     imgUrl: imgUrl,
     indicatorDots: true,

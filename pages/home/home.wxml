@@ -34,11 +34,11 @@
     </view>
   </view> 
   <!-- 轮播图 -->
-  <swiper indicator-dots="{{indicatorDots}}"
+  <swiper style='height: 600rpx;' indicator-dots="{{indicatorDots}}"
     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular = "{{circular}}">
     <block wx:for="{{imgUrls}}" wx:key = "index">
       <swiper-item>
-        <image src="{{item}}" class="slide-image"/>
+        <image style='height: 100%' src="{{item}}" class="slide-image"/>
       </swiper-item>
     </block>
   </swiper>

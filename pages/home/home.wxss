@@ -75,7 +75,7 @@ page {
   display: inline-block;
   /* width: 30%;  */
   height: 100%;
-  margin-right: 25rpx;
+  margin-right: 50rpx;
   line-height: 80rpx;
  
 }
