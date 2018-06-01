@@ -170,7 +170,7 @@ page{
   height: 50rpx;
   line-height: 50rpx;
   float: left;
-  width: 329rpx;
+  width: 325rpx;
   overflow: hidden;
 }
 .selectAll, .unselectAll {

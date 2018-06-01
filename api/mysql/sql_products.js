@@ -134,6 +134,21 @@ module.exports = {
 				callback({status: false, message: '没有查询到所有商品！', data: null});
 			}
 		})
+	},
+	getHot: function(table, data, callback){
+		var defaultData = {pageNo: 1, qty: 10};
+		data = Object.assign(defaultData, data);
+		var pageNo = data.pageNo - 1;
+		var qty = data.qty;
+		console.log(data)
+		var condition = 'select * from '+ table + ' order by sales desc limit ' + pageNo * qty + ' , ' + qty;
+		sql.query(condition, function(err, results, fields){
+			if(results.length > 0){
+				callback({status: true, message: '查询到第'+ pageNo+'页的所有商品！', data: results});
+			} else {
+				callback({status: false, message: '没有查询到所有商品！', data: null});
+			}
+		})
 	}
 }
 

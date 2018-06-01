@@ -5,7 +5,7 @@
   <view class = "category_search">
      <view class = "search">
       <image src = "../libs/imgs/search.png" class = "search-img"></image>
-      <input class = "search-input" placeholder="请输入您要搜索的美食名称" />
+      <input class = "search-input" placeholder="请输入您要搜索的配件名称" />
     </view>
   </view>
  

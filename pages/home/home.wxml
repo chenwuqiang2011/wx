@@ -10,7 +10,8 @@
   </scroll-view>
 </view> -->
 
-<scroll-view class = "body" scroll-y = "true" style = "height: 100%" bindscrolltolower = "lower" lower-threshold = "100">
+<!-- <scroll-view class = "body" scroll-y = "true" style = "height: 100%" bindscroll = "scroll" bindscrolltolower = "lower" lower-threshold = "100"> -->
+<view>
   <!-- 显示位置 -->
   
   <view class = "location" bindtap = "choseLocation">
@@ -22,7 +23,7 @@
   <!-- 搜索框 -->
   <view class = "search">
     <image src = "../libs/imgs/search.png" class = "search-img"></image>
-    <input class = "search-input" placeholder="请输入您要搜索的美食名称" />
+    <input class = "search-input" placeholder="请输入您要搜索的配件名称" />
   </view>
   <!-- 推荐 -->
   <view class = "header">
@@ -146,10 +147,25 @@
   <!-- 人气推荐 -->
    <view class = "goods">
     <view class = "goodsTitle">
-      <text class = "goodsTitle-text">人气推荐</text>
+      <text class = "goodsTitle-text">热销推荐</text>
     </view>
   </view>
-</scroll-view>
+  <view class = "hot">
+    <view class = "hot_goods" wx:for = "{{hots}}" wx:key = "{{index}}">
+      <image class = "hot_img" src = "{{imgUrl+item.imgurl}}" data-id = "{{item.ID}}" bindtap='navi'></image>
+      <view class = "hot_desc">
+        <view class = "hot_name">{{item.name}}</view>
+        <view class = "hot_oldPrice">市场价：￥{{item.oldPrice}}</view>
+        <view class = "hot_nowPrice">￥{{item.nowPrice}}</view>
+         <view class = "hot_sales">销量：{{item.sales}}</view> 
+      </view>
+    </view>
+  </view>
+</view>
+<!-- </scroll-view> -->
+<view class = "showTopButton" wx:if = "{{showTopButton}}" bindtap='toTop'>
+  <image src = "../libs/imgs/top.png" class = "top_img"></image>
+</view>
  
 <!-- <button> 是否显示轮播图圆点 </button> -->
 

@@ -1,6 +1,7 @@
 /* pages/home/home.wxss */
 page {
   font-size: 28rpx;
+  height: 100%;
 }
 /* 定位样式 */
 .location {
@@ -309,7 +310,7 @@ swiper{
   margin: 20rpx 0;
 }
 .drinks {
-  height: 340rpx;
+  height: 370rpx;
   white-space: nowrap;
   padding: 20rpx 0;
   box-sizing: border-box;
@@ -317,14 +318,14 @@ swiper{
 }
 .drinks-item {
   display: inline-block;
-  width: 200rpx;
+  width: 230rpx;
   margin: 0 10rpx;
   height: 100%;
   position: relative;
 }
 .drinks-img {
   width: 100%;
-  height: 200rpx;
+  height: 230rpx;
 }
 .drinks-hot {
   position: absolute;
@@ -350,3 +351,79 @@ swiper{
   text-align: center;
 }
 
+/* 人气推荐 */
+.hot {
+  overflow: hidden;
+  padding: 1%;
+  background: #ddd;
+}
+.hot_goods {
+  width: 49.5%;
+  float: left;
+  background: #fff;
+  margin-bottom: 1%;
+}
+.hot_goods:nth-child(odd) {
+  margin-right: 1%;
+} 
+.hot_img {
+  width: 300rpx;
+  height: 300rpx;
+  display: block;
+  margin: 10rpx auto;
+}
+.hot_desc {
+  width: 92%;
+  padding: 0 4%;
+  height: 250rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+.hot_name {
+  line-height: 34rpx;
+  height: 68rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: box;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.hot_sales {
+  text-align: right;
+  position: absolute;
+  right: 20rpx;
+  bottom: 38rpx;
+  width: 150rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+
+}
+.hot_nowPrice {
+  color: red;
+  font-size: 30rpx;
+}
+.hot_oldPrice {
+  margin: 10rpx 0;
+  text-decoration: line-through;
+  color: #ccc;
+}
+
+/* 回到顶部 */
+.showTopButton {
+  position: fixed;
+  right: 20rpx;
+  bottom: 100rpx;
+  width: 100rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  background: #fff;
+  border: 2rpx solid #ddd;
+}
+.top_img {
+  width: 100%;
+  height: 100%;
+}

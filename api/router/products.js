@@ -47,5 +47,12 @@ exports.register = function (app){
 			response.send(data);
 		})
 	});
+	//查询人气推荐；
+	app.get('/getHot', function(request, response){
+		sql.getHot('products', request.query, function(data){
+			response.send(data);
+		})
+	});
+	
 	
 }
