@@ -120,51 +120,59 @@ Page({
    */
   onShow: function () {
     var that = this;
-    if (!app.globalData.userInfo){
-      app.showLoading();
-      return false
-    }
-    //提示加载中；
-    wx.showLoading({
-      title: '加载中'
-    })
-    wx.request({
-      method: 'POST',
-      url: baseUrl + 'getAddress',
-      data: { username: app.globalData.userInfo.nickName},
-      header: {
-        //  'content-type': 'application/json' // 默认值
-        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
-      },
-      dataType: 'json',
-      success: function (res) {
-        //隐藏加载中；
-        wx.hideLoading();
-
-        if(!res.data.status) return false
-        console.log(res.data.data[0].address)
-        that.setData({
-          addressList: JSON.parse(res.data.data[0].address)
+    wx.getSetting({
+      success: function(res){
+        //如果授权，允许访问；
+        if (!res.authSetting['scope.userInfo']){
+          app.showLoading();
+          return false;
+        } 
+        //提示加载中；
+        wx.showLoading({
+          title: '加载中'
         })
-      },
-      fail: function (err) {
-        //去除加载提示；
-        wx.hideLoading();
-        //可提示重新发送请求；
-        wx.showModal({
-          title: '加载失败！',
-          content: '是否要重新获取数据？',
+        wx.request({
+          method: 'POST',
+          url: baseUrl + 'getAddress',
+          data: { sessionid: wx.getStorageSync('sessionid') },
+          header: {
+            //  'content-type': 'application/json' // 默认值
+            'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+          },
+          dataType: 'json',
           success: function (res) {
-            if (res.confirm) {
-              //重新发送请求；
-              that.onShow();
-            } else {
-              console.log('取消')
-            }
+            //隐藏加载中；
+            wx.hideLoading();
+
+            if (!res.data.status) return false
+            console.log(res.data.data[0].address)
+            that.setData({
+              addressList: JSON.parse(res.data.data[0].address)
+            })
+          },
+          fail: function (err) {
+            //去除加载提示；
+            wx.hideLoading();
+            //可提示重新发送请求；
+            wx.showModal({
+              title: '加载失败！',
+              content: '是否要重新获取数据？',
+              success: function (res) {
+                if (res.confirm) {
+                  //重新发送请求；
+                  that.onShow();
+                } else {
+                  console.log('取消')
+                }
+              }
+            })
           }
         })
       }
     })
+   
+
+    
   },
   select: function(e){
     console.log(e)
@@ -185,7 +193,7 @@ Page({
     wx.request({
       method: 'POST',
       url: baseUrl + 'updateAddress',
-      data: { username: app.globalData.userInfo.nickName, address: JSON.stringify(this.data.addressList)},
+      data: { sessionid: wx.getStorageSync('sessionid'), address: JSON.stringify(this.data.addressList)},
       header: {
         //  'content-type': 'application/json' // 默认值
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
@@ -250,7 +258,7 @@ Page({
     wx.request({
       method: 'POST',
       url: baseUrl + 'updateAddress',
-      data: { username: app.globalData.userInfo.nickName, address: JSON.stringify(this.data.addressList) },
+      data: { sessionid: wx.getStorageSync('sessionid'), address: JSON.stringify(this.data.addressList) },
       header: {
         //  'content-type': 'application/json' // 默认值
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值

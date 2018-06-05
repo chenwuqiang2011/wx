@@ -7,12 +7,12 @@ App({
     cart: [],
     qty: 0,
     // baseUrl: 'http://120.78.221.246:999/',
-    baseUrl: 'https://www.cwq888.cn/',
+    // baseUrl: 'https://www.cwq888.cn/',
     
     // baseUrl: 'http://www.cwq888.cn:888/',
     // baseUrl: 'http://192.168.100.11:443/',
     // baseUrl: 'http://172.20.10.2:443/',
-    // baseUrl: 'http://192.168.1.186:443/',
+    baseUrl: 'http://192.168.1.186:443/',
     imgUrl: 'http://www.cwq888.cn/image/'
   },
   showLoading: function(){
@@ -61,7 +61,8 @@ App({
         cart: JSON.stringify(this.data.cart)
       },
       header: {
-        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+        'content-type': 'application/x-www-form-urlencoded', // 'content-type': 'application/json'  默认值
+        'signture': 'abc123'
       },
       url: this.data.baseUrl + 'cart',
       success: function (res) {
@@ -69,6 +70,7 @@ App({
       }
     })
   },
+
   onLaunch: function () {
     console.log(11111111)
     
@@ -92,10 +94,13 @@ App({
             url: this.data.baseUrl + 'onlogin',
             data: { code: code },
             header: {
-              'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+              'content-type': 'application/x-www-form-urlencoded', // 'content-type': 'application/json'  默认值
+              'data':'abc123'
             },
             success: function(res){
-              console.log(res)
+              console.log(res);
+              //把sessionid写入本地储存；
+              wx.setStorageSync('sessionid', res.data.sessionid);
             }
           })
           

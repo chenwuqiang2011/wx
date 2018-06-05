@@ -68,9 +68,14 @@ module.exports = {
 		var pageNo = data.pageNo - 1;
 		var qty = data.qty;
 		var condition = 'select * from '+ table + ' limit ' + pageNo * qty + ' , ' + qty;
+		var condition2 = 'select * from '+ table;
+		var qty = 0;
+		sql.query(condition2, function(err, results,fields){
+			qty = results.length;
+		})
 		sql.query(condition, function(err, results, fields){
 			if(results.length > 0){
-				callback({status: true, message: '查询到所有商品！', data: results});
+				callback({status: true, message: '查询到所有商品！', data: results, total: qty});
 			} else {
 				callback({status: false, message: '没有查询到所有商品！', data: null});
 			}
