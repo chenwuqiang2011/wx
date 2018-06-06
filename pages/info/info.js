@@ -27,7 +27,7 @@ Page({
     }
   },
   onLoad: function () {
-    wx.showNavigationBarLoading()
+    // wx.showNavigationBarLoading()
     //动态设置页面标题。跟json配置功能一样；
     // wx.setNavigationBarTitle({
     //   title: '个人中心',
@@ -274,7 +274,7 @@ Page({
                     that.data.qty.unevaluate++;
                     break;
                 }
-              });
+              }); 
               that.setData({
                 qty: that.data.qty
               })

@@ -44,7 +44,7 @@ Page({
       method: 'POST',
       url: baseUrl + 'updateOrder',
       data: {
-        username: app.globalData.userInfo.nickName,
+        sessionid: wx.getStorageSync('sessionid'),
         orderId: that.data.detail.orderId,
         completeTime: completeTime,
         status: status

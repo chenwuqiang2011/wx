@@ -1,4 +1,5 @@
 //app.js
+
 App({
   data: {
     id: '',
@@ -6,7 +7,7 @@ App({
     goodslist: [],
     cart: [],
     qty: 0,
-    // baseUrl: 'http://120.78.221.246:999/',
+    // baseUrl: 'http://120.78.221.246:888/',
     // baseUrl: 'https://www.cwq888.cn/',
     
     // baseUrl: 'http://www.cwq888.cn:888/',
@@ -54,25 +55,59 @@ App({
   },
   //将购物车数据更新到后台；
   cart: function (username) {
-    wx.request({
-      method: 'POST',
-      data: {
-        username: username,
-        cart: JSON.stringify(this.data.cart)
-      },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded', // 'content-type': 'application/json'  默认值
-        'signture': 'abc123'
-      },
-      url: this.data.baseUrl + 'cart',
-      success: function (res) {
-        console.log(res);
+    var that = this;
+    wx.getSetting({
+      success: function(res){
+        if (!res.authSetting['scope.userInfo']) {
+          app.showLoading();
+          return false;
+        };
+        wx.request({
+          method: 'POST',
+          data: {
+            sessionid: wx.getStorageSync('sessionid'),
+            cart: JSON.stringify(that.data.cart)
+          },
+          header: {
+            'content-type': 'application/x-www-form-urlencoded', // 'content-type': 'application/json'  默认值
+            'signture': 'abc123'
+          },
+          url: that.data.baseUrl + 'cart',
+          success: function (res) {
+            console.log(res);
+          }
+        })
       }
     })
+   
   },
 
   onLaunch: function () {
     console.log(11111111)
+    const updateManager = wx.getUpdateManager()
+
+    updateManager.onCheckForUpdate(function (res) {
+      // 请求完新版本信息的回调
+      console.log(res.hasUpdate)
+    })
+
+    updateManager.onUpdateReady(function () {
+      wx.showModal({
+        title: '更新提示',
+        content: '新版本已经准备好，是否重启应用？',
+        success: function (res) {
+          if (res.confirm) {
+            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+            updateManager.applyUpdate()
+          }
+        }
+      })
+
+    })
+
+    updateManager.onUpdateFailed(function () {
+      // 新的版本下载失败
+    })
     
     
     // 展示本地存储能力
@@ -145,57 +180,63 @@ App({
     }
   },
   onShow: function(){
-    console.log('onshow', this.globalData.userInfo)
-    //获取用户购物车信息；
-    if (!this.globalData.userInfo) return false;
-    //提示加载中；
-    wx.showLoading({
-      title: '加载中'
-    })
-    //获取用户购物车信息；
     var that = this;
-    wx.request({
-      method: 'POST',
-      data: {
-        username: this.globalData.userInfo.nickName
-      },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
-      },
-      url: that.data.baseUrl + 'getCart',
-      success: function (res) {
-        //隐藏加载中；
-        wx.hideLoading()
-        if (res.data.status) {
-          that.data.cart = JSON.parse(res.data.data[0].cart);
-          //同时更新数量提示；
-          var qty = 0;
-          that.data.cart.map((item, idx) => {
-            qty += item.qty;
-            console.log(2222)
-          });
-          that.data.qty = qty;
-          that.addCart();
-        }
-      },
-      fail: function (err) {
-        //去除加载提示；
-        wx.hideLoading();
-        //可提示重新发送请求；
-        wx.showModal({
-          title: '加载失败！',
-          content: '是否要重新获取数据？',
+    //获取用户购物车信息；
+    wx.getSetting({
+      success: function(res){
+        //如果授权，允许访问；
+        if (!res.authSetting['scope.userInfo']) return false;
+        console.log(123456)
+        //提示加载中；
+        wx.showLoading({
+          title: '加载中'
+        })
+        //获取用户购物车信息；
+        
+        wx.request({
+          method: 'POST',
+          data: {
+            sessionid: wx.getStorageSync('sessionid')
+          },
+          header: {
+            'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+          },
+          url: that.data.baseUrl + 'getCart',
           success: function (res) {
-            if (res.confirm) {
-              //重新发送请求；
-              that.onShow();
-            } else {
-              console.log('取消')
+            //隐藏加载中；
+            wx.hideLoading()
+            if (res.data.status) {
+              that.data.cart = JSON.parse(res.data.data[0].cart);
+              //同时更新数量提示；
+              var qty = 0;
+              that.data.cart.map((item, idx) => {
+                qty += item.qty;
+                console.log(2222)
+              });
+              that.data.qty = qty;
+              that.addCart();
             }
+          },
+          fail: function (err) {
+            //去除加载提示；
+            wx.hideLoading();
+            //可提示重新发送请求；
+            wx.showModal({
+              title: '加载失败！',
+              content: '是否要重新获取数据？',
+              success: function (res) {
+                if (res.confirm) {
+                  //重新发送请求；
+                  that.onShow();
+                } else {
+                  console.log('取消')
+                }
+              }
+            })
           }
         })
+        
       }
-    })
-     
+    })  
   }
 })

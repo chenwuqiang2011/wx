@@ -78,7 +78,7 @@ Page({
       method: 'POST',
       url: baseUrl + 'getOrder',
       data: {
-        username: app.globalData.userInfo.nickName,
+        sessionid: wx.getStorageSync('sessionid'),
         status: that.data.status
       }, 
       header: {
