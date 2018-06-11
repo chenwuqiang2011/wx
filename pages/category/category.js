@@ -18,7 +18,62 @@ Page({
     imgUrl: imgUrl,
     currentTab: 0,
     left: 0,
-    vertical: true
+    vertical: true,
+    item: {
+      show: false,
+      animationData: ''
+    },
+    keyWord: ''
+  },
+  translate: function(e){
+    console.log(1234)
+    this.animation(400, true, 0);
+  },
+  //动画显示隐藏函数；
+  animation: function (duration, show, moveY) {
+    console.log(111)
+    var animation = wx.createAnimation({
+      transformOrigin: "50% 50%",
+      duration: duration,
+      timingFunction: "ease",
+      delay: 0
+    });
+
+    animation.translateY(moveY + 'vh').step()
+
+    this.setData({
+        item: {
+          show: show,
+          animationData: animation.export()
+        }
+    })
+  },
+  //隐藏
+  hiddenFloatView: function (e) {
+      this.animation(400, false, 200);
+      this.setData({
+        keyWord: e.detail.value
+      })
+  },
+  keyWord: function(e){
+    wx.request({
+      method: 'POST',
+      data: {
+        keyWord: this.data.keyWord
+      },
+      url: baseUrl + 'keyWord',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      success: function(res){
+        console.log(res);
+        var data = JSON.stringify(res.data.data)
+        wx.navigateTo({
+          rediret: false,
+          url: '../goodslist/goodslist?list=' + data
+        })
+      }
+    })
   },
 
   /**
@@ -37,6 +92,7 @@ Page({
     })
   },
   onLoad: function (options) {
+    this.animation(0, false, 200);
     //动态设置页面标题。
     // wx.setNavigationBarTitle({
     //   title: '分类',
@@ -166,7 +222,7 @@ Page({
     wx.request({
       method: 'POST',
       data: {
-        username: app.globalData.userInfo.nickName,
+        sessionid: wx.getStorageSync('sessionid'),
         cart: JSON.stringify(app.data.cart)
       },
       header: {

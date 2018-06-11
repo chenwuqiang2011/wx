@@ -1,12 +1,15 @@
-   <import src="../../template/template.wxml"/>
+<import src="../../template/template.wxml"/>
+<template is="search" data="{{...item}}"/>
   
    
    <!-- 搜索框 -->
   <view class = "category_search">
-     <view class = "search">
+    <view class = "search">
       <image src = "../libs/imgs/search.png" class = "search-img"></image>
-      <input class = "search-input" placeholder="请输入您要搜索的配件名称" />
+      <input class = "search-input" placeholder="请输入您要搜索的配件名称" bindfocus='translate' bindblur='hiddenFloatView' />
     </view>
+    <view class = "searchBtn" bindtap='keyWord'>搜索</view> 
+    
   </view>
  
   <view class = "category">

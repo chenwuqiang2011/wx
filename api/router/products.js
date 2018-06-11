@@ -53,6 +53,12 @@ exports.register = function (app){
 			response.send(data);
 		})
 	});
+	//模糊查询；
+	app.post('/keyWord', urlencodedParser, function(request, response){
+		sql.keyWord('products', request.body, function(data){
+			response.send(data);
+		})
+	});
 	
 	
 }

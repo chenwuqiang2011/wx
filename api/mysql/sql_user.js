@@ -34,7 +34,7 @@ var sql = mysql.createConnection({
 	host:"localhost",
 	user:"root",
 	password:"",
-	database:"meixi"
+	database:"wx"
 });
 
 //连接数据库
@@ -441,7 +441,7 @@ module.exports = {
 				obj.username = item.username;
 				obj.goods = JSON.parse(item.goods);
 				obj.address = JSON.parse(item.address);
-				obj.price = item.price;
+				obj.price = item.price.toFixed(2);
 				obj.qty = item.qty;
 				obj.paid = item.paid;
 				obj.express = item.express;

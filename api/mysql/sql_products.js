@@ -6,7 +6,7 @@ var sql = mysql.createConnection({
 	host:"localhost",
 	user:"root",
 	password:"",
-	database:"meixi"
+	database:"wx"
 });
 
 //连接数据库
@@ -150,6 +150,18 @@ module.exports = {
 		sql.query(condition, function(err, results, fields){
 			if(results.length > 0){
 				callback({status: true, message: '查询到第'+ pageNo+'页的所有商品！', data: results});
+			} else {
+				callback({status: false, message: '没有查询到所有商品！', data: null});
+			}
+		})
+	},
+	keyWord: function(table, data, callback){
+		var keyWord = data.keyWord;
+		var condition = 'select * from ' + table + ' where description like "%'+ keyWord +'%" or name like "%'+ keyWord +'%"' ;
+		sql.query(condition, function(err, results, fields){
+			console.log(99999, results)
+			if(results.length > 0){
+				callback({status: true, message: '查询到相关的所有商品！', data: results});
 			} else {
 				callback({status: false, message: '没有查询到所有商品！', data: null});
 			}
