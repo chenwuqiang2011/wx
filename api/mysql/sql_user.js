@@ -4,10 +4,13 @@ var mysql = require("mysql");
 //发送请求模块；
 var request = require('request');
 //创建redis连接服务对象
-// var redis = require('redis');
-// var client = redis.createClient();
+var redis = require('redis');
+var client = redis.createClient();
+
 // var redisServerIP = '127.0.0.1';
 // var redisServerPort= '3306';
+var session = require('express-session');
+var redisStore = require('connect-redis')(session);
 
 // MD5
 var md5 = require('md5');
@@ -15,12 +18,23 @@ var md5 = require('md5');
 var http = require('http');
 var qs = require('querystring'); 
 
+
+//sha1签名较对；
+var crypto = require('crypto');
+function sha1(str) {
+	var md5sum = crypto.createHash('sha1');
+	md5sum.update(str);
+	str = md5sum.digest('hex');
+	return str;
+};
+
+
 //定义数据库
 var sql = mysql.createConnection({
 	host:"localhost",
 	user:"root",
 	password:"",
-	database:"meixi"
+	database:"wx"
 });
 
 //连接数据库
@@ -28,27 +42,31 @@ sql.connect();
 
 module.exports = {
 	register:function(table,data,callback){
-		console.log('name', data.username)
 
-		var condition = 'select * from '+ table +' where username = ?';
-		
-		//查询数据库
-		sql.query(condition, [data.username], function(err,results,fields){
-			console.log(results)
-			if(results.length > 0){
-				callback({status: false, message: '用户已存在！', data: null});
-			} else {
-				var address = '';
-				var collected = '';
-				var cart = '';
-				var  addSql = 'INSERT INTO user VALUES(0,?,?,?,?)';
-				var  addSqlParams = [data.username, address, collected, cart];
-				//增
-				sql.query(addSql, addSqlParams, function(err,results,fields){
-					callback({status: true, message: '恭喜您！注册成功！', data: results});
+		var conditions = 'select session_key from '+ table +' where sessionid = ?';
+		sql.query(conditions, [JSON.parse(data.userInfo).sessionid], function(err,results, fields){
+			//通过调用接口（如 wx.getUserInfo）获取数据时，接口会同时返回 rawData、signature，其中 signature = sha1( rawData + session_key )
+			//开发者将 signature、rawData 发送到开发者服务器进行校验。服务器利用用户对应的 session_key 使用相同的算法计算出签名 signature2 ，比对 signature 与 signature2 即可校验数据的完整性。
+			var res = sha1(JSON.parse(data.userInfo).rawData + results[0].session_key);
+			if(res == JSON.parse(data.userInfo).signature) {
+				console.log('较验成功！');
+
+    		    // var condition = 'UPDATE ' + table +' SET session_key = ?, sessionid = ? WHERE openid = ?';
+
+				var condition2 = 'UPDATE ' + table +' SET nickName = ?, gender = ?, language = ?, city = ?, province = ?, avatarUrl = ? WHERE sessionid = ?';
+				var userInfo = JSON.parse(data.userInfo).rawData;
+				userInfo = JSON.parse(userInfo);
+				var params = [userInfo.nickName, userInfo.gender, userInfo.language, userInfo.city, userInfo.province, userInfo.avatarUrl, JSON.parse(data.userInfo).sessionid];
+				//查询数据库
+				sql.query(condition2, params, function(err,results,fields){
+					callback({status: true, message: '用户信息更新成功！', data: results});
 				});
+			} else {
+				console.log('较验失败！');
 			}
-		});
+		})
+
+		
 	},
 	login: function(table, data, callback){
 		var username = data.username;
@@ -86,21 +104,71 @@ module.exports = {
 		    if (response.statusCode === 200) {
 		    	console.log(data)
 		      	console.log("[openid]", data.openid)
-		      	console.log("[session_key]", data.session_key)
+		      	console.log("[session_key]", data.session_key);
 
-			      //TODO: 生成一个唯一字符串sessionid作为键，将openid和session_key作为值，存入redis，超时时间设置为2小时
-			      //伪代码: redisStore.set(sessionid, openid + session_key, 7200)
-			      // redisStore.set(sessionid, openid + session_key, 7200);
-				// client.hmset('sessionid', { username: 'kris', password: 'password' }, function(err) {
-				// 	console.log(err)
-				// });
+		      	//先查询数据库是否存在该用户的openid; 
+		      	var conditions = 'select * from user where openid = ?';
+		      	sql.query(conditions, [data.openid], function(err, results, fields){
 
-		  //     	//读取JavaScript(JSON)对象
-		  //     	client.hgetall('sessionid', function(err, object) {
-		  //       	console.log(111111111111111,object)
-		  //   	})
+      		      	//生成随机数3rd_session
+      		      	var crypto = require('crypto');  
+      		      	var sessionid = '';
+      		      	  
+      		      	crypto.randomBytes(168,function(ex,buf){  
+      		      	    sessionid = buf.toString('hex');  
 
-		      // res.json({ sessionid: sessionid })
+    		      		if(results.length > 0){
+    		      			console.log('存在用户', data.session_key);
+    		      			//更新session_key;
+    		      			var condition = 'UPDATE ' + table +' SET session_key = ?, sessionid = ? WHERE openid = ?';
+
+    		      			//更新用户订单表；
+    		      			var condition2 = 'UPDATE ordering SET sessionid = ? WHERE openid = ?';
+
+    		      			sql.query(condition, [data.session_key, sessionid, data.openid], function(err, results, fields){
+    		      				console.log('更新成功');
+
+    		      				//更新用户订单；
+    		      				sql.query(condition2, [sessionid, data.openid], function(err2, results2, fields2){
+    		      					console.log('订单表更新sessionid成功！');
+    		      					callback({status: true, message: '用户已存在！session_key更新成功!', data: results, sessionid: sessionid});
+    		      				})
+
+    		      			})
+
+    		      		} else {
+
+          			      	//把登录用户的openid写入数据库；
+          			      	var  sqls = 'INSERT INTO user(userId, openid, session_key, sessionid) VALUES(0, ?, ?, ?)';
+          					var  params = [data.openid, data.session_key, sessionid];
+          					//增
+          					sql.query(sqls, params, function(err,results2,fields2){
+          						callback({status: true, message: '用户添加成功！', data: results2, sessionid: sessionid});
+          					});
+
+    		      		}
+      		      	}); 
+
+      			      //TODO: 生成一个唯一字符串sessionid作为键，将openid和session_key作为值，存入redis，超时时间设置为2小时
+      			      //伪代码: redisStore.set(sessionid, openid + session_key, 7200)
+      			      // console.log(redisStore)
+      			      // redisStore.set(1,'abc123', 7200);
+      				
+	      		      // res.json({ sessionid: sessionid })
+		      		
+			      	// client.hmset(sessionid, { sessionid: data.openid + data.session_key }, function(err) {
+      				// 	console.log(sessionid);
+      				// });
+
+      		      	// //读取JavaScript(JSON)对象
+      		     //  	client.hgetall(sessionid, function(err, object) {
+      		     //    	console.log(111111111111111,object)
+      		    	// })
+
+      		     
+		      	})
+
+		      	
 		    } else {
 		      console.log("[error]", err)
 		      // res.json(err)
@@ -108,52 +176,43 @@ module.exports = {
 		  })
 	},
 	address: function(table, data, callback){
-		console.log(data)
-		var username = data.username;
+		var sessionid = data.sessionid;
 		var address = [];
 		address.push(JSON.parse(data.address));
 
 		//先查询用户原来地址；
-		var condition = 'select * from '+ table +' where username = ?';
-		sql.query(condition, [username], function(err, results, fields){
-			console.log('64', results);
+		var condition = 'select * from '+ table +' where sessionid = ?';
+		sql.query(condition, [sessionid], function(err, results, fields){
 			if(results.length <= 0) return false
-			if(results[0].address == ''){console.log('没有')
+			if(results[0].address == '' || !results[0].address){console.log('没有')
 				//当前用户没有地址时，
 				address[0].checked = true;
-				console.log('66',address)
 			} else{
-				console.log('68',results[0].address);
 				var res = JSON.parse(results[0].address);
 				res.map(item=>{
 					//如果新增地址的默认地址勾选时，则其他地址不勾选；
-					console.log('123', address[0].checked)
 					if(address[0].checked){
-						console.log('item.checked', item.checked)
 						item.checked = false;
 					}
 					address.push(item);
-					console.log('push',item)
 				});
-				
 			}
 			address = JSON.stringify(address);
-			console.log('75', address);
 			//用户新增地址；
 
-			var modSql = 'UPDATE ' + table +' SET address = ? WHERE username = ?';
+			var modSql = 'UPDATE ' + table +' SET address = ? WHERE sessionid = ?';
 			
-			sql.query(modSql, [address, username], function(err,results,fields){
+			sql.query(modSql, [address, sessionid], function(err,results,fields){
 				callback({status: true, message: '地址添加成功！', data: results});
 			});
 			
 		})
 	},
 	getAddress: function(table, data, callback){
-		var username = data.username;
+		var sessionid = data.sessionid;
 		//先查询用户原来地址；
-		var condition = 'select * from '+ table +' where username = ?';
-		sql.query(condition, [username], function(err, results, fields){
+		var condition = 'select * from '+ table +' where sessionid = ?';
+		sql.query(condition, [sessionid], function(err, results, fields){
 			// console.log('95', results, results[0].address);
 			if(results.length > 0 && results[0].address) {
 				callback({status: true, message: '查询到地址！', data: results});
@@ -164,16 +223,17 @@ module.exports = {
 		})
 	},
 	updateAddress: function(table, data, callback){
-		var username = data.username;
+		console.log(555555555555, data.sessionid)
+		var sessionid = data.sessionid;
 		var address = data.address;
 
 		//先查询用户原来地址；
-		var modSql = 'UPDATE ' + table +' SET address = ? WHERE username = ?';
-		sql.query(modSql, [address, username], function(err, results, fields){
+		var modSql = 'UPDATE ' + table +' SET address = ? WHERE sessionid = ?';
+		sql.query(modSql, [address, sessionid], function(err, results, fields){
 
 			//查询用户地址；
-			var condition = 'select * from '+ table +' where username = ?';
-			sql.query(condition, [username], function(err, results, fields){
+			var condition = 'select * from '+ table +' where sessionid = ?';
+			sql.query(condition, [sessionid], function(err, results, fields){
 				callback({status: true, message: '地址更新成功！', data: results});
 			})
 		})
@@ -182,7 +242,6 @@ module.exports = {
 		var username = data.username;
 		var condition = 'select collected from '+ table +' where username = ?';
 		sql.query(condition, [username], function(err, results, fields){
-			console.log('collected', results[0].collected)
 			
 			if(results[0].collected == ''){
 				callback({status: false, message: '没有查询到收藏的商品！', data: null});
@@ -243,23 +302,22 @@ module.exports = {
 	},
 	//添加用户购物车；
 	cart: function(table, data, callback){
-		var username = data.username;
+		var sessionid = data.sessionid;
 		var cart = data.cart;
-		console.log('111111', data.cart)
 		//用户新增地址；
 
-		var modSql = 'UPDATE ' + table +' SET cart = ? WHERE username = ?';
+		var modSql = 'UPDATE ' + table +' SET cart = ? WHERE sessionid = ?';
 		
-		sql.query(modSql, [cart, username], function(err,results,fields){
+		sql.query(modSql, [cart, sessionid], function(err,results,fields){
 			callback({status: true, message: '购物车添加成功！', data: results});
 		});
 	},
 	//获取用户购物车
 	getCart: function(table, data, callback){
-		var username = data.username;
+		var sessionid = data.sessionid;
 		//先查询用户原来地址；
-		var condition = 'select * from '+ table +' where username = ?';
-		sql.query(condition, [username], function(err, results, fields){
+		var condition = 'select * from '+ table +' where sessionid = ?';
+		sql.query(condition, [sessionid], function(err, results, fields){
 			
 			if(results.length > 0 && results[0].cart) {
 				callback({status: true, message: '查询购物车商品数量！', data: results});
@@ -270,83 +328,90 @@ module.exports = {
 		})
 	},
 	order: function(table, data, callback){
-
-		var  addSql = 'INSERT INTO ordering VALUES(0,?,?,?,?,?,?,?,?,?,?,?)';
-		var completeTime = '';
-		//var  addSqlParams = [data.goods, data.address, data.price, JSON.stringify(data.msg), JSON.stringify(data.express), data.qty, JSON.stringify(data.paid), data.status, JSON.stringify(data.username), JSON.stringify(data.createTime)];
-		var addSqlParams = [data.username, data.goods, data.address, data.price, data.qty, data.paid, data.express, data.msg, data.status, data.createTime, completeTime]
-		console.log(addSqlParams)
-		sql.query(addSql, addSqlParams, function(err,results,fields){
-			if(results.affectedRows){
-				//同时减掉购物车的商品；
-				var username = data.username;
-				//先查询用户原来地址；
-				var condition = 'select * from '+ table +' where username = ?';
-				sql.query(condition, [username], function(err, results, fields){
-					
-					if(results.length > 0 && results[0].cart) {
-						var goods = JSON.parse(data.goods);
-						var cart = JSON.parse(results[0].cart);
-						//订单如果是在购物车下单的，代表购物车有商品；
-						goods.map((item, idx)=>{
-							cart.map((item2, idx2, self)=>{
-								//减去订单的商品；
-								if(item.ID == item2.ID){
-									self.splice(idx2, 1);
-								}
-							})
-						});
-
-
-						//更新购物车商品；
-						cart = JSON.stringify(cart);
-						console.log(1111, cart)
-
-						var modSql = 'UPDATE user SET cart = ? WHERE username = ?';
+		//通过 sessionid 拿到用户的 openid;可通过用户表查询获取；
+		var sessionid = data.sessionid;
+		var openid = '';
+		console.log(data.sessionid)
+		var condition = 'select * from ' + table +' where sessionid = ?';
+		sql.query(condition, [sessionid], function(err, results, fields){
+			openid = results[0].openid;
+			console.log(99999, openid);
+			// return false;
+			var  addSql = 'INSERT INTO ordering VALUES(0,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+			var completeTime = '';
+			//var  addSqlParams = [data.goods, data.address, data.price, JSON.stringify(data.msg), JSON.stringify(data.express), data.qty, JSON.stringify(data.paid), data.status, JSON.stringify(data.username), JSON.stringify(data.createTime)];
+			var addSqlParams = [openid, data.sessionid, data.username, data.goods, data.address, data.price, data.qty, data.paid, data.express, data.msg, data.status, data.createTime, completeTime]
+			sql.query(addSql, addSqlParams, function(err,results,fields){
+				
+				if(results.affectedRows){
+					//同时减掉购物车的商品；
+					var sessionid = data.sessionid;
+					//先查询用户原来地址；
+					var condition = 'select * from '+ table +' where sessionid = ?';
+					sql.query(condition, [sessionid], function(err, results, fields){
 						
-						sql.query(modSql, [cart, username], function(err,results,fields){
+						if(results.length > 0 && results[0].cart) {
+							var goods = JSON.parse(data.goods);
+							var cart = JSON.parse(results[0].cart);
+							//订单如果是在购物车下单的，代表购物车有商品；
+							goods.map((item, idx)=>{
+								cart.map((item2, idx2, self)=>{
+									//减去订单的商品；
+									if(item.ID == item2.ID){
+										self.splice(idx2, 1);
+									}
+								})
+							});
 
-							callback({status: true, message: '恭喜您！订单提交成功！购物车更新成功！', data: results});
+
+							//更新购物车商品；
+							cart = JSON.stringify(cart);
+
+							var modSql = 'UPDATE user SET cart = ? WHERE sessionid = ?';
 							
-						});
+							sql.query(modSql, [cart, sessionid], function(err,results,fields){
 
-					} else {
-						//订单如果查在商品详情下单的，购物车不一定有商品；
-						callback({status: false, message: '该用户购物车暂时没有商品！', data: null});
-					}
-					
-				})
+								callback({status: true, message: '恭喜您！订单提交成功！购物车更新成功！', data: results});
+								
+							});
 
-			} else {
-				//订单不成功时提示；
-				callback({status: false, message: '订单提交不成功', data: null});
-			}
-			
+						} else {
+							//订单如果查在商品详情下单的，购物车不一定有商品；
+							callback({status: false, message: '该用户购物车暂时没有商品！', data: null});
+						}
+						
+					})
+
+				} else {
+					//订单不成功时提示；
+					callback({status: false, message: '订单提交不成功', data: null});
+				}
+				
+			});
 		});
 	},
 	getOrder: function(table, data, callback){
-		var username = data.username;
+		var sessionid = data.sessionid;
 		var condition;
 		switch(data.status){
 			case 'unpaid':
-				condition = 'select * from '+ table +' where username = ?&&status = 0';
+				condition = 'select * from '+ table +' where sessionid = ?&&status = 0';
 				break;
 			case 'undelivery':
-				condition = 'select * from '+ table +' where username = ?&&status = 1';
+				condition = 'select * from '+ table +' where sessionid = ?&&status = 1';
 				break; 
 			case 'receiving':
-				condition = 'select * from '+ table +' where username = ?&&status = 2';
+				condition = 'select * from '+ table +' where sessionid = ?&&status = 2';
 				break;
 			case 'unevaluate':
-				condition = 'select * from '+ table +' where username = ?&&status = 5';
+				condition = 'select * from '+ table +' where sessionid = ?&&status = 5';
 				break;
 			default:
-				condition = 'select * from '+ table +' where username = ?';
+				condition = 'select * from '+ table +' where sessionid = ?';
 		}
 
 		var orders = [];
-		sql.query(condition, [username], function(err, results, fields){
-			console.log(results);
+		sql.query(condition, [sessionid], function(err, results, fields){
 			results.map((item, idx)=>{
 				var status = '';
 				var obj = {}
@@ -376,7 +441,7 @@ module.exports = {
 				obj.username = item.username;
 				obj.goods = JSON.parse(item.goods);
 				obj.address = JSON.parse(item.address);
-				obj.price = item.price;
+				obj.price = item.price.toFixed(2);
 				obj.qty = item.qty;
 				obj.paid = item.paid;
 				obj.express = item.express;
@@ -392,15 +457,14 @@ module.exports = {
 
 	//更新订单；
 	updateOrder: function(table, data, callback){
-		var username = data.username;
+		var sessionid = data.sessionid;
 		var orderId = data.orderId;
 		var completeTime = data.completeTime;
 		var status = data.status;
-		var params = [data.status, data.completeTime, data.username, data.orderId];
+		var params = [data.status, data.completeTime, data.sessionid, data.orderId];
 
-		var condition = 'UPDATE ordering SET status = ?, completeTime = ? WHERE username = ?&&orderId = ?';
+		var condition = 'UPDATE ordering SET status = ?, completeTime = ? WHERE sessionid = ?&&orderId = ?';
 		sql.query(condition, params, function(err, results, fields){
-			console.log(results);
 			callback({status: true, message: '订单已关闭', data: results});
 		} )
 	},

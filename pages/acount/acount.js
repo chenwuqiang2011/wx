@@ -102,6 +102,7 @@ Page({
     var createTime = moment().format('YYYY-MM-DD HH:mm:ss')  //https://www.helloweba.net/javascript/271.html
     console.log(createTime)
     var obj = {};
+    obj.sessionid = wx.getStorageSync('sessionid');
     obj.username = app.globalData.userInfo.nickName;
     obj.address = JSON.stringify(this.data.addressList);
     obj.goods = JSON.stringify(this.data.cart);
@@ -157,7 +158,7 @@ Page({
     wx.request({
       method: 'POST',
       url: baseUrl + 'getAddress',
-      data: { username: app.globalData.userInfo.nickName },
+      data: { sessionid: wx.getStorageSync('sessionid') },
       header: {
         //  'content-type': 'application/json' // 默认值
         'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值

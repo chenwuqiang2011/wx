@@ -14,7 +14,6 @@ exports.register = function (app){
 	});
 	//用户注册；
 	app.post("/register", urlencodedParser, function(request, response){
-		console.log('data', request.body)
 		//请求数据库；
 		sql.register("user", request.body, function(data){
 			//返回数据到页面；
@@ -29,6 +28,7 @@ exports.register = function (app){
 
 	//微信用户登录；
 	app.post('/onlogin', urlencodedParser, function(request, response){
+		console.log(request.header('data'))
 		sql.onlogin('user', request.body, function(data){
 			response.send(data);
 		})
@@ -78,6 +78,7 @@ exports.register = function (app){
 	
 	//添加用户购物车；
 	app.post('/cart', urlencodedParser, function(request, response){
+		console.log(12344321, request.header)
 		sql.cart('user', request.body, function(data){
 			response.send(data);
 		})

@@ -1,0 +1,23 @@
+<!--pages/goodslist/goodslist.wxml-->
+<!-- 搜索框 -->
+<view class = "category_search">
+  <view class = "search">
+    <image src = "../libs/imgs/search.png" class = "search-img"></image>
+    <input class = "search-input" placeholder="请输入您要搜索的配件名称" bindfocus='translate' bindblur='hiddenFloatView' />
+  </view>
+  <view class = "searchBtn" bindtap='keyWord'>搜索</view> 
+  
+</view>
+<view class = "details" wx:for = "{{list}}" wx:key = "index">
+  <view class = "details-left">
+    <image class = "details-img" src="{{imgUrl+item.imgurl}}"  data-id = "{{item.ID}}" bindtap='toDetail'></image>
+    <view class = "details-desc">
+      <view class = "details-name">{{item.name}}</view>
+      <view class = "details-sales">{{'已售： '+item.sales+' 件'}}</view>
+    </view>
+  </view>
+  <view class = "details-right details-price">￥{{item.nowPrice}}</view>
+  <!-- <view class = "addCart">
+    <image class = "addCart_img" src = "../libs/imgs/add.png" bindtap='addCart' data-id = "{{item.ID}}"></image>
+  </view> -->
+</view>

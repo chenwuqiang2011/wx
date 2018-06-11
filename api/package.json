@@ -9,6 +9,8 @@
     "start": "webpack-dev-server --devtool eval --progress --port 10010 --colors --content-base ./"
   },
   "devDependencies": {
+    "connect-redis": "^3.3.3",
+    "express-session": "^1.15.6",
     "redis": "^2.8.0"
   },
   "author": "DK.Lan",

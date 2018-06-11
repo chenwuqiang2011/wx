@@ -1,6 +1,9 @@
 /* pages/category/category.wxss */
+@import '../../template/template.wxss';
+
 page {
   height: 100%;
+  width: 100%;
 }
 /* 搜索样式 */
 .category_search {
@@ -8,15 +11,18 @@ page {
   margin: 1% 0;
 }
 .search {
-  width: 90%;
+  width: 80%;
   height: 54rpx;
-  margin: 0 auto;
+  display: inline-block;
+  /* margin: 0 auto; */
+  margin-left: 5%;
   font-size: 28rpx;
   border: 2rpx solid #ccc; 
   box-sizing:border-box;
   padding-left: 10rpx;
   border-radius: 25rpx;
 }
+
 .search-img {
   height: 44rpx;
   margin-top: 5rpx;
@@ -33,6 +39,15 @@ page {
   height: 100%;
   width: 90%;
   font-size: 24rpx;
+}
+.searchBtn {
+  float: right;
+  width: 13%;
+  line-height: 54rpx;
+  margin-left: 2%;
+  height: 100%;
+  display: inline-block;
+  font-size: 28rpx;
 }
 /* 分类样式 */
 /* 滑块tab样式 */

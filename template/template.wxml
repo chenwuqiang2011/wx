@@ -121,3 +121,11 @@
     </view>
    </view>
 </template>
+
+<!-- --------------分割线------------- -->
+
+<template name = "search">
+   <view class = "search-wrapper" animation = "{{animationData}}" style="visibility:{{show ? 'visible':'hidden'}}" bindtap="hiddenFloatView">
+    
+   </view>
+</template>

@@ -27,7 +27,11 @@ Page({
     }
   },
   onLoad: function () {
+
     // wx.showNavigationBarLoading()   //标题加载中动画
+
+    // wx.showNavigationBarLoading()
+
     //动态设置页面标题。跟json配置功能一样；
     // wx.setNavigationBarTitle({
     //   title: '个人中心',
@@ -67,11 +71,20 @@ Page({
   getUserInfo: function(e){
     var that = this;
     console.log(e)
+    var sessionid = wx.getStorageSync('sessionid');
+    console.log(sessionid)
     wx.getUserInfo({
+     
       success: function (res) {
-        console.log(res);
+        console.log(e, JSON.parse(res.rawData));
         app.globalData.userInfo = e.detail.userInfo;
+        //判断是否已授权；
+        // wx.getSetting({
+        //   success: function(res){
+        //     console.log(res.authSetting['scope.userInfo'])
 
+        //   }
+        // })
         //登录成功，更新购物车信息；
         app.onShow();
         that.onShow();
@@ -85,10 +98,11 @@ Page({
           method: 'POST',
           url: baseUrl + 'register',
           data: {
-            username: e.detail.userInfo.nickName
+            userInfo: JSON.stringify({rawData: e.detail.rawData, signature: e.detail.signature, sessionid: sessionid})
           },
           header: {
-            'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+            'content-type': 'application/x-www-form-urlencoded', // 'content-type': 'application/json'  默认值
+            'sessionid': sessionid
           },
           success: function (res) {
             console.log(res);
@@ -219,71 +233,78 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if(!app.globalData.userInfo) return false;
     var that = this;
-    wx.showLoading({
-      title: '加载中'
-    });
-    wx.request({
-      method: 'POST',
-      url: baseUrl + 'getOrder',
-      data: {
-        username: app.globalData.userInfo.nickName,
-        status: 'getOrder'
-      },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
-      },
-      success: function (res) {
-        console.log(res);
-        //去除加载提示；
-        wx.hideLoading();
-      
-        if (res.data.status) {
-          //重置数量显示；
-          that.data.qty.unpaid = 0;
-          that.data.qty.undelivery = 0;
-          that.data.qty.receiving = 0;
-          that.data.qty.unevaluate = 0;
-          res.data.data.map((item, idx) => {
-            switch (item.status) {
-              case '待支付':
-                that.data.qty.unpaid++;
-                break;
-              case '待发货':
-                that.data.qty.undelivery++;
-                break;
-              case '待收货':
-                that.data.qty.receiving++;
-                break;
-              case '待评价':
-                that.data.qty.unevaluate++;
-                break;
-            }
-          });
-          that.setData({
-            qty: that.data.qty
-          })
-        }
-      },
-      fail: function (err) {
-        //去除加载提示；
-        wx.hideLoading();
-        //可提示重新发送请求；
-        wx.showModal({
-          title: '加载失败！',
-          content: '是否要重新获取数据？',
+    wx.getSetting({
+      success: function(res){
+        console.log(res.authSetting['scope.userInfo']);
+        //如果授权，允许访问；
+        if (!res.authSetting['scope.userInfo']) return false;
+        wx.showLoading({
+          title: '加载中'
+        });
+        wx.request({
+          method: 'POST',
+          url: baseUrl + 'getOrder',
+          data: {
+            sessionid: wx.getStorageSync('sessionid'),
+            status: 'getOrder'
+          },
+          header: {
+            'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+          },
           success: function (res) {
-            if (res.confirm) {
-              //重新发送请求；
-              that.onShow();
-            } else {
-              console.log('取消')
+            console.log(res);
+            //去除加载提示；
+            wx.hideLoading();
+
+            if (res.data.status) {
+              //重置数量显示；
+              that.data.qty.unpaid = 0;
+              that.data.qty.undelivery = 0;
+              that.data.qty.receiving = 0;
+              that.data.qty.unevaluate = 0;
+              res.data.data.map((item, idx) => {
+                switch (item.status) {
+                  case '待支付':
+                    that.data.qty.unpaid++;
+                    break;
+                  case '待发货':
+                    that.data.qty.undelivery++;
+                    break;
+                  case '待收货':
+                    that.data.qty.receiving++;
+                    break;
+                  case '待评价':
+                    that.data.qty.unevaluate++;
+                    break;
+                }
+              }); 
+              that.setData({
+                qty: that.data.qty
+              })
             }
+          },
+          fail: function (err) {
+            //去除加载提示；
+            wx.hideLoading();
+            //可提示重新发送请求；
+            wx.showModal({
+              title: '加载失败！',
+              content: '是否要重新获取数据？',
+              success: function (res) {
+                if (res.confirm) {
+                  //重新发送请求；
+                  that.onShow();
+                } else {
+                  console.log('取消')
+                }
+              }
+            })
           }
         })
+
       }
-    })
+    });
   },
 
   /**

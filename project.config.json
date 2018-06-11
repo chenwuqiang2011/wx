@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.0",
+	"libVersion": "1.9.90",
 	"appid": "wx38ec27a265686f26",
 	"projectname": "Welcome%20to%20home",
 	"condition": {
@@ -20,9 +20,23 @@
 			"current": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"plugin": {
 			"current": -1,
 			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "update",
+					"pathName": "pages/home/home",
+					"query": ""
+				}
+			]
 		}
 	}
 }

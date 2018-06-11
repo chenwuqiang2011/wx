@@ -11,7 +11,7 @@
     <view class = "createTime">下单时间：{{item.createTime}}</view>
     <view class = "status">{{item.status}}</view>
   </view>
-  <view class = "goods" >
+  <scroll-view scroll-x = 'true' class = "goods" >
     <view class = "more" wx:for = "{{item.goods}}" wx:for-item = "items" wx:for-index = "idx" wx:key = "{{idx}}" >
       <image src = "{{imgUrl+items.imgurl}}" class = "imgs" ></image>
       <view class = "details" wx:if = "{{item.goods.length <= 1}}">
@@ -20,7 +20,7 @@
       </view>
     </view>
     
-  </view>
+  </scroll-view>
   <view class = "total">
     <view class = "num">
       <text>共{{item.qty}}件商品</text>

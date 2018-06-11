@@ -12,15 +12,13 @@
     "pages/order/order",
     "pages/acount/acount",
     "pages/orderDetail/orderDetail",
-    "pages/logistics/logistics"
+    "pages/logistics/logistics",
+    "pages/goodslist/goodslist"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#f55a4b",
-    "navigationBarTitleText": "鼎超电子",
-
     "navigationBarTitleText": "鼎超电子科技",
-
     "navigationBarTextStyle": "#fff",
     "enablePullDownRefresh": false
   },
