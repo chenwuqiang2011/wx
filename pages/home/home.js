@@ -333,7 +333,6 @@ Page({
  
   //监听滚动显示回到顶部按钮；
   onPageScroll: function (e) {
-    console.log(e)
     if (e.scrollTop >= 400) {
       this.setData({
         showTopButton: true

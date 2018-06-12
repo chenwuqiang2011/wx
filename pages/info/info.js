@@ -27,7 +27,11 @@ Page({
     }
   },
   onLoad: function () {
+
+    // wx.showNavigationBarLoading()   //标题加载中动画
+
     // wx.showNavigationBarLoading()
+
     //动态设置页面标题。跟json配置功能一样；
     // wx.setNavigationBarTitle({
     //   title: '个人中心',
