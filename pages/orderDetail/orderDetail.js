@@ -18,7 +18,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.detail)
     this.setData({
       detail: JSON.parse(options.detail)
     })
@@ -59,10 +58,40 @@ Page({
     })
   },
   goToPaid: function(){
-    wx.showModal({
-      title: '提示',
-      content: '敬请期待！'
+    console.log('支付');
+    var total_fee = 1;
+    wx.request({
+      method: 'POST',
+      url: baseUrl + 'toPaid',
+      data: {
+        sessionid: wx.getStorageSync('sessionid'),
+        total_fee: total_fee
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 'content-type': 'application/json'  默认值
+      },
+      success: function (res) {
+        console.log(res);
+       
+      }
     })
+    // wx.requestPayment({
+    //   'timeStamp': '1234567895',
+    //   'nonceStr': 'sdfdgfsgsdfgsdfgsdf',
+    //   'package': 'sfgfsdgf',
+    //   'signType': 'MD5',
+    //   'paySign': 'sfdgsdfg',
+    //   'success': function (res) {
+    //     console.log(res)
+    //   },
+    //   'fail': function (res) {
+    //     console.log(res)
+    //   }
+    // })
+    // wx.showModal({
+    //   title: '提示',
+    //   content: '敬请期待！'
+    // })
   },
   //确认收货；
   confirm: function(){

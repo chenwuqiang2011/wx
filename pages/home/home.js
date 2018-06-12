@@ -128,6 +128,7 @@ Page({
           goodslist.push(obj);
         });
         app.goodslist = goodslist;
+        console.log(88888, goodslist)
       }
     });
     
@@ -388,11 +389,12 @@ Page({
     // wx.startPullDownRefresh()
     console.log('pullDown')
     wx.stopPullDownRefresh()
+    
     app.onShow();
     this.onLoad();
     this.setData({
       hotPageNo: 1
-    })
+    });
   },
 
   /**

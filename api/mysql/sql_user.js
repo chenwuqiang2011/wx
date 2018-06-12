@@ -3,6 +3,7 @@ var mysql = require("mysql");
 
 //发送请求模块；
 var request = require('request');
+
 //创建redis连接服务对象
 var redis = require('redis');
 var client = redis.createClient();
@@ -18,6 +19,8 @@ var md5 = require('md5');
 var http = require('http');
 var qs = require('querystring'); 
 
+//随机数；
+var crypto = require('crypto');  
 
 //sha1签名较对；
 var crypto = require('crypto');
@@ -27,6 +30,9 @@ function sha1(str) {
 	str = md5sum.digest('hex');
 	return str;
 };
+
+//sign签名模块；
+var paysign = require('./paysign');
 
 
 //定义数据库
@@ -111,7 +117,6 @@ module.exports = {
 		      	sql.query(conditions, [data.openid], function(err, results, fields){
 
       		      	//生成随机数3rd_session
-      		      	var crypto = require('crypto');  
       		      	var sessionid = '';
       		      	  
       		      	crypto.randomBytes(168,function(ex,buf){  
@@ -510,5 +515,112 @@ module.exports = {
 		        console.log('No more data in response.********');  
 		    });  
 		});  
+	},
+	//订单支付；
+	toPaid: function(table, data, callback){
+		var ip = data.header('x-forwarded-for') || data.connection.remoteAddress;
+		ip = ip.replace(/::ffff:/, '');
+		console.log('ip', ip)
+		console.log(data.body)
+
+		//小程序id；鼎超电子科技小程序；
+		var appid = 'wx01db9c432b7e3bd7';
+		//商户号商户号	mch_id;
+		var mch_id = "dc123456";
+		//商户号密钥；
+		var key = 'appkey1aedf';
+		// 商户订单号
+		var out_trade_no = 'abc123'; 
+		//随机字符串	nonce_str
+		var nonce_str = '';
+		// 商品描述
+		var body = '测试支付'; 
+		// 支付成功的回调地址  可访问 不带参数
+		var notify_url = 'http://www.cwq888.cn';
+		//ctx.header.host.replace(/::ffff:/, ''); // 获取客户端ip
+		var spbill_create_ip = ip;
+		//小程序下单交易类型
+		var trade_type = 'JSAPI';
+        // 订单价格 单位是 分
+        var total_fee = data.body.total_fee; 
+        // 当前时间
+        var timestamp = Math.round(new Date().getTime()/1000); 
+        //用户openid; 
+        var openid = '';
+
+        //查找用户openid;
+        var sessionid = data.body.sessionid;
+        var condition = 'select openid from user where sessionid = "' + sessionid + '"';
+        sql.query(condition, function(err, results, fields){
+        	console.log('results', results[0].openid);
+        	openid = results[0].openid;
+
+    		let promise = new Promise(function(resolve,rejeact){
+
+    			crypto.randomBytes(16, function(ex,buf){
+    				nonce_str = buf.toString('hex');
+    				resolve();
+    			});
+
+    		});
+
+    		promise.then(function(){
+    		  	console.log('随机数16位', nonce_str);
+
+    	  		var ret = {
+    				appid: appid,
+    				mch_id: mch_id,
+    				nonce_str:nonce_str,
+    				body: body,
+    				out_trade_no: out_trade_no,
+    				total_fee: total_fee,
+    				spbill_create_ip: spbill_create_ip,
+    				notify_url: notify_url,
+    				openid: openid,
+    				trade_type: trade_type,
+    				key: key
+    	        };
+    	  		var sign = paysign.paysignjsapi(ret);
+    	  		console.log(sign);
+
+    	  		//统一下单；
+    	  		var bodyData = '<xml>';
+  		            bodyData += '<appid>' + appid + '</appid>';  // 小程序ID
+  		            bodyData += '<body>' + body + '</body>'; // 商品描述
+  		            bodyData += '<mch_id>' + mch_id + '</mch_id>'; // 商户号
+  		            bodyData += '<nonce_str>' + nonce_str + '</nonce_str>'; // 随机字符串
+  		            bodyData += '<notify_url>' + notify_url + '</notify_url>'; // 支付成功的回调地址
+  		            bodyData += '<openid>' + openid + '</openid>'; // 用户标识
+  		            bodyData += '<out_trade_no>' + out_trade_no + '</out_trade_no>'; // 商户订单号
+  		            bodyData += '<spbill_create_ip>' + spbill_create_ip + '</spbill_create_ip>'; // 终端IP
+  		            bodyData += '<total_fee>' + total_fee + '</total_fee>'; // 总金额 单位为分
+  		            bodyData += '<trade_type>JSAPI</trade_type>'; // 交易类型 小程序取值如下：JSAPI
+  		            bodyData += '<sign>' + sign + '</sign>';
+  		            bodyData += '</xml>';
+
+  		        //微信小程序统一下单接口
+	            
+	            var urlStr = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
+	            // var urlStr = 'https://www.cwq888.cn/pay';
+	            request.post({
+		            url: urlStr,
+		            body: JSON.stringify(bodyData),
+		            headers: {
+		            	'Content-Type':'application/x-www-form-urlencoded'
+		            }
+	            }, (err, response, data) => {
+	            	callback(response)
+	            })
+	    	});
+        })	
 	}
 }
+
+/*<xml>
+<appid>wxd930ea5d5a258f4f</appid>
+<mch_id>10000100</mch_id>
+<device_info>1000<device_info>
+<body>test</body>
+<nonce_str>ibuaiVcKdpRxkhJA</nonce_str>
+<sign>9A0A8659F005D6984697E2CA0A9CF3B7</sign>
+<xml>*/

@@ -112,5 +112,14 @@ exports.register = function (app){
 		sql.express('user', request.body, function(data){
 			response.send(data)
 		})
+	});
+	//订单支付；
+	app.post('/toPaid', urlencodedParser, function(request, response){
+		
+		sql.toPaid('user', request, function(data){
+			response.send(data);
+		})
 	})
 }
+
+
