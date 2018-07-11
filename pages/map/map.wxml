@@ -1,0 +1,25 @@
+<!--pages/map/map.wxml-->
+<view class="flex-style">
+  <view class="flex-item {{status == 'car' ? 'active' : ''}}" data-status="car" bindtouchstart="goTo">驾车</view>
+  <view class="flex-item {{status == 'walk' ? 'active' : ''}}" data-status="walk" bindtouchstart="goTo">步行</view>
+  <view class="flex-item {{status == 'bus' ? 'active' : ''}}" data-status="bus" bindtouchstart="goTo">公交</view>
+  <view class="flex-item {{status == 'ride' ? 'active' : ''}}" data-status="ride" bindtouchstart="goTo">骑行</view>
+</view>
+<view class="map-inputtips-input">
+  <input bindinput="bindInput" placeholder="输入终点" focus="true" />
+</view>
+<view class="map-search-list {{isShow ? '' : 'map-hide'}}">
+  <view bindtap="bindSearch" wx:key="{{index}}" data-keywords="{{item.name}}" data-location="{{item.location}}" class="map-box" wx:for="{{tips}}">
+    {{item.name}}
+  </view>
+</view>
+
+<view class="map_box {{detailStatus ? 'active' : ''}}">
+  <map id="navi_map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" include-points='{{points}}' markers="{{markers}}" polyline="{{polyline}}"></map>
+</view>
+
+<view class="text_box {{detailStatus ? '' : 'map-hide'}}">
+  <view class="text">路程：{{distance}}米</view>
+  <view class="text">耗时：{{cost}}分钟</view>
+  <view class="detail_button" bindtouchstart="goDetail">详情</view>
+</view>
