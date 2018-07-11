@@ -67,7 +67,7 @@ Page({
       },
       success: function(res){
         console.log(res);
-        var data = JSON.stringify(res.data.data)
+        var data = JSON.stringify(res.data.data);
         wx.navigateTo({
           rediret: false,
           url: '../goodslist/goodslist?list=' + data

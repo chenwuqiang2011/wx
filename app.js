@@ -13,7 +13,7 @@ App({
     // baseUrl: 'http://www.cwq888.cn:888/',
     // baseUrl: 'http://192.168.1.100:443/',
     // baseUrl: 'http://172.20.10.2:443/',
-    baseUrl: 'http://192.168.1.186:443/',
+    baseUrl: 'http://192.168.1.102:443/',
     imgUrl: 'http://www.cwq888.cn/image/'
   },
   showLoading: function(){
